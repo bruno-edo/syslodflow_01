@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <context-param>
+    <param-name>com.sun.faces.writeStateAtFormEnd</param-name>
+    <param-value>false</param-value>
+  </context-param>
+  <context-param>
+    <param-name>primefaces.THEME</param-name>
+    <param-value>bootstrap</param-value>
+  </context-param>
+  <servlet>
+    <servlet-name>Faces Servlet</servlet-name>
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>*.xhtml</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>login.xhtml</welcome-file>
+  </welcome-file-list>
+  <error-page>
+    <exception-type>java.lang.Exception</exception-type>
+    <location>/estrutura/error.xhtml</location>
+  </error-page>
+  <env-entry>
+    <env-entry-name>getin.ad.domain</env-entry-name>
+    <env-entry-type>java.lang.String</env-entry-type>
+    <env-entry-value>saude.sc.gov.br</env-entry-value>
+  </env-entry>
+  <env-entry>
+    <env-entry-name>getin.use.db.auth</env-entry-name>
+    <env-entry-type>java.lang.String</env-entry-type>
+    <env-entry-value>true</env-entry-value>
+  </env-entry>
+  <env-entry>
+    <env-entry-name>getin.check.plain.pswd</env-entry-name>
+    <env-entry-type>java.lang.String</env-entry-type>
+    <env-entry-value>true</env-entry-value>
+  </env-entry>
+  <env-entry>
+    <env-entry-name>getin.crypt.init.vector</env-entry-name>
+    <env-entry-type>java.lang.String</env-entry-type>
+    <env-entry-value>R3Yj=DO;TEK3_XS0</env-entry-value>
+  </env-entry>
+  <env-entry>
+    <env-entry-name>getin.crypt.key</env-entry-name>
+    <env-entry-type>java.lang.String</env-entry-type>
+    <env-entry-value>7JAsrgO%@(DV.R:_</env-entry-value>
+  </env-entry>
+  <env-entry>
+    <env-entry-name>getin.crypt.append</env-entry-name>
+    <env-entry-type>java.lang.String</env-entry-type>
+    <env-entry-value>X0X1X2X3X4Y0Y1Y2Y3Y4</env-entry-value>
+  </env-entry>
+</web-app>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>SysLodFlow</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" /> 
+	  <!--  link rel="shortcut icon" href="#{request.contextPath}/imagens/favicon.ico" / -->
+	<!-- CSS -->
+	<style type="text/css" media="screen">
+	@import url('#{request.contextPath}/css/bootstrap.css');
+	@import url('#{request.contextPath}/css/sb-admin.css');
+	@import url('#{request.contextPath}/font-awesome/css/font-awesome.min.css');
+	@import url('#{request.contextPath}/css/dataTable.css');
+</style>
+	<!-- JAVASCRIPT -->
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+	<script src="#{request.contextPath}/js/bootstrap.js"></script>
+	<script src="#{request.contextPath}/js/dataTable.js"></script>
+	<script src="#{request.contextPath}/js/dataTable.bootstrap.js"></script>
+	<script>
+	function destroy() {
+		$('#tabela').DataTable().destroy();
+		
+	};
+	
+	function create() {
+		$('#tabela').dataTable({
+			   "language": {
+				    "sEmptyTable":			"#{msg['datatable.sEmptyTable']}",
+				    "sInfo":				"#{msg['datatable.sInfo']}",
+				    "sInfoEmpty":			"#{msg['datatable.sInfoEmpty']}",
+				    "sInfoFiltered":		"#{msg['datatable.sInfoFiltered']}",
+				    "sInfoPostFix":			"#{msg['datatable.sInfoPostFix']}",
+				    "sInfoThousands":		"#{msg['datatable.sInfoThousands']}",
+				    "sLengthMenu":			"#{msg['datatable.sLengthMenu']}",
+				    "sLoadingRecords":		"#{msg['datatable.sLoadingRecords']}",
+				    "sProcessing":			"#{msg['datatable.sProcessing']}",
+				    "sZeroRecords":			"#{msg['datatable.sZeroRecords']}",
+				    "sSearch":				"#{msg['datatable.sSearch']}",
+				    "oPaginate": {
+				        "sNext":			"#{msg['datatable.oPaginate.sNext']}",
+				        "sPrevious":		"#{msg['datatable.oPaginate.sPrevious']}",
+				        "sFirst":			"#{msg['datatable.oPaginate.sFirst']}",
+				        "sLast":			"#{msg['datatable.oPaginate.sLast']}"
+				    },
+				    "oAria": {
+				        "sSortAscending":  	"#{msg['datatable.oAria.sSortAscending']}",
+				        "sSortDescending": 	"#{msg['datatable.oAria.sSortDescending']}"
+				    }
+				},
+				"aaSorting": [[0, 'desc']]
+			   
+		  });		
+	};
+	var _oTable;
+	$(document).ready(function() {
+		create();
+	} );
+
+	PrimeFaces.locales["#{msg['app.locale']}"] = {  
+	        "closeText": 			"#{msg['app.close']}",  
+	        "prevText": 			"#{msg['app.prev']}",  
+	        "nextText" : 			"#{msg['app.next']}",  
+	        "currentText" : 		"#{msg['app.current']}",  
+	        "monthNames" : 			["#{msg['app.month.jan']}","#{msg['app.month.feb']}","#{msg['app.month.mar']}","#{msg['app.month.apr']}","#{msg['app.month.may']}","#{msg['app.month.jun']}","#{msg['app.month.jul']}","#{msg['app.month.aug']}","#{msg['app.month.sep']}","#{msg['app.month.oct']}","#{msg['app.month.nov']}","#{msg['app.month.dec']}"],
+	        "monthNamesShort" : 	["#{msg['app.month.jan.short']}","#{msg['app.month.feb.short']}","#{msg['app.month.mar.short']}","#{msg['app.month.apr.short']}","#{msg['app.month.may.short']}","#{msg['app.month.jun.short']}","#{msg['app.month.jul.short']}","#{msg['app.month.aug.short']}","#{msg['app.month.sep.short']}","#{msg['app.month.oct.short']}","#{msg['app.month.nov.short']}","#{msg['app.month.dec.short']}"],  
+	        "dayNames" : 			["#{msg['app.week.sun']}","#{msg['app.week.mon']}","#{msg['app.week.tue']}","#{msg['app.week.wed']}","#{msg['app.week.thu']}","#{msg['app.week.fri']}","#{msg['app.week.sat']}"],
+	        "dayNamesShort" : 		["#{msg['app.week.sun.short']}","#{msg['app.week.mon.short']}","#{msg['app.week.tue.short']}","#{msg['app.week.wed.short']}","#{msg['app.week.thu.short']}","#{msg['app.week.fri.short']}","#{msg['app.week.sat.short']}"],  
+	        "dayNamesMin" : 		["#{msg['app.week.sun.min']}","#{msg['app.week.mon.min']}","#{msg['app.week.tue.min']}","#{msg['app.week.wed.min']}","#{msg['app.week.thu.min']}","#{msg['app.week.fri.min']}","#{msg['app.week.sat.min']}"],  
+	        "weekHeader" : 			"#{msg['app.week']}",  
+	        "firstDay" : 			1,  
+	        "isRTL" : 				false,  
+	        "showMonthAfterYear" : 	false,  
+	        "yearSuffix" : 			"#{msg['app.yearSufix']}",  
+	        "timeOnlyTitle" : 		"#{msg['app.timeOnly']}",  
+	        "timeText" : 			"#{msg['app.time']}",  
+	        "hourText" : 			"#{msg['app.hour']}",  
+	        "minuteText" : 			"#{msg['app.minute']}",  
+	        "secondText" : 			"#{msg['app.second']}",  
+	        "currentText" : 		"#{msg['app.curDate']}",  
+	        "ampm" : 				false,  
+	        "month" : 				"#{msg['app.month']}",  
+	        "week" : 				"#{msg['app.week']}",  
+	        "day" : 				"#{msg['app.day']}",  
+	        "allDayText" : 			"#{msg['app.allDay']}"  
+	    };	
+
+	$(document).ready(function() {
+	    $(":input:visible:enabled:first").focus();
+	});	
+	</script>	
+</h:head>
+
+<h:body>
+	<f:view>
+		<div id="wrapper">
+			<!-- Sidebar -->
+			<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target=".navbar-ex1-collapse">
+						<span class="sr-only">#{msg['menu.navigationToggle']}</span> 
+						<span class="icon-bar"></span> <span class="icon-bar"></span> 
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#{request.contextPath}/index.xhtml" style="height: 40px;"><!-- img style="opacity: 0.85;" src="#{request.contextPath}/imagens/logo_pequena.png" alt="Estado de Santa Catarina" / -->PosGrad WEB</a>
+				</div>
+	
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse navbar-ex1-collapse">
+					
+					<ul class="nav navbar-nav side-nav">
+						<li> <a href="#{request.contextPath}/index.xhtml"><i class="fa fa-home"></i>#{msg['menu.start']}</a> </li>
+						<h:panelGroup>
+							<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>#{msg['menu.admin']}<b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li> <h:outputLink value="#{request.contextPath}/cadastros/usuario_listar.xhtml"><i class="fa fa-user"/>#{msg['menu.users']}</h:outputLink> </li>
+								</ul>
+							</li>
+							<li> <h:outputLink value="#{request.contextPath}/management/ldwproject_main.xhtml"><i class="fa fa-user"/>LDWProject</h:outputLink> </li>
+						</h:panelGroup>
+					</ul>
+					<ul class="nav navbar-nav navbar-right navbar-user">
+						<li class="dropdown user-dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> #{controleAcessoBean.usuario.login} <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="#{request.contextPath}/cadastros/usuario_perfil.xhtml"><i class="fa fa-user"></i>#{msg['app.profile']}</a></li>
+								<li class="divider"></li>
+								<li>
+									<h:form  id="formLogoff"></h:form>								
+									<p:commandLink action="#{controleAcessoBean.efetuarLogoff()}"><i class="fa fa-power-off"/>#{msg['app.exit']}</p:commandLink>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
+			</nav>
+
+			<div id="page-wrapper">
+				<div>
+					<p:messages id="messages" autoUpdate="true" closable="true" />
+				</div>			
+				<div class="row">
+					<div class="col-lg-12">
+						<ui:insert name="conteudo" />
+					</div>
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /#page-wrapper -->
+		</div>
+		<!-- /#wrapper -->
+	</f:view>
+</h:body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+<title>POSGRAD WEB</title>
+<!-- link rel="shortcut icon" href="imagens/logo_pequena.png" / -->
+ 
+<!-- CSS -->
+<style type="text/css" media="screen">
+	@import url('css/login_reset.css');
+	@import url('css/login_animate.css');
+	@import url('css/login_styles.css');
+	@import url('css/login_siconv.css');
+</style>
+<!-- JAVASCRIPT -->
+<h:outputScript library="primefaces" name="jquery/jquery.js"/>
+<script src="#{request.contextPath}/js/login.js"></script>
+
+<script>
+	$(document).ready(function() {
+	    $(":input:visible:enabled:first").focus();
+	});	
+</script>
+
+</h:head>
+
+<h:body>
+
+<div id="fundo-externo">
+	<div id="fundo">
+		<!-- img style="opacity: 0.1;" src="imagens/bandeira.png" alt="" / -->
+	</div>
+</div>
+<div id="container">
+	<br/>
+	<h1 align="center" class="fontetitulo">SysLODFLOW</h1>
+	<p align="center" class="fontesubtitulo">1.0</p>
+	
+	<h:form role="form" id="form">
+		
+		<label class="fontelabel">#{msg['app.login']}</label>
+		<p:inputText type="name" value="#{controleAcessoBean.usuario.login}" required="true" requiredMessage="#{msg['app.login']} : #{msg['error.required']}"/>
+		
+		<label class="fontelabel">#{msg['app.pswd']}</label>
+		<p:password type="password" value="#{controleAcessoBean.usuario.senha}" required="true" requiredMessage="#{msg['app.pswd']} : #{msg['error.required']}"/>
+		<br/>
+		<h:messages style="color:red; font-size:12px;text-align:right;margin-right:20px" />
+		<div id="lower">
+			<h:commandButton value="Login" action="#{controleAcessoBean.efetuarLogin}" ajax="false" />
+		</div>
+	</h:form>
+</div>
+
+	<div style="float:right; text-align:right; position:absolute; bottom:0; width:100%;">
+		  <!--  img style="height: 65px; margin-right: 8px; margin-bottom: 8px;" src="imagens/assinatura.png" alt="" / -->
+		<!-- (c) 2014,2015 COMDAT Ltda. -->
+	</div>
+</h:body>
+</html>

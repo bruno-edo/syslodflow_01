@@ -1,0 +1,214 @@
+/* Stylesheet */
+
+
+/* Imports */
+
+@import url(animate.css);
+
+/* Selections */
+
+::selection {
+ 	color: #fff;
+ 	text-shadow: none;
+ 	background: #444;
+}
+
+::-moz-selection {
+ 	color: #fff;
+ 	text-shadow: none;
+ 	background: #444;
+}
+
+/* Basics */
+
+html, body {
+	width: 100%;
+	height: 100%;
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	color: #444;
+	-webkit-font-smoothing: antialiased;
+	background: #080808;
+	
+}
+
+#imagem{
+  position:absolute;
+  left:15%;
+}	
+
+#container {
+	position: fixed;
+	width: 340px;
+	top: 50%;
+	left: 50%;
+	margin-top: -140px;
+	margin-left: -170px;
+	background: #d0d0d0;
+	border-radius: 3px;
+	border: 1px solid #fff;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+	-webkit-animation-name: bounceIn;
+	-webkit-animation-fill-mode: both;
+	-webkit-animation-duration: 1s;
+	-webkit-animation-iteration-count: 1;
+	-webkit-animation-timing-function: linear;
+	-moz-animation-name: bounceIn;
+	-moz-animation-fill-mode: both;
+	-moz-animation-duration: 1s;
+	-moz-animation-iteration-count: 1;
+	-moz-animation-timing-function: linear;
+	animation-name: bounceIn;
+	animation-fill-mode: both;
+	animation-duration: 1s;
+	animation-iteration-count: 1;
+	animation-timing-function: linear;
+	opacity: 0.95;
+}
+
+form {
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+label {
+	color: #555;
+	display: inline-block;
+	margin-left: 18px;
+	padding-top: 10px;
+	font-size: 14px;
+}
+
+p a {
+	font-size: 11px;
+	color: #aaa;
+	float: right;
+	margin-top: -13px;
+	margin-right: 20px;
+	-webkit-transition: all .4s ease;
+	-moz-transition: all .4s ease;
+	transition: all .4s ease;
+}
+
+p a:hover {
+	color: #555;
+}
+
+.avisosenha {
+	font-size: 11px;
+	color: #FF0000;
+	float: right;
+	margin-top: -13px;
+	margin-right: 20px;
+}
+
+
+input {
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 12px;
+	outline: none;
+}
+
+input[type=name],
+input[type=password] {
+	color: #777;
+	padding-left: 10px;
+	margin: 10px;
+	margin-top: 12px;
+	margin-left: 18px;
+	width: 288px;
+	height: 28px;
+	border: 1px solid #c7d0d2;
+	border-radius: 2px;
+	/* box-shadow: inset 0 1.5px 3px rgba(190, 190, 190, .4), 0 0 0 5px #f5f7f8; */ 
+	-webkit-transition: all .4s ease;
+	-moz-transition: all .4s ease;
+	transition: all .4s ease;
+	opacity: 0.90;
+}
+
+input[type=name]:hover,
+input[type=password]:hover {
+	border: 1px solid #b6bfc0;
+	box-shadow: inset 0 1.5px 3px rgba(190, 190, 190, .7), 0 0 0 5px #f5f7f8;
+}
+
+input[type=name]:focus,
+input[type=password]:focus {
+	border: 1px solid #a8c9e4;
+	box-shadow: inset 0 1.5px 3px rgba(190, 190, 190, .4), 0 0 0 5px #e6f2f9;
+}
+
+#lower {
+	/*background: #ecf2f5;*/
+	width: 100%;
+	height: 69px;
+	margin-top: 20px;
+	box-shadow: inset 0 1px 1px #CACACA;
+	border-top: 1px solid #fff;
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+
+input[type=checkbox] {
+	margin-left: 20px;
+	margin-top: 30px;
+}
+
+.check {
+	margin-left: 3px;
+	font-size: 11px;
+	color: #444;
+	text-shadow: 0 1px 0 #fff;
+}
+
+input[type=submit] {
+	float: right;
+	margin-right: 20px;
+	margin-top: 20px;
+	width: 80px;
+	height: 30px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #fff;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#555B5F), to(#434749));
+	background-image: -moz-linear-gradient(top left 90deg, #555B5F 0%, #434749 100%);
+	background-image: linear-gradient(top left 90deg, #555B5F 0%, #434749 100%);
+	border-radius: 30px;
+	border: 1px solid #A7A7A7;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .3), inset 0 1px 0 rgba(255, 255, 255, .5);
+	cursor: pointer;
+}
+
+input[type=submit]:hover {
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#494747), to(#707070));
+	background-image: -moz-linear-gradient(top left 90deg, #494747 0%, #707070 100%);
+	background-image: linear-gradient(top left 90deg, #494747 0%, #707070 100%);
+}
+
+input[type=submit]:active {
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#555B5F), to(#434749));
+	background-image: -moz-linear-gradient(top left 90deg, #555B5F 0%, #434749 100%);
+	background-image: linear-gradient(top left 90deg, #555B5F 0%, #434749 100%);
+}
+
+.fontetitulo {
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 38px;
+font-weight: bold; 
+text-shadow: white 0.1em 0.1em 0.2em;
+color: #727070;
+}
+
+.fontesubtitulo {
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 13px;
+color: #727070;
+}
+
+.fontelabel {
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+color: #727070;
+}
+
+
