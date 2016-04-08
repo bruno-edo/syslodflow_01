@@ -1,4 +1,4 @@
-package br.ufsc.inf.syslodflow.web;
+package br.ufsc.inf.syslodflow.util;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,6 +13,7 @@ import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 
 import br.ufsc.inf.syslodflow.entity.Usuario;
+import br.ufsc.inf.syslodflow.web.ControleAcessoBean;
 
 /**
  * Classe utilit&aacute;ria com m&eacute;todos para redirecionamento, exibi&ccedil;&atilde;o de mensagens, etc.

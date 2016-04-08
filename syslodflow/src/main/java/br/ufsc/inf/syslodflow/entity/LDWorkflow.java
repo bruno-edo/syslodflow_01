@@ -4,13 +4,15 @@ import java.util.List;
 
 public class LDWorkflow {
 	
+	private String description;
+	private String name;
+	private Condition preCondition;
+	private Condition postCondition;
 	private LDWStep firstLdwStep;
 	private List<LDWorkflowExecution> ldWorkFlowExecutions;
 	private List<LDWStep> ldwSteps;
-	private Condition preCondition;
-	private Condition postCondition;
-	private String description;
-	private String name;
+
+
 	
 	public LDWorkflow() {
 		

@@ -28,8 +28,11 @@
 						<p:messages id="message" autoUpdate="true" closable="true" />
 						<p:tabView id="tab" styleClass="col-lg-12" widgetVar="tab" activeIndex="#{ldwProjectBean.tab}">
 						<p:ajax event="tabChange" listener="#{ldwProjectBean.onTabChange}" />
-							<p:tab title="#{msg['crud.ldwproject.tab1']}" id="tab0">
+							<p:tab title="#{msg['crud.ldwproject.tab0']}" id="tab0">
 								<ui:include src="ldwproject_config.xhtml"/> 
+							</p:tab>
+							<p:tab title="#{msg['crud.ldwproject.tab1']}" id="tab1">
+								<ui:include src="ldwproject_ldworkflow.xhtml"/> 
 							</p:tab>
 						</p:tabView>			
 

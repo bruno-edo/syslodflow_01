@@ -1,4 +1,4 @@
-package br.ufsc.inf.syslodflow.web;
+package br.ufsc.inf.syslodflow.util;
 
 import java.util.Iterator;
 

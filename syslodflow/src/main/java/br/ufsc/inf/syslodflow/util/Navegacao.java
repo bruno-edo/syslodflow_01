@@ -1,4 +1,4 @@
-package br.ufsc.inf.syslodflow.web;
+package br.ufsc.inf.syslodflow.util;
 
 /**
  * Constantes usadas na navega&ccedil;&atilde;o e constru&ccedil;&atilde;o do menu.

@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import br.ufsc.inf.syslodflow.SysLodFlowException;
 import br.ufsc.inf.syslodflow.dao.AbstractJPADAO;
 import br.ufsc.inf.syslodflow.entity.AbstractEntity;
-import br.ufsc.inf.syslodflow.web.JSFUtil;
+import br.ufsc.inf.syslodflow.util.JSFUtil;
 
 /**
  * Superclasse para os EJB's de neg&oacute;cio.<br>

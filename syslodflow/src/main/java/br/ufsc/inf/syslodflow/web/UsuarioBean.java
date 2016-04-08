@@ -13,6 +13,8 @@ import javax.inject.Inject;
 import br.ufsc.inf.syslodflow.SysLodFlowException;
 import br.ufsc.inf.syslodflow.business.CadastroBusiness;
 import br.ufsc.inf.syslodflow.entity.Usuario;
+import br.ufsc.inf.syslodflow.util.JSFUtil;
+import br.ufsc.inf.syslodflow.util.Navegacao;
 
 /**
  * Managed bean do usu&aacute;rio do sistema.

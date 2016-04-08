@@ -6,7 +6,7 @@ import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import javax.servlet.http.HttpSession;
 
-import br.ufsc.inf.syslodflow.web.JSFUtil;
+import br.ufsc.inf.syslodflow.util.JSFUtil;
 
 /**
  * Usado para controle de acesso.

@@ -7,16 +7,27 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 
-<h:form role="form" id="form_dados" acceptcharset="ISO-8859-1">
+<h:form role="form" id="form_workflow" acceptcharset="ISO-8859-1">
 	<h:inputHidden styleClass="form-control"  />
 
+
 	<div class="form-group">
 		<div class="row">
 			<div class="col-lg-6">
-				<label>#{msg['crud.ldwproject.name']}</label>
+				<label>#{msg['crud.ldworkflow.name']}</label>
 				<p:inputText styleClass="form-control" required="true"
-					requiredMessage="#{msg['crud.ldwproject.name']} : #{msg['error.required']}"
-					maxlength="62" />
+					requiredMessage="#{msg['crud.ldworkflow.name']} : #{msg['error.required']}" maxlength="100" />
+			</div>
+		</div>
+	</div>
+	
+		<div class="form-group">
+		<div class="row">
+			<div class="col-lg-6">
+				<label>#{msg['crud.ldworkflow.description']}</label>
+				<p:inputTextarea styleClass="form-control" required="true"
+					requiredMessage="#{msg['crud.ldworkflow.description']} : #{msg['error.required']}"
+					maxlength="240" />
 			</div>
 		</div>
 	</div>
@@ -25,48 +36,26 @@
 	<div class="form-group">
 		<div class="row">
 			<div class="col-lg-6">
-				<label>#{msg['crud.ldwproject.description']}</label>
+				<label>#{msg['crud.ldworkflow.preCondition']}</label>
+				<p:inputTextarea styleClass="form-control" required="true"
+					requiredMessage="#{msg['crud.ldworkflow.preCondition']} : #{msg['error.required']}"
+					maxlength="240" />
+			</div>
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<div class="row">
+			<div class="col-lg-6">
+				<label>#{msg['crud.ldworkflow.postConditions']}</label>
 				<p:inputTextarea styleClass="form-control" required="true"
 					requiredMessage="#{msg['crud.ldwproject.description']} : #{msg['error.required']}"
-					maxlength="62" />
+					maxlength="240" />
 			</div>
 		</div>
 	</div>
 
-
-	<div class="form-group">
-		<div class="row">
-			<div class="col-lg-6">
-				<label>#{msg['crud.ldwproject.goal']}</label>
-				<p:inputTextarea styleClass="form-control" required="true"
-					requiredMessage="#{msg['crud.ldwproject.description']} : #{msg['error.required']}"
-					maxlength="62" />
-			</div>
-		</div>
-	</div>
-
-	<div class="form-group">
-		<div class="row">
-			<div class="col-lg-3">
-				<label>#{msg['crud.ldwproject.creator']}</label>
-				<p:inputText styleClass="form-control" />
-			</div>
-
-			<div class="col-lg-3">
-				<label>#{msg['crud.ldwproject.homepage']}</label>
-				<p:inputText styleClass="form-control" />
-			</div>
-		</div>
-	</div>
-
-	<div class="form-group">
-		<div class="row">
-			<div class="col-lg-6">
-				<label>#{msg['crud.ldwproject.report']}</label>
-				<p:inputText styleClass="form-control" />
-			</div>
-		</div>
-	</div>
 
 	<h:commandButton styleClass="btn btn-outline btn-success"
 		style="margin-right: 5px;" value="Avançar" immediate="false" type="submit"
