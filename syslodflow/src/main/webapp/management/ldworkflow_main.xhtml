@@ -7,11 +7,11 @@
 
 	<ui:define name="conteudo">
 	
-		<h3 class="page-header">#{msg['crud.ldwproject']}</h3>
+		<h3 class="page-header">#{msg['crud.ldworkflow']}</h3>
 		<div class="col-lg-12">
 			<ol class="breadcrumb">
 				<li><i class="fa fa-home"></i><a href="#{request.contextPath}/index.xhtml">#{msg['menu.start']}</a></li>
-				<li class="active"><i class="fa fa-edit"></i>#{msg['crud.ldwproject']}</li>
+				<li class="active"><i class="fa fa-edit"></i>#{msg['crud.ldworkflow']}</li>
 			</ol>
 		</div>
 		<div class="row">
@@ -19,28 +19,27 @@
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<h3 class="panel-title">
-							<i class="fa fa-bar-chart-o"></i>#{msg['crud.ldwproject']}
+							<i class="fa fa-bar-chart-o"></i>#{msg['crud.ldworkflow.title']}
 						</h3>
 					</div>
 					<div class="panel-body">
-						<div class="col-lg-12 text-left">
-							
-						<p:messages id="message" autoUpdate="true" closable="true" />
-						<p:tabView id="tab" styleClass="col-lg-12" widgetVar="tab" activeIndex="#{ldwProjectBean.tab}">
-						<p:ajax event="tabChange" listener="#{ldwProjectBean.onTabChange}" />
-							<p:tab title="#{msg['crud.ldwproject.tab1']}" id="tab0">
-								<ui:include src="ldwproject_config.xhtml"/> 
+						<p:tabView id="tab" styleClass="col-lg-12" widgetVar="tab" activeIndex="#{ldWorkflowBean.tab}">
+						<p:ajax event="tabChange" listener="#{ldWorkflowBean.onTabChange}" />
+							<p:tab title="#{msg['crud.ldworkflow.title']}" id="tab0">
+								<ui:include src="ldworkflow_config.xhtml"/> 
 							</p:tab>
-<!-- 							<p:tab title="#{msg['crud.ldwproject.tab1']}" id="tab1">
-								<ui:include src="ldworkflow_main.xhtml"/> 
-							</p:tab> -->
+							<p:tab title="#{msg['crud.ldworkflow.ldwstep']}" id="tab1">
+								<ui:include src="ldworkflow_steps.xhtml"/> 
+							</p:tab>
+							
+							
 						</p:tabView>			
-
-									 
+						
+						
+						
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 	</ui:define>
 </ui:composition>

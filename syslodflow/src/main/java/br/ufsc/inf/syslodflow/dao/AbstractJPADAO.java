@@ -402,7 +402,7 @@ public abstract class AbstractJPADAO implements GenericDAO {
 				throw new SysLodFlowException("Nao foi encontrado " + e.getClass().getSimpleName() + " com id: " + e.getId());
 			}
 			
-			// TODO Como tratar auditoria neste caso ?
+			
 			getEntityManager().remove(e);
 			if (i % batchCount == 0) {
 				getEntityManager().flush();
