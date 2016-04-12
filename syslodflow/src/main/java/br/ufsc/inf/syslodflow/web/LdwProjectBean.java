@@ -1,10 +1,17 @@
 package br.ufsc.inf.syslodflow.web;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 
 import org.primefaces.event.TabChangeEvent;
+
+import br.ufsc.inf.syslodflow.entity.LDWProject;
 
 /**
  * Managed bean do usu&aacute;rio do sistema.
@@ -15,13 +22,15 @@ import org.primefaces.event.TabChangeEvent;
 public class LdwProjectBean {
 
 	private int tab;
+	private LDWProject ldwProject;
+	private DataModel<LDWProject> listLdwProjects;
 	
 	@PostConstruct
 	public void init() {
+		ldwProject = new LDWProject();
 		this.tab = 0;
-		
-
 	}
+	
 	
 	/* CONTROLE TAB */
 	public void onTabChange(TabChangeEvent event) {
@@ -40,14 +49,34 @@ public class LdwProjectBean {
 	    	this.setTab(5);
 	    }
 	}
-	
+
+	public LDWProject getLdwProject() {
+		return ldwProject;
+	}
+
+
+	public void setLdwProject(LDWProject ldwProject) {
+		this.ldwProject = ldwProject;
+	}
+
+	public DataModel<LDWProject> getListLdwProjects() {
+		if (listLdwProjects.getRowCount() <= 0) {
+			List<LDWProject> temp = new ArrayList<LDWProject>();
+			temp.add(new LDWProject());
+			listLdwProjects = new ListDataModel<LDWProject>(temp);
+		}
+		return listLdwProjects;
+	}
+
+
+	public void setListLdwProjects(DataModel<LDWProject> listLdwProjects) {
+		this.listLdwProjects = listLdwProjects;
+	}
+
 
 	public void teste() {
 		System.out.println("Teste");
 	}
-	
-
-
 	
 	public void nextTab() {
 
