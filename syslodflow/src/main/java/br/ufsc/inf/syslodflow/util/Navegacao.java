@@ -15,6 +15,9 @@ public interface Navegacao {
 	public static final String USUARIO_LISTAR = "usuario_listar";
 	public static final String USUARIO_CADASTRAR= "usuario_cadastrar";
 	public static final String USUARIO_PERFIL = "usuario_perfil";
+	/* CADASTRO PROJETO */
+	public static final String LDWPROJECT_LIST = "ldwproject_list";
+	public static final String LDWPROJECT_CRUD = "ldwproject_main";
 
 
 }

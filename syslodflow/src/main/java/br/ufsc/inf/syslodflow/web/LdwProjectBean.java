@@ -13,6 +13,7 @@ import org.primefaces.event.TabChangeEvent;
 
 import br.ufsc.inf.syslodflow.entity.LDWProject;
 import br.ufsc.inf.syslodflow.entity.Person;
+import br.ufsc.inf.syslodflow.util.Navegacao;
 
 /**
  * Managed bean do usu&aacute;rio do sistema.
@@ -28,9 +29,15 @@ public class LdwProjectBean {
 	
 	@PostConstruct
 	public void init() {
-		
 		ldwProject = new LDWProject();
 		this.tab = 0;
+	}
+	
+	/* NAVEGACAO */ 
+	
+	public String doNew() {
+		ldwProject =  new LDWProject();
+		return Navegacao.LDWPROJECT_CRUD;
 	}
 	
 	
