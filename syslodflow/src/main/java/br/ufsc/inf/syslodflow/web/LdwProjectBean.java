@@ -12,6 +12,7 @@ import javax.faces.model.ListDataModel;
 import org.primefaces.event.TabChangeEvent;
 
 import br.ufsc.inf.syslodflow.entity.LDWProject;
+import br.ufsc.inf.syslodflow.entity.Person;
 
 /**
  * Managed bean do usu&aacute;rio do sistema.
@@ -27,6 +28,7 @@ public class LdwProjectBean {
 	
 	@PostConstruct
 	public void init() {
+		
 		ldwProject = new LDWProject();
 		this.tab = 0;
 	}
@@ -60,9 +62,15 @@ public class LdwProjectBean {
 	}
 
 	public DataModel<LDWProject> getListLdwProjects() {
+		LDWProject t = new LDWProject();
+		t.setName("Projeto Teste");
+		Person p = new Person();
+		p.setName("Jean Morais");
+		t.setCreator(p);
+		listLdwProjects = new ListDataModel<LDWProject>(); 
 		if (listLdwProjects.getRowCount() <= 0) {
 			List<LDWProject> temp = new ArrayList<LDWProject>();
-			temp.add(new LDWProject());
+			temp.add(t);
 			listLdwProjects = new ListDataModel<LDWProject>(temp);
 		}
 		return listLdwProjects;
