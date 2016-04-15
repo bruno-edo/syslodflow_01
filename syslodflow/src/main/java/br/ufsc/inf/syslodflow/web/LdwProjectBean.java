@@ -8,9 +8,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import javax.inject.Inject;
 
 import org.primefaces.event.TabChangeEvent;
 
+import br.ufsc.inf.syslodflow.business.LDWPOBusiness;
 import br.ufsc.inf.syslodflow.entity.LDWProject;
 import br.ufsc.inf.syslodflow.entity.Person;
 import br.ufsc.inf.syslodflow.util.Navegacao;
@@ -23,6 +25,9 @@ import br.ufsc.inf.syslodflow.util.Navegacao;
 @SessionScoped
 public class LdwProjectBean {
 
+	@Inject
+	private LDWPOBusiness ldwpoBusiness;
+	
 	private int tab;
 	private LDWProject ldwProject;
 	private DataModel<LDWProject> listLdwProjects;
@@ -31,6 +36,7 @@ public class LdwProjectBean {
 	public void init() {
 		ldwProject = new LDWProject();
 		this.tab = 0;
+		ldwpoBusiness.init();
 	}
 	
 	/* NAVEGACAO */ 
