@@ -6,6 +6,8 @@ import javax.faces.bean.SessionScoped;
 
 import org.primefaces.event.TabChangeEvent;
 
+import br.ufsc.inf.syslodflow.entity.LDWorkflow;
+
 /**
  * @author jeanmorais
  */
@@ -14,6 +16,7 @@ import org.primefaces.event.TabChangeEvent;
 public class LdWorkflowBean {
 
 	private int tab;
+	private LDWorkflow ldWorflow;
 	
 	@PostConstruct
 	public void init() {

@@ -27,36 +27,6 @@ CREATE TABLE `en_usuario` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
-DROP TABLE IF EXISTS `ldwproject`;
-CREATE TABLE `ldwproject` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) DEFAULT NULL,
-  `creator` varchar(255) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-   'goal' varchar(255) DEFAULT NULL,
-  `homepage` varchar(255) DEFAULT NULL,
-  `report` varchar(255) DEFAULT NULL,
-  `ldworkflow` int DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB;
-
-DROP TABLE IF EXISTS `ldworkflow`;
-CREATE TABLE `ldworkflow` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  'pre_condition' varchar(255) DEFAULT NULL,
-  `post_condition` varchar(255) DEFAULT NULL,
-  `report` varchar(255) DEFAULT NULL,
-  `ldworkflow` int DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB;
-
-
-
-
-
-
 -- ----------------------------
 -- Records of en_usuario
 -- ----------------------------
