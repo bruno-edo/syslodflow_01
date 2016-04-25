@@ -36,12 +36,14 @@ public class LdwProjectBean {
 	public void init() {
 		ldwProject = new LDWProject();
 		this.tab = 0;
+
 	}
 	
 	/* NAVEGACAO */ 
 	
 	public String doNew() {
 		ldwProject =  new LDWProject();
+		ldwpoBusiness.init();
 		return Navegacao.LDWPROJECT_CRUD;
 	}
 	
