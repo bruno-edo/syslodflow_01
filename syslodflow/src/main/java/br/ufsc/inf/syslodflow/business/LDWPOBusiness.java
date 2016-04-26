@@ -30,8 +30,8 @@ public class LDWPOBusiness {
 	public OntModel doNewModel() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
-		String arquivo = scontext.getRealPath("/ontology/");
-		java.nio.file.Path pathLdwpo = Paths.get(arquivo, "ldwpo.owl");
+		String filePath = scontext.getRealPath("/ontology/");
+		java.nio.file.Path pathLdwpo = Paths.get(filePath, "ldwpo.owl");
 		
 		OntModel model = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
         model.read(pathLdwpo.toUri().toString(), "");
@@ -39,9 +39,14 @@ public class LDWPOBusiness {
 		
 	}
 	
-//	public doSaveModel(String nameProject) {
-//		
-//	}
+	public OntModel doLoadModel(String nameProject) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		String filePath = fc.getExternalContext().getInitParameter("filePath").toString();
+		java.nio.file.Path pathLdwpo = Paths.get(filePath, nameProject);
+		OntModel model = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+        model.read(pathLdwpo.toUri().toString(), "");
+        return model;
+	}
 
 	public static List<Individual> listIndividuals(OntClass classe) {
 

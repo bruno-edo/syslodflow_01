@@ -36,6 +36,7 @@ public class LdwProjectBean {
 	public void init() {
 		ldwProject = new LDWProject();
 		this.tab = 0;
+		this.ldwpoBusiness.doLoadModel("ldwpo.owl");
 
 	}
 	
