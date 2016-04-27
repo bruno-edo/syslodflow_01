@@ -1,5 +1,6 @@
 package br.ufsc.inf.syslodflow.web;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +37,9 @@ public class LdwProjectBean {
 	public void init() {
 		ldwProject = new LDWProject();
 		this.tab = 0;
-		this.ldwpoBusiness.doLoadModel("ldwpo.owl");
-
+//		this.ldwpoBusiness.doLoadModel("ldwpo.owl");
+		List<Path> lista = this.ldwpoBusiness.getOntologyFiles();
+		ldwpoBusiness.doLoadModel(lista.get(0));
 	}
 	
 	/* NAVEGACAO */ 

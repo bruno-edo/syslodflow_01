@@ -1,5 +1,8 @@
 package br.ufsc.inf.syslodflow.business;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +11,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+
+import br.ufsc.inf.syslodflow.util.MyFileVisitor;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
@@ -39,14 +44,29 @@ public class LDWPOBusiness {
 		
 	}
 	
-	public OntModel doLoadModel(String nameProject) {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		String filePath = fc.getExternalContext().getInitParameter("filePath").toString();
-		java.nio.file.Path pathLdwpo = Paths.get(filePath, nameProject);
+	public OntModel doLoadModel(Path path) {
+//		FacesContext fc = FacesContext.getCurrentInstance();
+//		String filePath = fc.getExternalContext().getInitParameter("filePath").toString();
+//		java.nio.file.Path pathLdwpo = Paths.get(filePath, nameProject);
 		OntModel model = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-        model.read(pathLdwpo.toUri().toString(), "");
+        model.read(path.toUri().toString(), "");
         return model;
 	}
+	
+	public List<Path> getOntologyFiles() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		String filePath = fc.getExternalContext().getInitParameter("filePath").toString();
+		Path source = Paths.get(filePath);
+		try {
+			MyFileVisitor visitor = new MyFileVisitor();
+			Files.walkFileTree(source, visitor);
+			return visitor.getListFiles();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 
 	public static List<Individual> listIndividuals(OntClass classe) {
 
