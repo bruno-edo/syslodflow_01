@@ -13,9 +13,12 @@ import javax.inject.Inject;
 
 import org.primefaces.event.TabChangeEvent;
 
-import br.ufsc.inf.syslodflow.business.LDWPOBusiness;
+import com.hp.hpl.jena.ontology.OntModel;
+
 import br.ufsc.inf.syslodflow.entity.LDWProject;
 import br.ufsc.inf.syslodflow.entity.Person;
+import br.ufsc.inf.syslodflow.service.LdwProjectService;
+import br.ufsc.inf.syslodflow.service.LdwpoService;
 import br.ufsc.inf.syslodflow.util.Navegacao;
 
 /**
@@ -27,26 +30,31 @@ import br.ufsc.inf.syslodflow.util.Navegacao;
 public class LdwProjectBean {
 
 	@Inject
-	private LDWPOBusiness ldwpoBusiness;
+	private LdwpoService ldwpoService;
+	@Inject
+	private LdwProjectService ldwProjectService;
 	
 	private int tab;
 	private LDWProject ldwProject;
 	private DataModel<LDWProject> listLdwProjects;
+	private OntModel ontModel;
 	
 	@PostConstruct
 	public void init() {
 		ldwProject = new LDWProject();
 		this.tab = 0;
 //		this.ldwpoBusiness.doLoadModel("ldwpo.owl");
-		List<Path> lista = this.ldwpoBusiness.getOntologyFiles();
-		ldwpoBusiness.doLoadModel(lista.get(0));
+		List<Path> lista = this.ldwpoService.getOntologyFiles();
+		ontModel = ldwpoService.doLoadModel(lista.get(0));
+		ldwProjectService.getLDWProjectDTO(ontModel);
+		
 	}
 	
 	/* NAVEGACAO */ 
 	
 	public String doNew() {
 		ldwProject =  new LDWProject();
-		ldwpoBusiness.init();
+		ldwpoService.init();
 		return Navegacao.LDWPROJECT_CRUD;
 	}
 	
