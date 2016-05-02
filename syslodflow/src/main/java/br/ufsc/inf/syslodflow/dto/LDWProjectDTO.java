@@ -1,9 +1,12 @@
 package br.ufsc.inf.syslodflow.dto;
 
+import java.nio.file.Path;
+
 public class LDWProjectDTO {
 	
 	private String name;
 	private String creator;
+	private Path path;
 	
 	public LDWProjectDTO() {
 		
@@ -29,6 +32,16 @@ public class LDWProjectDTO {
 	public void setCreator(String creator) {
 		this.creator = creator;
 	}
+
+	public Path getPath() {
+		return path;
+	}
+
+	public void setPath(Path path) {
+		this.path = path;
+	}
+	
+	
 
 	
 
