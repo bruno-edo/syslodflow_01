@@ -2,7 +2,13 @@ package br.ufsc.inf.syslodflow.enumerator;
 
 public enum PropertyURIEnum {
 	NAME("http://ldwpo.aksw.org/terms/1.0/name"),
-	CREATOR("http://ldwpo.aksw.org/terms/1.0/creator");
+	DESCRIPTION("http://ldwpo.aksw.org/terms/1.0/description"),
+	GOAL("http://ldwpo.aksw.org/terms/1.0/goal"),
+	HOMEPAGE("http://ldwpo.aksw.org/terms/1.0/homepage"),
+	LOCATION("http://ldwpo.aksw.org/terms/1.0/location"),
+	VALUE("http://ldwpo.aksw.org/terms/1.0/value"),
+	CREATOR("http://ldwpo.aksw.org/terms/1.0/creator"),
+	REPORT("http://ldwpo.aksw.org/terms/1.0/report");
 	
 	private String uri;
 	

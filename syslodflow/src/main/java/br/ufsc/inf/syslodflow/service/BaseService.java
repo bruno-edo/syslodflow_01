@@ -51,12 +51,20 @@ public class BaseService {
 		String name = individual.getPropertyValue(nameProperty).asLiteral().getString();
 		return name;
     }
-    
+ 
     public static String getResourceName(Resource resource, OntModel model) {
     	
     	Property nameProperty = model.getProperty(PropertyURIEnum.NAME.getUri());
 		String name = resource.getRequiredProperty(nameProperty).getString();
 		return name;
     }
+    
+    public static String getPropertyStringValue(Individual individual, OntModel model, String uriProperty)
+    {
+    	Property property = model.getProperty(uriProperty);
+		String value = individual.getPropertyValue(property).asLiteral().getString();
+		return value;
+    }
+    
 
 }
