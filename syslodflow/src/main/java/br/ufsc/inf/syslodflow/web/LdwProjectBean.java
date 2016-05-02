@@ -15,6 +15,7 @@ import org.primefaces.event.TabChangeEvent;
 
 import com.hp.hpl.jena.ontology.OntModel;
 
+import br.ufsc.inf.syslodflow.dto.LDWProjectDTO;
 import br.ufsc.inf.syslodflow.entity.LDWProject;
 import br.ufsc.inf.syslodflow.entity.Person;
 import br.ufsc.inf.syslodflow.service.LdwProjectService;
@@ -36,17 +37,15 @@ public class LdwProjectBean {
 	
 	private int tab;
 	private LDWProject ldwProject;
-	private DataModel<LDWProject> listLdwProjects;
+	private LDWProjectDTO ldwProjectDTOSelected;
+	private DataModel<LDWProjectDTO> listLdwProjects;
 	private OntModel ontModel;
 	
 	@PostConstruct
 	public void init() {
 		ldwProject = new LDWProject();
 		this.tab = 0;
-//		this.ldwpoBusiness.doLoadModel("ldwpo.owl");
-		List<Path> lista = this.ldwpoService.getOntologyFiles();
-		ontModel = ldwpoService.doLoadModel(lista.get(0));
-		ldwProjectService.getLDWProjectDTO(ontModel);
+		listLdwProjects = new ListDataModel<LDWProjectDTO>(ldwProjectService.getListLdwProjectDTO());
 		
 	}
 	
@@ -55,6 +54,13 @@ public class LdwProjectBean {
 	public String doNew() {
 		ldwProject =  new LDWProject();
 		ldwpoService.init();
+		return Navegacao.LDWPROJECT_CRUD;
+	}
+	
+	public String doEdit() {
+		this.ldwProjectDTOSelected =  listLdwProjects.getRowData();
+		this.ontModel = ldwpoService.doLoadModel(ldwProjectDTOSelected.getPath());
+		// passar model e retornar projeto
 		return Navegacao.LDWPROJECT_CRUD;
 	}
 	
@@ -86,29 +92,13 @@ public class LdwProjectBean {
 		this.ldwProject = ldwProject;
 	}
 
-	public DataModel<LDWProject> getListLdwProjects() {
-		LDWProject t = new LDWProject();
-		t.setName("Projeto Teste");
-		Person p = new Person();
-		p.setName("Jean Morais");
-		t.setCreator(p);
-		listLdwProjects = new ListDataModel<LDWProject>(); 
-		if (listLdwProjects.getRowCount() <= 0) {
-			List<LDWProject> temp = new ArrayList<LDWProject>();
-			temp.add(t);
-			listLdwProjects = new ListDataModel<LDWProject>(temp);
-		}
+	public DataModel<LDWProjectDTO> getListLdwProjects() {
 		return listLdwProjects;
 	}
 
 
-	public void setListLdwProjects(DataModel<LDWProject> listLdwProjects) {
+	public void setListLdwProjects(DataModel<LDWProjectDTO> listLdwProjects) {
 		this.listLdwProjects = listLdwProjects;
-	}
-
-
-	public void teste() {
-		System.out.println("Teste");
 	}
 	
 	public void nextTab() {
