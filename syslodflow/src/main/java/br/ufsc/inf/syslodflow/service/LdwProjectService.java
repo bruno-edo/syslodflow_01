@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import br.ufsc.inf.syslodflow.dto.LDWProjectDTO;
 import br.ufsc.inf.syslodflow.entity.Homepage;
 import br.ufsc.inf.syslodflow.entity.LDWProject;
+import br.ufsc.inf.syslodflow.entity.LDWorkflow;
 import br.ufsc.inf.syslodflow.entity.Location;
 import br.ufsc.inf.syslodflow.entity.Person;
 import br.ufsc.inf.syslodflow.entity.Report;
@@ -17,6 +18,7 @@ import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.rdf.model.NodeIterator;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
 
@@ -24,6 +26,7 @@ public class LdwProjectService extends BaseService {
 	
 	@Inject
 	private LdwpoService ldwpoService;
+	private LdWorkflowService ldwWorkflowService;
 	
 	public LDWProjectDTO getLDWProjectDTO(OntModel model) {
 		Individual ontProject = listIndividuals(model.getOntClass(ClassURIEnum.LDWPROJECT.getUri())).get(0);
@@ -53,7 +56,7 @@ public class LdwProjectService extends BaseService {
 		return listProjects;
 	}
 
-	public LDWProject getLdwProject(OntModel model) {
+	public LDWProject getLDWProject(OntModel model) {
 		
 		Individual ontProject = listIndividuals(model.getOntClass(ClassURIEnum.LDWPROJECT.getUri())).get(0);
 		String ldwProjectName = getPropertyStringValue(ontProject, model, PropertyURIEnum.NAME.getUri());
@@ -73,6 +76,15 @@ public class LdwProjectService extends BaseService {
 		Individual reportLocation = (Individual) report.getPropertyValue(model.getProperty(PropertyURIEnum.LOCATION.getUri()));
 		String reportLocationValue = getPropertyStringValue(reportLocation, model, PropertyURIEnum.VALUE.getUri());
 	
+		
+		NodeIterator iter = ontProject.listPropertyValues(model.getProperty(PropertyURIEnum.LDWORKFLOW.getUri()));
+		List<LDWorkflow> ldWorkflows = new ArrayList<LDWorkflow>();
+		while (iter.hasNext()){
+			Individual node = (Individual) iter.nextNode();
+			ldWorkflows.add(ldwWorkflowService.getLDWorkflow(model, node));
+		}
+		
+		
 		Person ldwProjectCreator = new Person();
 		ldwProjectCreator.setName(creatorName);
 		
@@ -96,6 +108,7 @@ public class LdwProjectService extends BaseService {
 		ldwProject.setCreator(ldwProjectCreator);
 		ldwProject.setHomePage(ldwProjectHomepage);
 		ldwProject.setReport(ldwProjectReport);
+		ldwProject.setLdWorkFlows(ldWorkflows);
 		
 		return ldwProject;
 		
