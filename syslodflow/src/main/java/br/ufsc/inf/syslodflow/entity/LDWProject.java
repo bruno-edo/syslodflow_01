@@ -11,6 +11,7 @@ public class LDWProject {
 	private String goal;
 	private String description;
 	private String name;
+	private String fileName;
 	
 	public LDWProject() {
 		
@@ -70,6 +71,14 @@ public class LDWProject {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 	
 }

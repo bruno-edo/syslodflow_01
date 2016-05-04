@@ -60,8 +60,14 @@ public class LdwProjectBean {
 	public String doEdit() {
 		this.ldwProjectDTOSelected =  listLdwProjects.getRowData();
 		this.ontModel = ldwpoService.doLoadModel(ldwProjectDTOSelected.getPath());
-		// passar model e retornar projeto
+		this.ldwProject = ldwProjectService.getLDWProject(ontModel);
 		return Navegacao.LDWPROJECT_CRUD;
+	}
+	
+	public String doSave() {
+		this.ontModel = ldwProjectService.saveLdwProject(ontModel, ldwProject);
+		this.ldwpoService.doSaveModel(ontModel, ldwProject.getFileName());
+		return Navegacao.LDWPROJECT_LIST;
 	}
 	
 	

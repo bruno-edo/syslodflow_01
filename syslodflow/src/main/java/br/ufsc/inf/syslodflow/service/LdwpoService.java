@@ -1,5 +1,7 @@
 package br.ufsc.inf.syslodflow.service;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -11,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
+import br.ufsc.inf.syslodflow.enumerator.LangModelEnum;
 import br.ufsc.inf.syslodflow.util.MyFileVisitor;
 
 import com.hp.hpl.jena.ontology.OntModel;
@@ -48,7 +51,16 @@ public class LdwpoService {
         return model;
 	}
 	
-	public void doSaveModel(OntModel model) {
+	public void doSaveModel(OntModel model, String fileName) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		String filePath = fc.getExternalContext().getInitParameter("filePath").toString();
+
+		try {
+      	  File file = new File(filePath + fileName);
+      	  model.write(new FileOutputStream(file), LangModelEnum.RDFXMLABBREV.getType());
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
 		
 	}
 	

@@ -117,6 +117,9 @@ public class LdwProjectService extends BaseService {
 		
 	}
 	
+	public OntModel saveLdwProject(OntModel model, LDWProject project) {
+		return model;
+	}
 	
 
 }
