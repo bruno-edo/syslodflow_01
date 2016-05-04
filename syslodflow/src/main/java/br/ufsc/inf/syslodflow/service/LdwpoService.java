@@ -48,6 +48,10 @@ public class LdwpoService {
         return model;
 	}
 	
+	public void doSaveModel(OntModel model) {
+		
+	}
+	
 	public List<Path> getOntologyFiles() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		String filePath = fc.getExternalContext().getInitParameter("filePath").toString();
