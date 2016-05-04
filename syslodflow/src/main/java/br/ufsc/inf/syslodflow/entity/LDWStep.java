@@ -14,7 +14,8 @@ public class LDWStep {
 	private String command;
 	private String description;
 	private String name;
-	
+
+
 	public LDWStep() {
 		
 	}
@@ -98,5 +99,5 @@ public class LDWStep {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 }

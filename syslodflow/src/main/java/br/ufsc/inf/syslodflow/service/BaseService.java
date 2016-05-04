@@ -45,20 +45,6 @@ public class BaseService {
         return listProperties;
     }
 	
-    public static String getIndividualName(Individual individual, OntModel model) {
-    	
-    	Property nameProperty = model.getProperty(PropertyURIEnum.NAME.getUri());
-		String name = individual.getPropertyValue(nameProperty).asLiteral().getString();
-		return name;
-    }
- 
-    public static String getResourceName(Resource resource, OntModel model) {
-    	
-    	Property nameProperty = model.getProperty(PropertyURIEnum.NAME.getUri());
-		String name = resource.getRequiredProperty(nameProperty).getString();
-		return name;
-    }
-    
     public static String getPropertyStringValue(Individual individual, OntModel model, String uriProperty)
     {
     	Property property = model.getProperty(uriProperty);

@@ -21,6 +21,7 @@ import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.rdf.model.NodeIterator;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.StmtIterator;
 
 public class LdwProjectService extends BaseService {
 	
@@ -29,11 +30,12 @@ public class LdwProjectService extends BaseService {
 	private LdWorkflowService ldwWorkflowService;
 	
 	public LDWProjectDTO getLDWProjectDTO(OntModel model) {
-		Individual ontProject = listIndividuals(model.getOntClass(ClassURIEnum.LDWPROJECT.getUri())).get(0);
-		String projectName = getIndividualName(ontProject, model);
 		
-		Resource creator = ontProject.getPropertyResourceValue(model.getProperty(PropertyURIEnum.CREATOR.getUri()));
-		String creatorName = getResourceName(creator, model);
+		Individual ontProject = listIndividuals(model.getOntClass(ClassURIEnum.LDWPROJECT.getUri())).get(0);
+		String projectName = getPropertyStringValue(ontProject, model, PropertyURIEnum.NAME.getUri());
+		
+		Individual creator = model.getIndividual(ontProject.getPropertyResourceValue(model.getProperty(PropertyURIEnum.CREATOR.getUri())).getURI());
+		String creatorName = getPropertyStringValue(creator, model, PropertyURIEnum.NAME.getUri());
 				
 		return new LDWProjectDTO(projectName, creatorName);
 		
@@ -59,28 +61,29 @@ public class LdwProjectService extends BaseService {
 	public LDWProject getLDWProject(OntModel model) {
 		
 		Individual ontProject = listIndividuals(model.getOntClass(ClassURIEnum.LDWPROJECT.getUri())).get(0);
+		
 		String ldwProjectName = getPropertyStringValue(ontProject, model, PropertyURIEnum.NAME.getUri());
 		String ldwProjectDescription = getPropertyStringValue(ontProject, model, PropertyURIEnum.DESCRIPTION.getUri());
 		String ldwProjectGoal = getPropertyStringValue(ontProject, model, PropertyURIEnum.GOAL.getUri());
 		
-		Individual creator = (Individual) ontProject.getPropertyValue(model.getProperty(PropertyURIEnum.CREATOR.getUri()));
+		Individual creator = model.getIndividual(ontProject.getPropertyResourceValue(model.getProperty(PropertyURIEnum.CREATOR.getUri())).getURI());
 		String creatorName = getPropertyStringValue(creator, model, PropertyURIEnum.NAME.getUri());
 		
-		Individual homepage = (Individual) ontProject.getPropertyValue(model.getProperty(PropertyURIEnum.HOMEPAGE.getUri()));
+		Individual homepage = model.getIndividual(ontProject.getPropertyResourceValue(model.getProperty(PropertyURIEnum.HOMEPAGE.getUri())).getURI());
 		String homepageName = getPropertyStringValue(homepage, model, PropertyURIEnum.NAME.getUri());
-		Individual homepageLocation = (Individual) homepage.getPropertyValue(model.getProperty(PropertyURIEnum.LOCATION.getUri()));
+		Individual homepageLocation = model.getIndividual(homepage.getPropertyResourceValue(model.getProperty(PropertyURIEnum.LOCATION.getUri())).getURI());
 		String homepageLocationValue = getPropertyStringValue(homepageLocation, model, PropertyURIEnum.VALUE.getUri());
 		
-		Individual report = (Individual) ontProject.getPropertyValue(model.getProperty(PropertyURIEnum.REPORT.getUri()));
+		Individual report = model.getIndividual(ontProject.getPropertyResourceValue(model.getProperty(PropertyURIEnum.REPORT.getUri())).getURI());
 		String reportName = getPropertyStringValue(report, model, PropertyURIEnum.NAME.getUri());
-		Individual reportLocation = (Individual) report.getPropertyValue(model.getProperty(PropertyURIEnum.LOCATION.getUri()));
+		Individual reportLocation = model.getIndividual(report.getPropertyResourceValue(model.getProperty(PropertyURIEnum.LOCATION.getUri())).getURI());
 		String reportLocationValue = getPropertyStringValue(reportLocation, model, PropertyURIEnum.VALUE.getUri());
 	
 		
-		NodeIterator iter = ontProject.listPropertyValues(model.getProperty(PropertyURIEnum.LDWORKFLOW.getUri()));
+		StmtIterator iter = ontProject.listProperties(model.getProperty(PropertyURIEnum.LDWORKFLOW.getUri()));
 		List<LDWorkflow> ldWorkflows = new ArrayList<LDWorkflow>();
 		while (iter.hasNext()){
-			Individual node = (Individual) iter.nextNode();
+			Individual node = model.getIndividual(iter.nextStatement().getResource().getURI());
 			ldWorkflows.add(ldwWorkflowService.getLDWorkflow(model, node));
 		}
 		
