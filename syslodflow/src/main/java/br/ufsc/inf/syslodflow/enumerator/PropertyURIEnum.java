@@ -8,7 +8,11 @@ public enum PropertyURIEnum {
 	LOCATION("http://ldwpo.aksw.org/terms/1.0/location"),
 	VALUE("http://ldwpo.aksw.org/terms/1.0/value"),
 	CREATOR("http://ldwpo.aksw.org/terms/1.0/creator"),
-	REPORT("http://ldwpo.aksw.org/terms/1.0/report");
+	REPORT("http://ldwpo.aksw.org/terms/1.0/report"),
+	PRECONDITION("http://ldwpo.aksw.org/terms/1.0/precondition"),
+	POSTCONDITION("http://ldwpo.aksw.org/terms/1.0/precondition"),
+	LDWORKFLOW("http://ldwpo.aksw.org/terms/1.0/ldworkflow"),
+	FIRSTLDWSTEP("http://ldwpo.aksw.org/terms/1.0/firstLdwStep");
 	
 	private String uri;
 	
