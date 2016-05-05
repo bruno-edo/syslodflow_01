@@ -18,10 +18,6 @@ import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntModel;
-import com.hp.hpl.jena.rdf.model.NodeIterator;
-import com.hp.hpl.jena.rdf.model.Property;
-import com.hp.hpl.jena.rdf.model.Resource;
-import com.hp.hpl.jena.rdf.model.StmtIterator;
 
 public class LdwProjectService extends BaseService {
 	
@@ -53,6 +49,7 @@ public class LdwProjectService extends BaseService {
 			OntModel model = ldwpoService.doLoadModel(p);
 			LDWProjectDTO dto = getLDWProjectDTO(model);
 			dto.setPath(p);
+			dto.setFileName(p.getFileName().toString());
 			listProjects.add(dto);
 		}
 		return listProjects;
