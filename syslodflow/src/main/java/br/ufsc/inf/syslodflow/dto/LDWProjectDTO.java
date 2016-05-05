@@ -6,6 +6,7 @@ public class LDWProjectDTO {
 	
 	private String name;
 	private String creator;
+	private String fileName;
 	private Path path;
 	
 	public LDWProjectDTO() {
@@ -31,6 +32,14 @@ public class LDWProjectDTO {
 
 	public void setCreator(String creator) {
 		this.creator = creator;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 	public Path getPath() {
