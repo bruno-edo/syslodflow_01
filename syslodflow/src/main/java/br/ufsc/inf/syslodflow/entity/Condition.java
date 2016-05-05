@@ -7,6 +7,11 @@ public class Condition {
 	public Condition() {
 		
 	}
+	
+	public Condition(String description) {
+		this.description = description;
+		
+	}
 
 	public String getDescription() {
 		return description;

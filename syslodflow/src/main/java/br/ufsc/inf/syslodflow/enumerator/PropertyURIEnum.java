@@ -14,7 +14,9 @@ public enum PropertyURIEnum {
 	LDWORKFLOW("http://ldwpo.aksw.org/terms/1.0/ldworkflow"),
 	LDWSTEP("http://ldwpo.aksw.org/terms/1.0/ldwStep"),
 	FIRSTLDWSTEP("http://ldwpo.aksw.org/terms/1.0/firstLdwStep"),
-	LDWORKFLOWEXECUTION("http://ldwpo.aksw.org/terms/1.0/ldWorkflowExecution");
+	LDWORKFLOWEXECUTION("http://ldwpo.aksw.org/terms/1.0/ldWorkflowExecution"),
+	COMMAND("http://ldwpo.aksw.org/terms/1.0/command"),
+	TASK("http://ldwpo.aksw.org/terms/1.0/task");
 	
 	private String uri;
 	

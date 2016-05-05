@@ -1,12 +1,11 @@
 package br.ufsc.inf.syslodflow.entity;
 
-import java.util.List;
 
 public class LDWProject {
 	
 	private Person creator;
 	private Homepage homePage;
-	private List<LDWorkflow> ldWorkFlows;
+	private LDWorkflow ldWorkFlow;
 	private Report report;
 	private String goal;
 	private String description;
@@ -32,13 +31,13 @@ public class LDWProject {
 	public void setHomePage(Homepage homePage) {
 		this.homePage = homePage;
 	}
-
-	public List<LDWorkflow> getLdWorkFlows() {
-		return ldWorkFlows;
+	
+	public LDWorkflow getLdWorkFlow() {
+		return ldWorkFlow;
 	}
 
-	public void setLdWorkFlows(List<LDWorkflow> ldWorkFlows) {
-		this.ldWorkFlows = ldWorkFlows;
+	public void setLdWorkFlow(LDWorkflow ldWorkFlow) {
+		this.ldWorkFlow = ldWorkFlow;
 	}
 
 	public Report getReport() {

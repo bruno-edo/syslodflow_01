@@ -10,7 +10,6 @@ public class LDWStep {
 	private Tool tool;
 	private ToolConfiguration toolConfiguration;
 	private Task task;
-	private Exception exception;
 	private String command;
 	private String description;
 	private String name;
@@ -67,15 +66,7 @@ public class LDWStep {
 	public void setTask(Task task) {
 		this.task = task;
 	}
-
-	public Exception getException() {
-		return exception;
-	}
-
-	public void setException(Exception exception) {
-		this.exception = exception;
-	}
-
+	
 	public String getCommand() {
 		return command;
 	}

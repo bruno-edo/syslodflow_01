@@ -65,28 +65,17 @@ public class LdwProjectService extends BaseService {
 		String ldwProjectName = getPropertyStringValue(ontProject, model, PropertyURIEnum.NAME.getUri());
 		String ldwProjectDescription = getPropertyStringValue(ontProject, model, PropertyURIEnum.DESCRIPTION.getUri());
 		String ldwProjectGoal = getPropertyStringValue(ontProject, model, PropertyURIEnum.GOAL.getUri());
-		
 		Individual creator = model.getIndividual(ontProject.getPropertyResourceValue(model.getProperty(PropertyURIEnum.CREATOR.getUri())).getURI());
 		String creatorName = getPropertyStringValue(creator, model, PropertyURIEnum.NAME.getUri());
-		
 		Individual homepage = model.getIndividual(ontProject.getPropertyResourceValue(model.getProperty(PropertyURIEnum.HOMEPAGE.getUri())).getURI());
 		String homepageName = getPropertyStringValue(homepage, model, PropertyURIEnum.NAME.getUri());
 		Individual homepageLocation = model.getIndividual(homepage.getPropertyResourceValue(model.getProperty(PropertyURIEnum.LOCATION.getUri())).getURI());
 		String homepageLocationValue = getPropertyStringValue(homepageLocation, model, PropertyURIEnum.VALUE.getUri());
-		
 		Individual report = model.getIndividual(ontProject.getPropertyResourceValue(model.getProperty(PropertyURIEnum.REPORT.getUri())).getURI());
 		String reportName = getPropertyStringValue(report, model, PropertyURIEnum.NAME.getUri());
 		Individual reportLocation = model.getIndividual(report.getPropertyResourceValue(model.getProperty(PropertyURIEnum.LOCATION.getUri())).getURI());
 		String reportLocationValue = getPropertyStringValue(reportLocation, model, PropertyURIEnum.VALUE.getUri());
-	
-		
-		StmtIterator iter = ontProject.listProperties(model.getProperty(PropertyURIEnum.LDWORKFLOW.getUri()));
-		List<LDWorkflow> ldWorkflows = new ArrayList<LDWorkflow>();
-		while (iter.hasNext()){
-			Individual node = model.getIndividual(iter.nextStatement().getResource().getURI());
-			ldWorkflows.add(ldwWorkflowService.getLDWorkflow(model, node));
-		}
-		
+		LDWorkflow ldWorkflow = ldwWorkflowService.getLDWorkflow(model, model.getIndividual(ontProject.getPropertyResourceValue(model.getProperty(PropertyURIEnum.LDWORKFLOW.getUri())).getURI()));
 		
 		Person ldwProjectCreator = new Person();
 		ldwProjectCreator.setName(creatorName);
@@ -111,7 +100,7 @@ public class LdwProjectService extends BaseService {
 		ldwProject.setCreator(ldwProjectCreator);
 		ldwProject.setHomePage(ldwProjectHomepage);
 		ldwProject.setReport(ldwProjectReport);
-		ldwProject.setLdWorkFlows(ldWorkflows);
+		ldwProject.setLdWorkFlow(ldWorkflow);
 		
 		return ldwProject;
 		
