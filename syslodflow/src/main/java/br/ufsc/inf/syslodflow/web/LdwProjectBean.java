@@ -1,9 +1,5 @@
 package br.ufsc.inf.syslodflow.web;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -13,14 +9,13 @@ import javax.inject.Inject;
 
 import org.primefaces.event.TabChangeEvent;
 
-import com.hp.hpl.jena.ontology.OntModel;
-
 import br.ufsc.inf.syslodflow.dto.LDWProjectDTO;
 import br.ufsc.inf.syslodflow.entity.LDWProject;
-import br.ufsc.inf.syslodflow.entity.Person;
 import br.ufsc.inf.syslodflow.service.LdwProjectService;
 import br.ufsc.inf.syslodflow.service.LdwpoService;
 import br.ufsc.inf.syslodflow.util.Navegacao;
+
+import com.hp.hpl.jena.ontology.OntModel;
 
 /**
  * Managed bean do usu&aacute;rio do sistema.
@@ -61,6 +56,7 @@ public class LdwProjectBean {
 		this.ldwProjectDTOSelected =  listLdwProjects.getRowData();
 		this.ontModel = ldwpoService.doLoadModel(ldwProjectDTOSelected.getPath());
 		this.ldwProject = ldwProjectService.getLDWProject(ontModel);
+		this.ldwProject.setFileName(ldwProjectDTOSelected.getFileName());
 		return Navegacao.LDWPROJECT_CRUD;
 	}
 	
