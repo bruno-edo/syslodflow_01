@@ -13,10 +13,18 @@ public enum PropertyURIEnum {
 	POSTCONDITION("http://ldwpo.aksw.org/terms/1.0/precondition"),
 	LDWORKFLOW("http://ldwpo.aksw.org/terms/1.0/ldworkflow"),
 	LDWSTEP("http://ldwpo.aksw.org/terms/1.0/ldwStep"),
+	LDWSTEPEXECUTION("http://ldwpo.aksw.org/terms/1.0/ldwStepExecution"),
 	FIRSTLDWSTEP("http://ldwpo.aksw.org/terms/1.0/firstLdwStep"),
 	LDWORKFLOWEXECUTION("http://ldwpo.aksw.org/terms/1.0/ldWorkflowExecution"),
 	COMMAND("http://ldwpo.aksw.org/terms/1.0/command"),
-	TASK("http://ldwpo.aksw.org/terms/1.0/task");
+	TASK("http://ldwpo.aksw.org/terms/1.0/task"),
+	INPUTDATASET("http://ldwpo.aksw.org/terms/1.0/inputDataset"),
+	OUTPUTDATASET("http://ldwpo.aksw.org/terms/1.0/outputDataset"),
+	FORMAT("http://ldwpo.aksw.org/terms/1.0/format"),
+	LICENSE("http://ldwpo.aksw.org/terms/1.0/license"),
+	TOOL("http://ldwpo.aksw.org/terms/1.0/tool"),
+	TOOLCONFIGURATION("http://ldwpo.aksw.org/terms/1.0/toolConfiguration");
+	
 	
 	private String uri;
 	

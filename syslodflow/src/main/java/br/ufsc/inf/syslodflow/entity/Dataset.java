@@ -11,6 +11,14 @@ public class Dataset {
 		
 	}
 	
+	public Dataset(String name, Format format, License license,
+			Location location) {
+		this.name = name;
+		this.format = format;
+		this.location = location;
+		this.license = license;
+	}
+
 	public Format getFormat() {
 		return format;
 	}

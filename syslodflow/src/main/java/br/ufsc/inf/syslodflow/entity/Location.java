@@ -8,6 +8,10 @@ public class Location {
 		
 	}
 
+	public Location(String locationValue) {
+		this.value = value;
+	}
+
 	public String getValue() {
 		return value;
 	}
