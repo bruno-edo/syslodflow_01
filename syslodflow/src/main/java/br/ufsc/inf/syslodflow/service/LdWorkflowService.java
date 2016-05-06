@@ -9,12 +9,10 @@ import br.ufsc.inf.syslodflow.entity.Condition;
 import br.ufsc.inf.syslodflow.entity.LDWStep;
 import br.ufsc.inf.syslodflow.entity.LDWorkflow;
 import br.ufsc.inf.syslodflow.entity.LDWorkflowExecution;
-import br.ufsc.inf.syslodflow.enumerator.ClassURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntModel;
-import com.hp.hpl.jena.rdf.model.NodeIterator;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 
 public class LdWorkflowService extends BaseService {
