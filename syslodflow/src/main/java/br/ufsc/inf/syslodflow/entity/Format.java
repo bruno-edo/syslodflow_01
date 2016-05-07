@@ -8,6 +8,10 @@ public class Format {
 		
 	}
 	
+	public Format(String formatValue) {
+		this.value = value;
+	}
+
 	public String getValue() {
 		return value;
 	}

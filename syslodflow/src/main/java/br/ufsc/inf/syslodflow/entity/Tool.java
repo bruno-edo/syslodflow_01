@@ -8,8 +8,11 @@ public class Tool {
 	private Location location;
 	private List<ToolConfiguration> toolConfigurations;
 	
-	public Tool() {
-	
+	public Tool(String name, Location location, List<ToolConfiguration> toolConfigurations) {
+		
+		this.name = name;
+		this.location = location;
+		this.toolConfigurations = toolConfigurations;
 	}
 
 	public String getName() {

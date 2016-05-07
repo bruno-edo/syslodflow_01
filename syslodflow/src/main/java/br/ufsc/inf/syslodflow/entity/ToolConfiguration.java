@@ -9,6 +9,11 @@ public class ToolConfiguration {
 		
 	}
 
+	public ToolConfiguration(String name, Location location) {
+		this.name = name;
+		this.location = location;
+	}
+
 	public String getName() {
 		return name;
 	}

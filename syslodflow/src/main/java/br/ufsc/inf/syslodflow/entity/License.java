@@ -8,6 +8,10 @@ public class License {
 		
 	}
 
+	public License(String licenseName) {
+		this.name = name;
+	}
+
 	public String getName() {
 		return name;
 	}

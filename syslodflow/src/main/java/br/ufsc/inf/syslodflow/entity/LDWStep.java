@@ -19,6 +19,22 @@ public class LDWStep {
 		
 	}
 
+	public LDWStep(String name, String description,
+			String command, Task task, Dataset inputDataset,
+			Dataset outputDataset, Tool tool, ToolConfiguration toolConfiguration,
+			List<LDWStepExecution> ldwStepExecutions) {
+		
+		this.name = name;
+		this.description = description;
+		this.command = command;
+		this.task = task;
+		this.inputDataset = inputDataset;
+		this.outputDataset = outputDataset;
+		this.tool = tool;
+		this.toolConfiguration = toolConfiguration;
+		this.ldwStepExecutions = ldwStepExecutions;
+	}
+
 	public Dataset getInputDataset() {
 		return inputDataset;
 	}
