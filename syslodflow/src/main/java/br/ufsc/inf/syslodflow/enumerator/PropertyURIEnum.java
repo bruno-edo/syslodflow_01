@@ -8,6 +8,7 @@ public enum PropertyURIEnum {
 	LOCATION("http://ldwpo.aksw.org/terms/1.0/location"),
 	VALUE("http://ldwpo.aksw.org/terms/1.0/value"),
 	CREATOR("http://ldwpo.aksw.org/terms/1.0/creator"),
+	CONTRIBUTOR("http://ldwpo.aksw.org/terms/1.0/contributor"),
 	REPORT("http://ldwpo.aksw.org/terms/1.0/report"),
 	PRECONDITION("http://ldwpo.aksw.org/terms/1.0/precondition"),
 	POSTCONDITION("http://ldwpo.aksw.org/terms/1.0/precondition"),
@@ -23,7 +24,9 @@ public enum PropertyURIEnum {
 	FORMAT("http://ldwpo.aksw.org/terms/1.0/format"),
 	LICENSE("http://ldwpo.aksw.org/terms/1.0/license"),
 	TOOL("http://ldwpo.aksw.org/terms/1.0/tool"),
-	TOOLCONFIGURATION("http://ldwpo.aksw.org/terms/1.0/toolConfiguration");
+	STATUS("http://ldwpo.aksw.org/terms/1.0/status"),
+	TOOLCONFIGURATION("http://ldwpo.aksw.org/terms/1.0/toolConfiguration"),
+	MESSAGE("http://ldwpo.aksw.org/terms/1.0/message");
 	
 	
 	private String uri;
