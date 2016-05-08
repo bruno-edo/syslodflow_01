@@ -8,7 +8,7 @@ public class Format {
 		
 	}
 	
-	public Format(String formatValue) {
+	public Format(String value) {
 		this.value = value;
 	}
 

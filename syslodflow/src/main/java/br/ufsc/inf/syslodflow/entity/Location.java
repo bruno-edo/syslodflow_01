@@ -8,7 +8,7 @@ public class Location {
 		
 	}
 
-	public Location(String locationValue) {
+	public Location(String value) {
 		this.value = value;
 	}
 

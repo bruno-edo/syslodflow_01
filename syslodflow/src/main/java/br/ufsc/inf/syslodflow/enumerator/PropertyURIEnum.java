@@ -26,7 +26,11 @@ public enum PropertyURIEnum {
 	TOOL("http://ldwpo.aksw.org/terms/1.0/tool"),
 	STATUS("http://ldwpo.aksw.org/terms/1.0/status"),
 	TOOLCONFIGURATION("http://ldwpo.aksw.org/terms/1.0/toolConfiguration"),
-	MESSAGE("http://ldwpo.aksw.org/terms/1.0/message");
+	MESSAGE("http://ldwpo.aksw.org/terms/1.0/message"),
+	NEXTSTEP("http://ldwpo.aksw.org/terms/1.0/nextStep"),
+	PREVIOUSSTEP("http://ldwpo.aksw.org/terms/1.0/previousStep"),
+	STARTEDDATE("http://ldwpo.aksw.org/terms/1.0/startedDate"),
+	ENDEDDATE("http://ldwpo.aksw.org/terms/1.0/endedDate");
 	
 	
 	private String uri;

@@ -8,7 +8,7 @@ public class License {
 		
 	}
 
-	public License(String licenseName) {
+	public License(String name) {
 		this.name = name;
 	}
 

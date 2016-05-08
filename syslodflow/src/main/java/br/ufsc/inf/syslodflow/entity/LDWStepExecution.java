@@ -1,23 +1,40 @@
 package br.ufsc.inf.syslodflow.entity;
 
-import java.util.Date;
+import br.ufsc.inf.syslodflow.dto.LDWStepExecutionDTO;
 
 public class LDWStepExecution {
 	
 	private Status status;
 	private Message message;
-	private LDWStepExecution nextStep;
-	private LDWStepExecution previoustStep;
+	private LDWStepExecutionDTO nextStep;
+	private LDWStepExecutionDTO previousStep;
 	private Person contributor;
 	private String description;
 	private String name;
-	private Date startedDate;
-	private Date endedDate;
+	private String startedDate;
+	private String endedDate;
 	
 	public LDWStepExecution() {
 		
 	}
 	
+	public LDWStepExecution(String name,
+			String description, Status status, Message message,
+			Person contributor, String startedDate,
+			String endedDate, LDWStepExecutionDTO nextStep,
+			LDWStepExecutionDTO previousStep) {
+		
+		this.name = name;
+		this.description = description;
+		this.status = status;
+		this.message = message;
+		this.contributor = contributor;
+		this.startedDate = startedDate;
+		this.endedDate = endedDate;
+		this.nextStep = nextStep;
+		this.previousStep = previousStep;
+	}
+
 	public Status getStatus() {
 		return status;
 	}
@@ -30,17 +47,17 @@ public class LDWStepExecution {
 	public void setMessage(Message message) {
 		this.message = message;
 	}
-	public LDWStepExecution getNextStep() {
+	public LDWStepExecutionDTO getNextStep() {
 		return nextStep;
 	}
-	public void setNextStep(LDWStepExecution nextStep) {
+	public void setNextStep(LDWStepExecutionDTO nextStep) {
 		this.nextStep = nextStep;
 	}
-	public LDWStepExecution getPrevioustStep() {
-		return previoustStep;
+	public LDWStepExecutionDTO getPreviousStep() {
+		return previousStep;
 	}
-	public void setPrevioustStep(LDWStepExecution previoustStep) {
-		this.previoustStep = previoustStep;
+	public void setPrevioustStep(LDWStepExecutionDTO previousStep) {
+		this.previousStep = previousStep;
 	}
 	public Person getContributor() {
 		return contributor;
@@ -60,16 +77,16 @@ public class LDWStepExecution {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Date getStartedDate() {
+	public String getStartedDate() {
 		return startedDate;
 	}
-	public void setStartedDate(Date startedDate) {
+	public void setStartedDate(String startedDate) {
 		this.startedDate = startedDate;
 	}
-	public Date getEndedDate() {
+	public String getEndedDate() {
 		return endedDate;
 	}
-	public void setEndedDate(Date endedDate) {
+	public void setEndedDate(String endedDate) {
 		this.endedDate = endedDate;
 	}
 	
