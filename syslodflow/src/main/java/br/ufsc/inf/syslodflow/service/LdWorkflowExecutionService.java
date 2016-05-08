@@ -13,6 +13,7 @@ public class LdWorkflowExecutionService extends BaseService {
 	public LDWorkflowExecution getLdwLdWorkflowExecution(OntModel model, Individual ontLdwWorkFlowExecution) {
 		String description = getPropertyStringValue(ontLdwWorkFlowExecution, model, PropertyURIEnum.DESCRIPTION.getUri());
 		String name = getPropertyStringValue(ontLdwWorkFlowExecution, model, PropertyURIEnum.NAME.getUri());
+		
 		Individual report = model.getIndividual(ontLdwWorkFlowExecution.getPropertyResourceValue
 				(model.getProperty(PropertyURIEnum.REPORT.getUri())).getURI());
 		String reportName = getPropertyStringValue(report, model, PropertyURIEnum.NAME.getUri());
