@@ -19,7 +19,7 @@ public class LdWorkflowService extends BaseService {
 	
 	@Inject
 	private LdwStepService ldwStepService;
-	private LdwWorkflowExecutionService ldWorkflowExecutionService;
+	private LdWorkflowExecutionService ldWorkflowExecutionService;
 	
 	public LDWorkflow getLDWorkflow(OntModel model, Individual ontLdWorkflow) {
 		
@@ -65,7 +65,7 @@ public class LdWorkflowService extends BaseService {
 		List<LDWorkflowExecution> ldWorkflowExecutions = new ArrayList<LDWorkflowExecution>();
 		while (iter.hasNext()){
 			Individual node = model.getIndividual(iter.nextStatement().getResource().getURI());
-			ldWorkflowExecutions.add(ldWorkflowExecutionService.getLdWorkflowExecution(model, node));
+			ldWorkflowExecutions.add(ldWorkflowExecutionService.getLdwLdWorkflowExecution(model, node));
 		}
 		
 		return ldWorkflowExecutions;

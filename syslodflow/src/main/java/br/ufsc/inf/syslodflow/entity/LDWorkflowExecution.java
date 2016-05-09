@@ -1,16 +1,17 @@
 package br.ufsc.inf.syslodflow.entity;
 
-import java.util.Date;
+import java.util.List;
+
 
 public class LDWorkflowExecution {
 	
 	private LDWStepExecution firstLdwStepExecution;
-	private LDWStepExecution[] ldwStepExecutions;
+	private List<LDWStepExecution> ldwStepExecutions;
 	private Report report;
 	private String description;
 	private String name;
-	private Date startedDate;
-	private Date endedDate;
+	private String startedDate;
+	private String endedDate;
 	
 	public LDWorkflowExecution() {
 		
@@ -24,11 +25,11 @@ public class LDWorkflowExecution {
 		this.firstLdwStepExecution = firstLdwStepExecution;
 	}
 
-	public LDWStepExecution[] getLdwStepExecutions() {
+	public List<LDWStepExecution> getLdwStepExecutions() {
 		return ldwStepExecutions;
 	}
 
-	public void setLdwStepExecutions(LDWStepExecution[] ldwStepExecutions) {
+	public void setLdwStepExecutions(List<LDWStepExecution> ldwStepExecutions) {
 		this.ldwStepExecutions = ldwStepExecutions;
 	}
 
@@ -56,22 +57,20 @@ public class LDWorkflowExecution {
 		this.name = name;
 	}
 
-	public Date getStartedDate() {
+	public String getStartedDate() {
 		return startedDate;
 	}
 
-	public void setStartedDate(Date startedDate) {
+	public void setStartedDate(String startedDate) {
 		this.startedDate = startedDate;
 	}
 
-	public Date getEndedDate() {
+	public String getEndedDate() {
 		return endedDate;
 	}
 
-	public void setEndedDate(Date endedDate) {
+	public void setEndedDate(String endedDate) {
 		this.endedDate = endedDate;
-	}
-	
-	
+	}	
 }
 
