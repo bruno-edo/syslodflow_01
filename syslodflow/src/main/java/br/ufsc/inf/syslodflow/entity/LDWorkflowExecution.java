@@ -3,7 +3,7 @@ package br.ufsc.inf.syslodflow.entity;
 import java.util.List;
 
 
-public class LDWorkflowExecution {
+public class LDWorkflowExecution extends BaseModel {
 	
 	private LDWStepExecution firstLdwStepExecution;
 	private List<LDWStepExecution> ldwStepExecutions;
@@ -12,6 +12,7 @@ public class LDWorkflowExecution {
 	private String name;
 	private String startedDate;
 	private String endedDate;
+	private String uri;
 	
 	public LDWorkflowExecution() {
 		
@@ -72,5 +73,15 @@ public class LDWorkflowExecution {
 	public void setEndedDate(String endedDate) {
 		this.endedDate = endedDate;
 	}	
+	
+	@Override
+	public String getUri() {
+		return uri;
+	}
+
+	@Override
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
 }
 

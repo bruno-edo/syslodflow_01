@@ -1,9 +1,10 @@
 package br.ufsc.inf.syslodflow.entity;
 
-public class Report {
+public class Report extends BaseModel {
 	
 	private String name;
 	private Location location;
+	private String uri;
 
 	public Report() {
 		
@@ -25,5 +26,14 @@ public class Report {
 		this.location = location;
 	}
 	
+	@Override
+	public String getUri() {
+		return uri;
+	}
+
+	@Override
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
 	
 }

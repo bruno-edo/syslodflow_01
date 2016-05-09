@@ -1,9 +1,10 @@
 package br.ufsc.inf.syslodflow.entity;
 
-public class Task {
+public class Task extends BaseModel {
 	
 	private String name;
 	private String description;
+	private String uri;
 	
 	public Task() {
 		
@@ -28,6 +29,16 @@ public class Task {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	@Override
+	public String getUri() {
+		return uri;
+	}
+
+	@Override
+	public void setUri(String uri) {
+		this.uri = uri;
 	}
 	
 	

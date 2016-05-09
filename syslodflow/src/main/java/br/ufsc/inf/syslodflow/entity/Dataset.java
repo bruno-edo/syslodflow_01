@@ -1,11 +1,12 @@
 package br.ufsc.inf.syslodflow.entity;
 
-public class Dataset {
+public class Dataset extends BaseModel {
 	
 	private Format format;
 	private License license;
 	private Location location;
 	private String name;
+	private String uri;
 	
 	public Dataset() {
 		
@@ -42,6 +43,16 @@ public class Dataset {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	@Override
+	public String getUri() {
+		return uri;
+	}
+
+	@Override
+	public void setUri(String uri) {
+		this.uri = uri;
 	}
 	
 	

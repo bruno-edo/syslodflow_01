@@ -2,7 +2,7 @@ package br.ufsc.inf.syslodflow.entity;
 
 import java.util.List;
 
-public class LDWStep {
+public class LDWStep extends BaseModel {
 	
 	private Dataset inputDataset;
 	private Dataset outputDataset;
@@ -13,6 +13,7 @@ public class LDWStep {
 	private String command;
 	private String description;
 	private String name;
+	private String uri;
 
 
 	public LDWStep() {
@@ -105,6 +106,16 @@ public class LDWStep {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	@Override
+	public String getUri() {
+		return uri;
+	}
+
+	@Override
+	public void setUri(String uri) {
+		this.uri = uri;
 	}
 
 }

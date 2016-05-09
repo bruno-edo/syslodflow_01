@@ -2,11 +2,12 @@ package br.ufsc.inf.syslodflow.entity;
 
 import java.util.List;
 
-public class Tool {
+public class Tool extends BaseModel {
 	
 	private String name;
 	private Location location;
 	private List<ToolConfiguration> toolConfigurations;
+	private String uri;
 	
 	public Tool(String name, Location location, List<ToolConfiguration> toolConfigurations) {
 		
@@ -38,6 +39,18 @@ public class Tool {
 	public void setToolConfigurations(List<ToolConfiguration> toolConfigurations) {
 		this.toolConfigurations = toolConfigurations;
 	}
+
+	@Override
+	public String getUri() {
+		return uri;
+	}
+
+	@Override
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
+	
+	
 	
 	
 	

@@ -2,7 +2,7 @@ package br.ufsc.inf.syslodflow.entity;
 
 import br.ufsc.inf.syslodflow.dto.LDWStepExecutionDTO;
 
-public class LDWStepExecution {
+public class LDWStepExecution extends BaseModel {
 	
 	private Status status;
 	private Message message;
@@ -13,6 +13,7 @@ public class LDWStepExecution {
 	private String name;
 	private String startedDate;
 	private String endedDate;
+	private String uri;
 	
 	public LDWStepExecution() {
 		
@@ -89,6 +90,17 @@ public class LDWStepExecution {
 	public void setEndedDate(String endedDate) {
 		this.endedDate = endedDate;
 	}
+	
+	@Override
+	public String getUri() {
+		return uri;
+	}
+
+	@Override
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
+	
 	
 	
 	

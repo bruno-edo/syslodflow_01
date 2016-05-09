@@ -1,8 +1,9 @@
 package br.ufsc.inf.syslodflow.entity;
 
-public class Condition {
+public class Condition extends BaseModel {
 	
 	private String description;
+	private String uri;
 	
 	public Condition() {
 		
@@ -19,6 +20,16 @@ public class Condition {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	@Override
+	public String getUri() {
+		return uri;
+	}
+
+	@Override
+	public void setUri(String uri) {
+		this.uri = uri;
 	}
 	
 	

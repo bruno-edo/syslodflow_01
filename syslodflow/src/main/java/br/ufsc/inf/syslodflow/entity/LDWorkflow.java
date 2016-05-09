@@ -2,7 +2,7 @@ package br.ufsc.inf.syslodflow.entity;
 
 import java.util.List;
 
-public class LDWorkflow {
+public class LDWorkflow extends BaseModel {
 	
 	private String description;
 	private String name;
@@ -11,8 +11,7 @@ public class LDWorkflow {
 	private LDWStep firstLdwStep;
 	private List<LDWorkflowExecution> ldWorkFlowExecutions;
 	private List<LDWStep> ldwSteps;
-
-
+	private String uri;
 	
 	public LDWorkflow() {
 		
@@ -73,6 +72,16 @@ public class LDWorkflow {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	@Override
+	public String getUri() {
+		return uri;
+	}
+
+	@Override
+	public void setUri(String uri) {
+		this.uri = uri;
 	}
 	
 	

@@ -1,7 +1,7 @@
 package br.ufsc.inf.syslodflow.entity;
 
 
-public class LDWProject {
+public class LDWProject extends BaseModel {
 	
 	private Person creator;
 	private Homepage homePage;
@@ -11,6 +11,7 @@ public class LDWProject {
 	private String description;
 	private String name;
 	private String fileName;
+	private String uri;
 	
 	public LDWProject() {
 		
@@ -78,6 +79,16 @@ public class LDWProject {
 
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+	
+	@Override
+	public String getUri() {
+		return uri;
+	}
+
+	@Override
+	public void setUri(String uri) {
+		this.uri = uri;
 	}
 	
 }

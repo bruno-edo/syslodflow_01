@@ -1,8 +1,9 @@
 package br.ufsc.inf.syslodflow.entity;
 
-public class Message {
+public class Message extends BaseModel {
 	
 	private String value;
+	private String uri;
 	
 	public Message() {
 		
@@ -18,6 +19,16 @@ public class Message {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+	
+	@Override
+	public String getUri() {
+		return uri;
+	}
+
+	@Override
+	public void setUri(String uri) {
+		this.uri = uri;
 	}
 	
 	
