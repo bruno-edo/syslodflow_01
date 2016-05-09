@@ -48,8 +48,7 @@
 									<f:facet name="header">#{msg['app.actions']}</f:facet>
 									<center>
 										<h:form id="form-acoes">
-											<h:commandButton rendered="#{user.id != 0 }"
-												action="#{usuarioBean.editar}" id="botaoEditar"
+											<h:commandButton action="#{ldwProjectBean.doEdit}" id="botaoEditar"
 												styleClass="btn btn-primary btn-xs" value="#{msg['crud.edit']}" />
 											<h:commandButton  action="#" id="botaoExcluir"
 												styleClass="btn btn-danger btn-xs" style="margin-left: 5px;"
