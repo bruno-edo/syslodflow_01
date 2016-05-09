@@ -23,6 +23,7 @@ public class LdwProjectService extends BaseService {
 	
 	@Inject
 	private LdwpoService ldwpoService;
+	@Inject
 	private LdWorkflowService ldwWorkflowService;
 	
 	public LDWProjectDTO getLDWProjectDTO(OntModel model) {
