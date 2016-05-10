@@ -18,6 +18,7 @@ import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.rdf.model.Resource;
 
 public class LdwProjectService extends BaseService {
 	
@@ -73,7 +74,10 @@ public class LdwProjectService extends BaseService {
 		String reportName = getPropertyStringValue(report, model, PropertyURIEnum.NAME.getUri());
 		Individual reportLocation = model.getIndividual(report.getPropertyResourceValue(model.getProperty(PropertyURIEnum.LOCATION.getUri())).getURI());
 		String reportLocationValue = getPropertyStringValue(reportLocation, model, PropertyURIEnum.VALUE.getUri());
-		LDWorkflow ldWorkflow = ldwWorkflowService.getLDWorkflow(model, model.getIndividual(ontProject.getPropertyResourceValue(model.getProperty(PropertyURIEnum.LDWORKFLOW.getUri())).getURI()));
+		
+		Resource workflow = ontProject.getPropertyResourceValue(model.getProperty(PropertyURIEnum.LDWORKFLOW.getUri()));
+		
+		LDWorkflow ldWorkflow = ldwWorkflowService.getLDWorkflow(model, model.getIndividual(workflow.getURI()));
 		
 		Person ldwProjectCreator = new Person();
 		ldwProjectCreator.setName(creatorName);

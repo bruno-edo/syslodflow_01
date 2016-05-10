@@ -38,7 +38,9 @@ public class LdwStepService extends BaseService {
 		Dataset inputDataset = this.getDataset(model, ldwStepInputDataset);
 		Individual ldwStepOutputDataset = model.getIndividual(ontLdwStep.getPropertyResourceValue(model.getProperty(PropertyURIEnum.OUTPUTDATASET.getUri())).getURI());
 		Dataset outputDataset = this.getDataset(model, ldwStepOutputDataset);
-		Individual ldwStepTool = model.getIndividual(ontLdwStep.getPropertyResourceValue(model.getProperty(PropertyURIEnum.TOOL.getUri())).getURI());
+		
+		// LDWStep
+		Individual ldwStepTool = getSubIndividualByProperty(model, ontLdwStep, PropertyURIEnum.TOOL.getUri());
 		Tool tool = this.getTool(model, ldwStepTool);
 		Individual ldwStepToolConfig = model.getIndividual(ontLdwStep.getPropertyResourceValue(model.getProperty(PropertyURIEnum.TOOLCONFIGURATION.getUri())).getURI());
 		ToolConfiguration toolConfig = this.getToolConfiguration(model, ldwStepToolConfig);
@@ -76,19 +78,22 @@ public class LdwStepService extends BaseService {
 	}
 
 	private Tool getTool(OntModel model, Individual ontTool) {
+		if(ontTool != null) {
+			String toolName = getPropertyStringValue(ontTool, model, PropertyURIEnum.NAME.getUri());
+			Individual ontLocation = model.getIndividual(ontTool.getPropertyResourceValue(model.getProperty(PropertyURIEnum.LOCATION.getUri())).getURI());
+			String locationValue = getPropertyStringValue(ontLocation, model, PropertyURIEnum.VALUE.getUri());
 
-		String toolName = getPropertyStringValue(ontTool, model, PropertyURIEnum.NAME.getUri());
-		Individual ontLocation = model.getIndividual(ontTool.getPropertyResourceValue(model.getProperty(PropertyURIEnum.LOCATION.getUri())).getURI());
-		String locationValue = getPropertyStringValue(ontLocation, model, PropertyURIEnum.VALUE.getUri());
+			StmtIterator iter = ontTool.listProperties(model.getProperty(PropertyURIEnum.TOOLCONFIGURATION.getUri()));
+			List<ToolConfiguration> toolConfigurations = new ArrayList<ToolConfiguration>();
+			while (iter.hasNext()){
+				Individual node = model.getIndividual(iter.nextStatement().getResource().getURI());
+				toolConfigurations.add(this.getToolConfiguration(model, node));		
+			}
 
-		StmtIterator iter = ontTool.listProperties(model.getProperty(PropertyURIEnum.TOOLCONFIGURATION.getUri()));
-		List<ToolConfiguration> toolConfigurations = new ArrayList<ToolConfiguration>();
-		while (iter.hasNext()){
-			Individual node = model.getIndividual(iter.nextStatement().getResource().getURI());
-			toolConfigurations.add(this.getToolConfiguration(model, node));		
+			return new Tool(toolName, new Location(locationValue), toolConfigurations);
 		}
+		return null;
 
-		return new Tool(toolName, new Location(locationValue), toolConfigurations);
 
 	}
 

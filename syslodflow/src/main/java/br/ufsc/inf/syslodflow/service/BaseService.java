@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
+
+import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
+
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntResource;
 import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
@@ -50,5 +55,15 @@ public class BaseService {
 		return value;
     }
     
+    public static Individual getSubIndividualByProperty(OntModel model, Individual individual, String uriProperty) {
+    	Resource resource = individual.getPropertyResourceValue(model.getProperty(uriProperty));
+    	if(resource != null) {
+    		Individual subIndividual = model.getIndividual((resource).getURI());
+    		return subIndividual;
+    	}
+    	return null;
+
+    	
+    }
 
 }
