@@ -34,15 +34,19 @@ public class LdwStepService extends BaseService {
 		String ldwStepTaskName = getPropertyStringValue(ldwStepTask, model, PropertyURIEnum.NAME.getUri());
 		String ldwStepTaskDescription = getPropertyStringValue(ldwStepTask, model, PropertyURIEnum.DESCRIPTION.getUri());
 		Task task = new Task(ldwStepTaskName, ldwStepTaskDescription);
-		Individual ldwStepInputDataset = model.getIndividual(ontLdwStep.getPropertyResourceValue(model.getProperty(PropertyURIEnum.INPUTDATASET.getUri())).getURI());
+		
+		//InputDataSet
+		Individual ldwStepInputDataset = getSubIndividualByProperty(model, ontLdwStep, PropertyURIEnum.INPUTDATASET.getUri());
 		Dataset inputDataset = this.getDataset(model, ldwStepInputDataset);
-		Individual ldwStepOutputDataset = model.getIndividual(ontLdwStep.getPropertyResourceValue(model.getProperty(PropertyURIEnum.OUTPUTDATASET.getUri())).getURI());
+		
+		//OutuputDataSet
+		Individual ldwStepOutputDataset = getSubIndividualByProperty(model, ontLdwStep, PropertyURIEnum.OUTPUTDATASET.getUri());
 		Dataset outputDataset = this.getDataset(model, ldwStepOutputDataset);
 		
-		// LDWStep
+		// Tool
 		Individual ldwStepTool = getSubIndividualByProperty(model, ontLdwStep, PropertyURIEnum.TOOL.getUri());
 		Tool tool = this.getTool(model, ldwStepTool);
-		Individual ldwStepToolConfig = model.getIndividual(ontLdwStep.getPropertyResourceValue(model.getProperty(PropertyURIEnum.TOOLCONFIGURATION.getUri())).getURI());
+		Individual ldwStepToolConfig = getSubIndividualByProperty(model, ontLdwStep, PropertyURIEnum.TOOLCONFIGURATION.getUri());
 		ToolConfiguration toolConfig = this.getToolConfiguration(model, ldwStepToolConfig);
 
 		StmtIterator iter = ontLdwStep.listProperties(model.getProperty(PropertyURIEnum.LDWSTEPEXECUTION.getUri()));
@@ -58,29 +62,32 @@ public class LdwStepService extends BaseService {
 	}
 
 	private Dataset getDataset(OntModel model, Individual ontDataset) {
+		
+		if(ontDataset !=  null) {
+			String dataSetName = getPropertyStringValue(ontDataset, model, PropertyURIEnum.NAME.getUri());
 
-		String dataSetName = getPropertyStringValue(ontDataset, model, PropertyURIEnum.NAME.getUri());
+			Individual ontFormat = model.getIndividual(ontDataset.getPropertyResourceValue(model.getProperty(PropertyURIEnum.FORMAT.getUri())).getURI());
+			String formatValue = getPropertyStringValue(ontFormat, model, PropertyURIEnum.VALUE.getUri());
+			Format format = new Format(formatValue);
 
-		Individual ontFormat = model.getIndividual(ontDataset.getPropertyResourceValue(model.getProperty(PropertyURIEnum.FORMAT.getUri())).getURI());
-		String formatValue = getPropertyStringValue(ontFormat, model, PropertyURIEnum.VALUE.getUri());
-		Format format = new Format(formatValue);
+			Individual ontLicense = model.getIndividual(ontDataset.getPropertyResourceValue(model.getProperty(PropertyURIEnum.LICENSE.getUri())).getURI());
+			String licenseName = getPropertyStringValue(ontLicense, model, PropertyURIEnum.NAME.getUri());
+			License license = new License(licenseName);
 
-		Individual ontLicense = model.getIndividual(ontDataset.getPropertyResourceValue(model.getProperty(PropertyURIEnum.LICENSE.getUri())).getURI());
-		String licenseName = getPropertyStringValue(ontLicense, model, PropertyURIEnum.NAME.getUri());
-		License license = new License(licenseName);
+			Individual ontLocation = model.getIndividual(ontDataset.getPropertyResourceValue(model.getProperty(PropertyURIEnum.LOCATION.getUri())).getURI());
+			String locationValue = getPropertyStringValue(ontLocation, model, PropertyURIEnum.VALUE.getUri());
+			Location location = new Location(locationValue);
 
-		Individual ontLocation = model.getIndividual(ontDataset.getPropertyResourceValue(model.getProperty(PropertyURIEnum.LOCATION.getUri())).getURI());
-		String locationValue = getPropertyStringValue(ontLocation, model, PropertyURIEnum.VALUE.getUri());
-		Location location = new Location(locationValue);
-
-		return new Dataset(dataSetName, format, license, location);
+			return new Dataset(dataSetName, format, license, location);
+		}
+		return null;
 
 	}
 
 	private Tool getTool(OntModel model, Individual ontTool) {
 		if(ontTool != null) {
 			String toolName = getPropertyStringValue(ontTool, model, PropertyURIEnum.NAME.getUri());
-			Individual ontLocation = model.getIndividual(ontTool.getPropertyResourceValue(model.getProperty(PropertyURIEnum.LOCATION.getUri())).getURI());
+			Individual ontLocation = getSubIndividualByProperty(model, ontTool, PropertyURIEnum.LOCATION.getUri());
 			String locationValue = getPropertyStringValue(ontLocation, model, PropertyURIEnum.VALUE.getUri());
 
 			StmtIterator iter = ontTool.listProperties(model.getProperty(PropertyURIEnum.TOOLCONFIGURATION.getUri()));
@@ -99,13 +106,14 @@ public class LdwStepService extends BaseService {
 
 	private ToolConfiguration getToolConfiguration(OntModel model, Individual individual) {
 
-		String toolConfigName = getPropertyStringValue(individual, model, PropertyURIEnum.NAME.getUri());
-		Individual toolConfigLocation = model.getIndividual(individual.getPropertyResourceValue(model.getProperty(PropertyURIEnum.LOCATION.getUri())).getURI());
-		String toolConfiglocationValue = getPropertyStringValue(toolConfigLocation, model, PropertyURIEnum.VALUE.getUri());
+		if(individual != null)  {
+			String toolConfigName = getPropertyStringValue(individual, model, PropertyURIEnum.NAME.getUri());
+			Individual toolConfigLocation = model.getIndividual(individual.getPropertyResourceValue(model.getProperty(PropertyURIEnum.LOCATION.getUri())).getURI());
+			String toolConfiglocationValue = getPropertyStringValue(toolConfigLocation, model, PropertyURIEnum.VALUE.getUri());
 
-		return new ToolConfiguration(toolConfigName, new Location(toolConfiglocationValue));
-
-
+			return new ToolConfiguration(toolConfigName, new Location(toolConfiglocationValue));
+		}
+		return null;
 
 	}
 

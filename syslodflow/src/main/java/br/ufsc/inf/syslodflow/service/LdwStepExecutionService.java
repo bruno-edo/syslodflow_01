@@ -42,7 +42,7 @@ public class LdwStepExecutionService extends BaseService {
 	private LDWStepExecutionDTO getNextStepExecution(OntModel model, Individual stepExecution) {
 		
 		if(stepExecution.hasProperty(model.getProperty(PropertyURIEnum.NEXTSTEP.getUri()))) {
-			Individual nextStep = model.getIndividual(stepExecution.getPropertyResourceValue(model.getProperty(PropertyURIEnum.NEXTSTEP.getUri())).getURI());
+			Individual nextStep =  getSubIndividualByProperty(model, stepExecution, PropertyURIEnum.NEXTSTEP.getUri());
 			String nextStepName = getPropertyStringValue(nextStep, model, PropertyURIEnum.NAME.getUri());
 			String nextStepURI = nextStep.getURI();
 			return new LDWStepExecutionDTO(nextStepName, nextStepURI);
@@ -53,12 +53,14 @@ public class LdwStepExecutionService extends BaseService {
 	private LDWStepExecutionDTO getPreviousStepExecution(OntModel model, Individual stepExecution) {
 		
 		if(stepExecution.hasProperty(model.getProperty(PropertyURIEnum.PREVIOUSSTEP.getUri()))) {
-			Individual previousStep = model.getIndividual(stepExecution.getPropertyResourceValue(model.getProperty(PropertyURIEnum.NEXTSTEP.getUri())).getURI());
+			Individual previousStep = getSubIndividualByProperty(model, stepExecution, PropertyURIEnum.NEXTSTEP.getUri());
 			String previousStepName = getPropertyStringValue(previousStep, model, PropertyURIEnum.NAME.getUri());
-			String previousStepURI = previousStep.getURI();
-			return new LDWStepExecutionDTO(previousStepName, previousStepURI);
+			if(previousStep != null) {
+				String previousStepURI = previousStep.getURI();
+				return new LDWStepExecutionDTO(previousStepName, previousStepURI);
+			}
 		}
-		else { return null; }
+		return null;
 	}
 
 
