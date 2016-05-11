@@ -19,6 +19,7 @@ public class LdWorkflowService extends BaseService {
 	
 	@Inject
 	private LdwStepService ldwStepService;
+	@Inject
 	private LdWorkflowExecutionService ldWorkflowExecutionService;
 	
 	public LDWorkflow getLDWorkflow(OntModel model, Individual ontLdWorkflow) {
