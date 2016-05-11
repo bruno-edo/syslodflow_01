@@ -3,11 +3,6 @@ package br.ufsc.inf.syslodflow.service;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
-import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
-
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
@@ -50,9 +45,13 @@ public class BaseService {
 	
     public static String getPropertyStringValue(Individual individual, OntModel model, String uriProperty)
     {
-    	Property property = model.getProperty(uriProperty);
-		String value = individual.getPropertyValue(property).asLiteral().getString();
-		return value;
+    	if(individual != null) {
+        	Property property = model.getProperty(uriProperty);
+    		String value = individual.getPropertyValue(property).asLiteral().getString();
+    		return value;
+    	}
+    	return "";
+
     }
     
     public static Individual getSubIndividualByProperty(OntModel model, Individual individual, String uriProperty) {
