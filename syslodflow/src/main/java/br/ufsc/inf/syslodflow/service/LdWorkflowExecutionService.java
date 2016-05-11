@@ -24,10 +24,10 @@ public class LdWorkflowExecutionService extends BaseService {
 		String description = getPropertyStringValue(ontLdwWorkFlowExecution, model, PropertyURIEnum.DESCRIPTION.getUri());
 		String name = getPropertyStringValue(ontLdwWorkFlowExecution, model, PropertyURIEnum.NAME.getUri());
 		
-		Individual report = model.getIndividual(ontLdwWorkFlowExecution.getPropertyResourceValue
-				(model.getProperty(PropertyURIEnum.REPORT.getUri())).getURI());
+		Individual report = getSubIndividualByProperty(model, ontLdwWorkFlowExecution, PropertyURIEnum.REPORT.getUri());
+		
 		String reportName = getPropertyStringValue(report, model, PropertyURIEnum.NAME.getUri());
-		Individual reportLocation = model.getIndividual(report.getPropertyResourceValue(model.getProperty(PropertyURIEnum.LOCATION.getUri())).getURI());
+		Individual reportLocation = getSubIndividualByProperty(model, report, PropertyURIEnum.LOCATION.getUri());
 		String reportLocationValue = getPropertyStringValue(reportLocation, model, PropertyURIEnum.VALUE.getUri());
 		String startedDate = getPropertyStringValue(ontLdwWorkFlowExecution, model, PropertyURIEnum.STARTEDDATE.getUri());
 		String endedDate = getPropertyStringValue(ontLdwWorkFlowExecution, model, PropertyURIEnum.ENDEDDATE.getUri());

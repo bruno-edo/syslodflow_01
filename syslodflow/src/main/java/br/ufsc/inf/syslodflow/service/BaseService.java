@@ -55,10 +55,12 @@ public class BaseService {
     }
     
     public static Individual getSubIndividualByProperty(OntModel model, Individual individual, String uriProperty) {
-    	Resource resource = individual.getPropertyResourceValue(model.getProperty(uriProperty));
-    	if(resource != null) {
-    		Individual subIndividual = model.getIndividual((resource).getURI());
-    		return subIndividual;
+    	if(individual != null) {
+        	Resource resource = individual.getPropertyResourceValue(model.getProperty(uriProperty));
+        	if(resource != null) {
+        		Individual subIndividual = model.getIndividual((resource).getURI());
+        		return subIndividual;
+        	}
     	}
     	return null;
 
