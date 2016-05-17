@@ -18,6 +18,8 @@ public interface Navegacao {
 	/* CADASTRO PROJETO */
 	public static final String LDWPROJECT_LIST = "ldwproject_list";
 	public static final String LDWPROJECT_CRUD = "ldwproject_main";
+	/*  WORKFLOW */
+	public static final String LDWORKFLOW_MAIN = "ldworkflow_main";
 
 
 }
