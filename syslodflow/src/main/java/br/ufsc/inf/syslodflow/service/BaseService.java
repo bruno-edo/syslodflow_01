@@ -3,6 +3,8 @@ package br.ufsc.inf.syslodflow.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.ufsc.inf.syslodflow.enumerator.NSURIEnum;
+
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
@@ -63,8 +65,22 @@ public class BaseService {
         	}
     	}
     	return null;
-
+    }
+    
+    public static String createURI(String value) {
+		
+    	value = NSURIEnum.NS.getUri()+value.replaceAll(" ", "_").toLowerCase();
+		
+    	return value;
     	
+    }
+    
+    public static boolean URIalreadyExists(OntModel model, String URI) {
+    	
+    	if(model.getIndividual(URI)!=null)
+    		return true;
+    	else
+    		return false;
     }
 
 }

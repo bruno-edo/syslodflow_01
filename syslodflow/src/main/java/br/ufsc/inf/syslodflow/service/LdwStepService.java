@@ -15,6 +15,7 @@ import br.ufsc.inf.syslodflow.entity.Task;
 import br.ufsc.inf.syslodflow.entity.Tool;
 import br.ufsc.inf.syslodflow.entity.ToolConfiguration;
 import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
+import br.ufsc.inf.syslodflow.enumerator.StepOrderEnum;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntModel;
@@ -30,6 +31,8 @@ public class LdwStepService extends BaseService {
 		String ldwStepName = getPropertyStringValue(ontLdwStep, model, PropertyURIEnum.NAME.getUri());
 		String ldwStepDescription = getPropertyStringValue(ontLdwStep, model, PropertyURIEnum.DESCRIPTION.getUri());
 		String ldwStepCommand = getPropertyStringValue(ontLdwStep, model, PropertyURIEnum.COMMAND.getUri());
+		int order = getOrder(model, ontLdwStep);
+		
 		Individual ldwStepTask = model.getIndividual(ontLdwStep.getPropertyResourceValue(model.getProperty(PropertyURIEnum.TASK.getUri())).getURI());
 		String ldwStepTaskName = getPropertyStringValue(ldwStepTask, model, PropertyURIEnum.NAME.getUri());
 		String ldwStepTaskDescription = getPropertyStringValue(ldwStepTask, model, PropertyURIEnum.DESCRIPTION.getUri());
@@ -57,7 +60,7 @@ public class LdwStepService extends BaseService {
 		}
 
 
-		return new LDWStep(ldwStepName, ldwStepDescription, ldwStepCommand, task, inputDataset, outputDataset, tool, toolConfig, ldwStepExecutions);
+		return new LDWStep(ldwStepName, ldwStepDescription, ldwStepCommand, task, inputDataset, outputDataset, tool, toolConfig, ldwStepExecutions, order);
 
 	}
 
@@ -115,6 +118,51 @@ public class LdwStepService extends BaseService {
 		}
 		return null;
 
+	}
+	
+	private int getOrder(OntModel model, Individual ontLdwStep) {
+
+		int order;
+		if (!ontLdwStep.hasProperty(model
+				.getProperty(PropertyURIEnum.PREVIOUSSTEP.getUri()))) {
+			order = StepOrderEnum.FIRST.getOrder();
+		}
+
+		else {
+
+			if (!ontLdwStep.hasProperty(model
+					.getProperty(PropertyURIEnum.NEXTSTEP.getUri()))) {
+				order = StepOrderEnum.FIFTH.getOrder();
+			}
+
+			else {
+
+				if (!ontLdwStep.getPropertyResourceValue(
+						model.getProperty(PropertyURIEnum.NEXTSTEP.getUri()))
+						.hasProperty(
+								model.getProperty(PropertyURIEnum.NEXTSTEP
+										.getUri()))) {
+					order = StepOrderEnum.FOURTH.getOrder();
+
+				} else {
+
+					if (ontLdwStep.getPropertyResourceValue(
+							model.getProperty(PropertyURIEnum.PREVIOUSSTEP
+									.getUri())).hasProperty(
+							model.getProperty(PropertyURIEnum.PREVIOUSSTEP
+									.getUri()))) {
+						order = StepOrderEnum.SECOND.getOrder();
+
+					} else {
+						order = StepOrderEnum.THIRD.getOrder();
+					}
+				}
+			}
+
+		}
+		
+		return order;
+		
 	}
 
 
