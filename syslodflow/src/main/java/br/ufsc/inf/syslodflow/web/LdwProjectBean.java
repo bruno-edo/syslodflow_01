@@ -11,6 +11,7 @@ import org.primefaces.event.TabChangeEvent;
 
 import br.ufsc.inf.syslodflow.dto.LDWProjectDTO;
 import br.ufsc.inf.syslodflow.entity.LDWProject;
+import br.ufsc.inf.syslodflow.entity.LDWorkflow;
 import br.ufsc.inf.syslodflow.service.LdwProjectService;
 import br.ufsc.inf.syslodflow.service.LdwpoService;
 import br.ufsc.inf.syslodflow.util.Navegacao;
@@ -64,8 +65,7 @@ public class LdwProjectBean {
 		this.ontModel = ldwProjectService.saveLdwProject(ontModel, ldwProject);
 		this.ldwpoService.doSaveModel(ontModel, ldwProject.getFileName());
 		return Navegacao.LDWPROJECT_LIST;
-	}
-	
+	}	
 	
 	/* CONTROLE TAB */
 	public void onTabChange(TabChangeEvent event) {

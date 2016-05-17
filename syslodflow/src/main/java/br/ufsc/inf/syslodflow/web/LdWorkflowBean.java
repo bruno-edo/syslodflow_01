@@ -3,10 +3,18 @@ package br.ufsc.inf.syslodflow.web;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.inject.Inject;
 
 import org.primefaces.event.TabChangeEvent;
 
+import com.hp.hpl.jena.ontology.OntModel;
+
+import br.ufsc.inf.syslodflow.dto.LDWProjectDTO;
+import br.ufsc.inf.syslodflow.entity.LDWProject;
 import br.ufsc.inf.syslodflow.entity.LDWorkflow;
+import br.ufsc.inf.syslodflow.service.LdwProjectService;
+import br.ufsc.inf.syslodflow.service.LdwpoService;
+import br.ufsc.inf.syslodflow.util.Navegacao;
 
 /**
  * @author jeanmorais
@@ -15,6 +23,12 @@ import br.ufsc.inf.syslodflow.entity.LDWorkflow;
 @SessionScoped
 public class LdWorkflowBean {
 
+	@Inject 
+	private LdwpoService ldwpoService;
+	@Inject 
+	private LdwProjectService ldwProjectService;
+	
+	
 	private int tab;
 	private LDWorkflow ldWorflow;
 	
@@ -23,6 +37,12 @@ public class LdWorkflowBean {
 		this.tab = 0;
 		
 
+	}
+	public String doEdit(LDWProjectDTO projectSelected){
+		OntModel model = ldwpoService.doLoadModel(projectSelected.getPath());
+		LDWProject ldwProject = ldwProjectService.getLDWProject(model);
+		this.ldWorflow = ldwProject.getLdWorkFlow();
+		return Navegacao.LDWORKFLOW_MAIN;
 	}
 	
 	/* CONTROLE TAB */

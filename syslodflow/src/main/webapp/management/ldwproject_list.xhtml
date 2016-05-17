@@ -48,7 +48,7 @@
 									<f:facet name="header">#{msg['crud.ldworkflow']}</f:facet>
 									<center>
 										<h:form id="form-open-workflow">
-											<h:commandButton id="openWorkflowButton" styleClass="btn btn-success btn-xs" value="#{msg['crud.open']}" />
+											<h:commandButton id="openWorkflowButton" action="#{ldWorkflowBean.doEdit(project.fileName)}" styleClass="btn btn-success btn-xs" value="#{msg['crud.open']}" />
 										</h:form>
 									</center>
 								</h:column>
