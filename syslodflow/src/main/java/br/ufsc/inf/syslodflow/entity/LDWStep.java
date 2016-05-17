@@ -14,6 +14,7 @@ public class LDWStep extends BaseModel {
 	private String description;
 	private String name;
 	private String uri;
+	private int order;
 
 
 	public LDWStep() {
@@ -23,7 +24,7 @@ public class LDWStep extends BaseModel {
 	public LDWStep(String name, String description,
 			String command, Task task, Dataset inputDataset,
 			Dataset outputDataset, Tool tool, ToolConfiguration toolConfiguration,
-			List<LDWStepExecution> ldwStepExecutions) {
+			List<LDWStepExecution> ldwStepExecutions, int order) {
 		
 		this.name = name;
 		this.description = description;
@@ -116,6 +117,14 @@ public class LDWStep extends BaseModel {
 	@Override
 	public void setUri(String uri) {
 		this.uri = uri;
+	}
+
+	public int getOrder() {
+		return order;
+	}
+
+	public void setOrder(int order) {
+		this.order = order;
 	}
 
 }
