@@ -7,13 +7,13 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 
-<h:form role="form" id="form_workflow_step01" acceptcharset="ISO-8859-1">
+<h:form role="form" id="form_workflow_step02" acceptcharset="ISO-8859-1">
 	<h:inputHidden styleClass="form-control" />
 	<div class="form-group">
 		<div class="row">
 			<div class="col-lg-8">
 				<label>#{msg['crud.ldworkflow.ldwstep.name']}</label>
-				<p:inputText styleClass="form-control" required="true" value="#{ldWorkflowBean.step01.name}"
+				<p:inputText styleClass="form-control" required="true" value="#{ldWorkflowBean.step04.name}"
 					requiredMessage="#{msg['crud.ldworkflow.ldwstep.name']} : #{msg['error.required']}"
 					maxlength="100" />
 			</div>
@@ -36,7 +36,7 @@
 		<div class="row">	
 			<div class="col-lg-8">
 				<label>#{msg['crud.ldworkflow.ldwstep.description']}</label>
-				<p:inputTextarea styleClass="form-control" required="true" value="#{ldWorkflowBean.step01.description}" 
+				<p:inputTextarea styleClass="form-control" required="true" value="#{ldWorkflowBean.step04.description}" 
 					requiredMessage="#{msg['crud.ldworkflow.ldwstep.description']} : #{msg['error.required']}"
 					maxlength="240" />
 			</div>
@@ -48,7 +48,7 @@
 		<div class="row">
 			<div class="col-lg-8">
 				<label>#{msg['crud.ldworkflow.ldwstep.command']}</label>
-				<p:inputText styleClass="form-control" required="true" value="#{ldWorkflowBean.step01.command}"
+				<p:inputText styleClass="form-control" required="true" value="#{ldWorkflowBean.step04.command}"
 					requiredMessage="#{msg['crud.ldworkflow.ldwstep.command']} : #{msg['error.required']}"
 					maxlength="240" />
 			</div>

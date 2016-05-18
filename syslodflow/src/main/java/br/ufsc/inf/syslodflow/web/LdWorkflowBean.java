@@ -6,6 +6,7 @@ import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 
 import org.primefaces.event.TabChangeEvent;
+import org.primefaces.model.UploadedFile;
 
 import com.hp.hpl.jena.ontology.OntModel;
 
@@ -37,6 +38,7 @@ public class LdWorkflowBean {
 	private LDWStep step03;
 	private LDWStep step04;
 	private LDWStep step05;
+	private UploadedFile inputDataSetStep02;
 	
 	@PostConstruct
 	public void init() {
@@ -128,6 +130,18 @@ public class LdWorkflowBean {
 	public void setStep05(LDWStep step05) {
 		this.step05 = step05;
 	}
+	
+	public UploadedFile getInputDataSetStep02() {
+		return inputDataSetStep02;
+	}
+	
+	public void setInputDataSetStep02(UploadedFile inputDataSetStep02) {
+		this.inputDataSetStep02 = inputDataSetStep02;
+	}
+	
+	
+	
+	
 
 	
 	
