@@ -11,6 +11,7 @@ import com.hp.hpl.jena.ontology.OntModel;
 
 import br.ufsc.inf.syslodflow.dto.LDWProjectDTO;
 import br.ufsc.inf.syslodflow.entity.LDWProject;
+import br.ufsc.inf.syslodflow.entity.LDWStep;
 import br.ufsc.inf.syslodflow.entity.LDWorkflow;
 import br.ufsc.inf.syslodflow.service.LdwProjectService;
 import br.ufsc.inf.syslodflow.service.LdwpoService;
@@ -30,7 +31,12 @@ public class LdWorkflowBean {
 	
 	
 	private int tab;
-	private LDWorkflow ldWorflow;
+	private LDWorkflow ldWorkflow;
+	private LDWStep step01;
+	private LDWStep step02;
+	private LDWStep step03;
+	private LDWStep step04;
+	private LDWStep step05;
 	
 	@PostConstruct
 	public void init() {
@@ -41,7 +47,9 @@ public class LdWorkflowBean {
 	public String doEdit(LDWProjectDTO projectSelected){
 		OntModel model = ldwpoService.doLoadModel(projectSelected.getPath());
 		LDWProject ldwProject = ldwProjectService.getLDWProject(model);
-		this.ldWorflow = ldwProject.getLdWorkFlow();
+		this.ldWorkflow = ldwProject.getLdWorkFlow();
+		
+		this.step01 = ldWorkflow.getLdwSteps().get(1);
 		return Navegacao.LDWORKFLOW_MAIN;
 	}
 	
@@ -82,6 +90,48 @@ public class LdWorkflowBean {
 	public void setTab(int tab) {
 		this.tab = tab;
 	}
+	
+	public LDWorkflow getLdWorkflow() {
+		return ldWorkflow;
+	}
+	
+	public void setLdWorkflow(LDWorkflow ldWorkflow) {
+		this.ldWorkflow = ldWorkflow;
+	}
+	public LDWStep getStep01() {
+		return step01;
+	}
+	public void setStep01(LDWStep step01) {
+		this.step01 = step01;
+	}
+	public LDWStep getStep02() {
+		return step02;
+	}
+	public void setStep02(LDWStep step02) {
+		this.step02 = step02;
+	}
+	public LDWStep getStep03() {
+		return step03;
+	}
+	public void setStep03(LDWStep step03) {
+		this.step03 = step03;
+	}
+	public LDWStep getStep04() {
+		return step04;
+	}
+	public void setStep04(LDWStep step04) {
+		this.step04 = step04;
+	}
+	public LDWStep getStep05() {
+		return step05;
+	}
+	public void setStep05(LDWStep step05) {
+		this.step05 = step05;
+	}
+
+	
+	
+	
 	
 	
 	

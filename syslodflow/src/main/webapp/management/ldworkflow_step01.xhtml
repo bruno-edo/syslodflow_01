@@ -13,7 +13,7 @@
 		<div class="row">
 			<div class="col-lg-8">
 				<label>#{msg['crud.ldworkflow.ldwstep.name']}</label>
-				<p:inputText styleClass="form-control" required="true"
+				<p:inputText styleClass="form-control" required="true" value="#{ldWorkflowBean.step01.name}"
 					requiredMessage="#{msg['crud.ldworkflow.ldwstep.name']} : #{msg['error.required']}"
 					maxlength="100" />
 			</div>
@@ -36,7 +36,7 @@
 		<div class="row">	
 			<div class="col-lg-8">
 				<label>#{msg['crud.ldworkflow.ldwstep.description']}</label>
-				<p:inputTextarea styleClass="form-control" required="true"
+				<p:inputTextarea styleClass="form-control" required="true" value="#{ldWorkflowBean.step01.description}" 
 					requiredMessage="#{msg['crud.ldworkflow.ldwstep.description']} : #{msg['error.required']}"
 					maxlength="240" />
 			</div>
@@ -48,7 +48,7 @@
 		<div class="row">
 			<div class="col-lg-8">
 				<label>#{msg['crud.ldworkflow.ldwstep.command']}</label>
-				<p:inputText styleClass="form-control" required="true"
+				<p:inputText styleClass="form-control" required="true" value="#{ldWorkflowBean.step01.command}"
 					requiredMessage="#{msg['crud.ldworkflow.ldwstep.command']} : #{msg['error.required']}"
 					maxlength="240" />
 			</div>
@@ -69,7 +69,7 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<label>#{msg['crud.ldworkflow.ldwstep.inputDataset.name']}</label>
-								<p:inputText styleClass="form-control" required="true"
+								<p:inputText styleClass="form-control" required="true" 
 									requiredMessage="#{msg['crud.ldworkflow.ldwstep.inputDataset.name']} : #{msg['error.required']}"
 									maxlength="100" />
 							</div>
