@@ -3,10 +3,12 @@ package br.ufsc.inf.syslodflow.service;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Properties;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
@@ -74,6 +76,17 @@ public class LdwpoService {
 			return visitor.getListFiles();
 		} catch (IOException e) {
 			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public String getPropertie(String key) {
+		InputStream is = getClass().getResourceAsStream("/configuration/configuration.properties");
+		Properties props = new Properties();
+		try {
+			props.load(is);
+			return props.getProperty(key);
+			} catch (IOException e) {
 			return null;
 		}
 	}

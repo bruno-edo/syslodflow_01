@@ -1,5 +1,10 @@
 package br.ufsc.inf.syslodflow.web;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Properties;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -14,7 +19,9 @@ import br.ufsc.inf.syslodflow.dto.LDWProjectDTO;
 import br.ufsc.inf.syslodflow.entity.LDWProject;
 import br.ufsc.inf.syslodflow.entity.LDWStep;
 import br.ufsc.inf.syslodflow.entity.LDWorkflow;
+import br.ufsc.inf.syslodflow.entity.Tool;
 import br.ufsc.inf.syslodflow.service.LdwProjectService;
+import br.ufsc.inf.syslodflow.service.LdwStepService;
 import br.ufsc.inf.syslodflow.service.LdwpoService;
 import br.ufsc.inf.syslodflow.util.Navegacao;
 
@@ -29,6 +36,8 @@ public class LdWorkflowBean {
 	private LdwpoService ldwpoService;
 	@Inject 
 	private LdwProjectService ldwProjectService;
+	@Inject
+	private LdwStepService ldwStepService;
 	
 	
 	private int tab;
@@ -39,6 +48,7 @@ public class LdWorkflowBean {
 	private LDWStep step04;
 	private LDWStep step05;
 	private UploadedFile inputDataSetStep02;
+	private List<Tool> listToolsStep02;
 	
 	@PostConstruct
 	public void init() {
@@ -50,8 +60,10 @@ public class LdWorkflowBean {
 		OntModel model = ldwpoService.doLoadModel(projectSelected.getPath());
 		LDWProject ldwProject = ldwProjectService.getLDWProject(model);
 		this.ldWorkflow = ldwProject.getLdWorkFlow();
-		
+		this.listToolsStep02 = this.ldwStepService.getListTools(model);
 		this.step01 = ldWorkflow.getLdwSteps().get(1);
+		this.step02 = ldWorkflow.getLdwSteps().get(2);
+		
 		return Navegacao.LDWORKFLOW_MAIN;
 	}
 	
@@ -75,7 +87,8 @@ public class LdWorkflowBean {
 	
 
 	public void teste() {
-		System.out.println("Teste");
+		System.out.print("Passsou!!!!");
+		step02.getTool();
 	}
 	
 
@@ -138,6 +151,16 @@ public class LdWorkflowBean {
 	public void setInputDataSetStep02(UploadedFile inputDataSetStep02) {
 		this.inputDataSetStep02 = inputDataSetStep02;
 	}
+	
+	public List<Tool> getListToolsStep02() {
+		return listToolsStep02;
+	}
+	
+	public void setListToolsStep02(List<Tool> listToolsStep02) {
+		this.listToolsStep02 = listToolsStep02;
+	}
+	
+	
 	
 	
 	

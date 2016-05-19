@@ -22,6 +22,7 @@ import br.ufsc.inf.syslodflow.entity.Location;
 import br.ufsc.inf.syslodflow.entity.Task;
 import br.ufsc.inf.syslodflow.entity.Tool;
 import br.ufsc.inf.syslodflow.entity.ToolConfiguration;
+import br.ufsc.inf.syslodflow.enumerator.ClassURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.StepOrderEnum;
 
@@ -57,6 +58,7 @@ public class LdwStepService extends BaseService {
 		// Tool
 		Individual ldwStepTool = getSubIndividualByProperty(model, ontLdwStep, PropertyURIEnum.TOOL.getUri());
 		Tool tool = this.getTool(model, ldwStepTool);
+		
 		Individual ldwStepToolConfig = getSubIndividualByProperty(model, ontLdwStep, PropertyURIEnum.TOOLCONFIGURATION.getUri());
 		ToolConfiguration toolConfig = this.getToolConfiguration(model, ldwStepToolConfig);
 
@@ -173,6 +175,15 @@ public class LdwStepService extends BaseService {
 		
 	}
 	
+	public List<Tool> getListTools(OntModel model) {
+		List<Individual> individuals = listIndividuals(model.getOntClass("http://ldwpo.aksw.org/terms/1.0/Tool"));
+		List<Tool> toolList = new ArrayList<Tool>();
+		for(Individual i: individuals) {
+			Tool tool = getTool(model, i);
+			toolList.add(tool);
+		}
+		return toolList;
+	}
 	
 	
 	public String saveFile(UploadedFile file, String projectName) {
@@ -204,8 +215,6 @@ public class LdwStepService extends BaseService {
 		}
 	}
 	
-	
-
 
 
 }
