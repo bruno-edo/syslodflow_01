@@ -9,6 +9,10 @@ public class Tool extends BaseModel {
 	private List<ToolConfiguration> toolConfigurations;
 	private String uri;
 	
+	public Tool() {
+		
+	}
+	
 	public Tool(String name, Location location, List<ToolConfiguration> toolConfigurations) {
 		
 		this.name = name;
