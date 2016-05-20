@@ -1,9 +1,11 @@
 package br.ufsc.inf.syslodflow.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Tool extends BaseModel {
+public class Tool extends BaseModel implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private Location location;
 	private List<ToolConfiguration> toolConfigurations;
@@ -56,28 +58,25 @@ public class Tool extends BaseModel {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
+		return (name == null) ? 0 : name.hashCode();
+	}
+	
+	
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) return false;
+		if (obj instanceof Tool) {
+			return ((Tool)obj).getName().equals(this.name);
+		} 
+		return false;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Tool other = (Tool) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
+	public String toString() {
+		return "Tool [name=" + name + "]";
 	}
+	
 	
 
 	

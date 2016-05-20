@@ -1,9 +1,6 @@
 package br.ufsc.inf.syslodflow.web;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
-import java.util.Properties;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -12,8 +9,6 @@ import javax.inject.Inject;
 
 import org.primefaces.event.TabChangeEvent;
 import org.primefaces.model.UploadedFile;
-
-import com.hp.hpl.jena.ontology.OntModel;
 
 import br.ufsc.inf.syslodflow.dto.LDWProjectDTO;
 import br.ufsc.inf.syslodflow.entity.LDWProject;
@@ -24,6 +19,8 @@ import br.ufsc.inf.syslodflow.service.LdwProjectService;
 import br.ufsc.inf.syslodflow.service.LdwStepService;
 import br.ufsc.inf.syslodflow.service.LdwpoService;
 import br.ufsc.inf.syslodflow.util.Navegacao;
+
+import com.hp.hpl.jena.ontology.OntModel;
 
 /**
  * @author jeanmorais

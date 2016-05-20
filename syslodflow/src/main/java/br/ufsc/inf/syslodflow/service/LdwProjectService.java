@@ -17,7 +17,6 @@ import br.ufsc.inf.syslodflow.enumerator.ClassURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
 
 import com.hp.hpl.jena.ontology.Individual;
-import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.rdf.model.Resource;
 
