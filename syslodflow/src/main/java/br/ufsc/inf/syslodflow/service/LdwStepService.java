@@ -177,12 +177,6 @@ public class LdwStepService extends BaseService {
 		return order;
 	}
 		
-	
-	
-
-	
-	
-	
 	public List<Tool> getListTools(OntModel model) {
 		List<Individual> individuals = listIndividuals(model.getOntClass("http://ldwpo.aksw.org/terms/1.0/Tool"));
 		List<Tool> toolList = new ArrayList<Tool>();

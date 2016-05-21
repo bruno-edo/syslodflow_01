@@ -24,16 +24,9 @@ public class LdWorkflowExecutionService extends BaseService {
 		
 		String description = getPropertyStringValue(ontLdwWorkFlowExecution, model, PropertyURIEnum.DESCRIPTION.getUri());
 		String name = getPropertyStringValue(ontLdwWorkFlowExecution, model, PropertyURIEnum.NAME.getUri());
-		
-		Individual report = getSubIndividualByProperty(model, ontLdwWorkFlowExecution, PropertyURIEnum.REPORT.getUri());
-		String reportName = getPropertyStringValue(report, model, PropertyURIEnum.NAME.getUri());
-		Individual reportLocation = getSubIndividualByProperty(model, report, PropertyURIEnum.LOCATION.getUri());
-		String reportLocationValue = getPropertyStringValue(reportLocation, model, PropertyURIEnum.VALUE.getUri());
 		String startedDate = getPropertyStringValue(ontLdwWorkFlowExecution, model, PropertyURIEnum.STARTEDDATE.getUri());
 		String endedDate = getPropertyStringValue(ontLdwWorkFlowExecution, model, PropertyURIEnum.ENDEDDATE.getUri());
 
-		Report ldWorflowExecutionReport = new Report(reportName, new Location(reportLocationValue, reportLocation.getURI()), report.getURI());
-		
 		StmtIterator iter = ontLdwWorkFlowExecution.listProperties(model.getProperty(PropertyURIEnum.LDWSTEPEXECUTION.getUri()));
 		List<LDWStepExecution> ldwStepExecutions = new ArrayList<LDWStepExecution>();
 		LDWStepExecution firstLdwStepExecution = null;
@@ -45,7 +38,7 @@ public class LdWorkflowExecutionService extends BaseService {
 				firstLdwStepExecution = l;
 		}
 		
-		return new LDWorkflowExecution(firstLdwStepExecution, ldwStepExecutions, ldWorflowExecutionReport, description, name, startedDate, endedDate, ontLdwWorkFlowExecution.getURI());
+		return new LDWorkflowExecution(firstLdwStepExecution, ldwStepExecutions, description, name, startedDate, endedDate, ontLdwWorkFlowExecution.getURI());
 		
 	}
 

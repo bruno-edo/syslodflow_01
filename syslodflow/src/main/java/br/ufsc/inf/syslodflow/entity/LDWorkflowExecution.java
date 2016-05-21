@@ -7,7 +7,6 @@ public class LDWorkflowExecution extends BaseModel {
 
 	private LDWStepExecution firstLdwStepExecution;
 	private List<LDWStepExecution> ldwStepExecutions;
-	private Report report;
 	private String description;
 	private String name;
 	private String startedDate;
@@ -16,13 +15,12 @@ public class LDWorkflowExecution extends BaseModel {
 	
 	
 	public LDWorkflowExecution(LDWStepExecution firstLdwStepExecution,
-			List<LDWStepExecution> ldwStepExecutions, Report report,
+			List<LDWStepExecution> ldwStepExecutions,
 			String description, String name, String startedDate,
 			String endedDate, String uri) {
 		
 		this.firstLdwStepExecution = firstLdwStepExecution;
 		this.ldwStepExecutions = ldwStepExecutions;
-		this.report = report;
 		this.description = description;
 		this.name = name;
 		this.startedDate = startedDate;
@@ -44,14 +42,6 @@ public class LDWorkflowExecution extends BaseModel {
 
 	public void setLdwStepExecutions(List<LDWStepExecution> ldwStepExecutions) {
 		this.ldwStepExecutions = ldwStepExecutions;
-	}
-
-	public Report getReport() {
-		return report;
-	}
-
-	public void setReport(Report report) {
-		this.report = report;
 	}
 
 	public String getDescription() {
