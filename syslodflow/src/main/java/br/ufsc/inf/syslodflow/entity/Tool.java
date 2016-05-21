@@ -15,6 +15,7 @@ public class Tool extends BaseModel implements Serializable {
 		
 	}
 	
+	
 	public Tool(String name, Location location, List<ToolConfiguration> toolConfigurations, String uri) {
 		
 		this.name = name;
@@ -56,8 +57,30 @@ public class Tool extends BaseModel implements Serializable {
 	public void setUri(String uri) {
 		this.uri = uri;
 	}
+
+	@Override
+	public int hashCode() {
+		return (name == null) ? 0 : name.hashCode();
+	}
 	
 	
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) return false;
+		if (obj instanceof Tool) {
+			return ((Tool)obj).getName().equals(this.name);
+		} 
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "Tool [name=" + name + "]";
+	}
+	
+	
+
 	
 	
 	
