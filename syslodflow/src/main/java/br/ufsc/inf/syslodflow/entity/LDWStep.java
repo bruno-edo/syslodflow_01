@@ -30,6 +30,7 @@ public class LDWStep extends BaseModel {
 		this.tool = tool;
 		this.toolConfiguration = toolConfiguration;
 		this.ldwStepExecutions = ldwStepExecutions;
+		this.order = order;
 		this.uri = uri;
 	}
 

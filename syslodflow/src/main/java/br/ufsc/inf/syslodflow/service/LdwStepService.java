@@ -136,25 +136,19 @@ public class LdwStepService extends BaseService {
 	private int getOrder(OntModel model, Individual ontLdwStep) {
 
 		int order;
-		if (!ontLdwStep.hasProperty(model
-				.getProperty(PropertyURIEnum.PREVIOUSSTEP.getUri()))) {
+		if (!ontLdwStep.hasProperty(model.getProperty(PropertyURIEnum.PREVIOUSSTEP.getUri()))) {
 			order = StepOrderEnum.FIRST.getOrder();
 		}
 
 		else {
 
-			if (!ontLdwStep.hasProperty(model
-					.getProperty(PropertyURIEnum.NEXTSTEP.getUri()))) {
+			if (!ontLdwStep.hasProperty(model.getProperty(PropertyURIEnum.NEXTSTEP.getUri()))) {
 				order = StepOrderEnum.FIFTH.getOrder();
 			}
 
 			else {
 
-				if (!ontLdwStep.getPropertyResourceValue(
-						model.getProperty(PropertyURIEnum.NEXTSTEP.getUri()))
-						.hasProperty(
-								model.getProperty(PropertyURIEnum.NEXTSTEP
-										.getUri()))) {
+				if (!ontLdwStep.getPropertyResourceValue(model.getProperty(PropertyURIEnum.NEXTSTEP.getUri())).hasProperty(model.getProperty(PropertyURIEnum.NEXTSTEP.getUri()))) {
 					order = StepOrderEnum.FOURTH.getOrder();
 
 				} else {
