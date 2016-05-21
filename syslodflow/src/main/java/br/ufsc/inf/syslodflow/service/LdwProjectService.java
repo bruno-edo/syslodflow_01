@@ -17,7 +17,6 @@ import br.ufsc.inf.syslodflow.enumerator.ClassURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
 
 import com.hp.hpl.jena.ontology.Individual;
-import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.rdf.model.Resource;
 
@@ -77,35 +76,14 @@ public class LdwProjectService extends BaseService {
 		String reportLocationValue = getPropertyStringValue(reportLocation, model, PropertyURIEnum.VALUE.getUri());
 		
 		Resource workflow = ontProject.getPropertyResourceValue(model.getProperty(PropertyURIEnum.LDWORKFLOW.getUri()));
-		
 		LDWorkflow ldWorkflow = ldwWorkflowService.getLDWorkflow(model, model.getIndividual(workflow.getURI()));
 		
-		Person ldwProjectCreator = new Person();
-		ldwProjectCreator.setName(creatorName);
+		Person ldwProjectCreator = new Person(creatorName, creator.getURI());
+		Homepage ldwProjectHomepage = new Homepage(homepageName, new Location(homepageLocationValue, homepageLocation.getURI()), homepage.getURI());
+		Report ldwProjectReport = new Report(reportName, new Location(reportLocationValue, reportLocation.getURI()), report.getURI());
 		
-		Homepage ldwProjectHomepage = new Homepage();
-		ldwProjectHomepage.setName(homepageName);
-		Location ldwProjectHomepageLocation = new Location();
-		ldwProjectHomepageLocation.setValue(homepageLocationValue);
-		ldwProjectHomepage.setLocation(ldwProjectHomepageLocation);
-		
-		Report ldwProjectReport = new Report();
-		ldwProjectReport.setName(reportName);
-		Location ldwProjectReportLocation = new Location();
-		ldwProjectReportLocation.setValue(reportLocationValue);
-		ldwProjectReport.setLocation(ldwProjectReportLocation);
-		
-		
-		LDWProject ldwProject = new LDWProject();
-		ldwProject.setName(ldwProjectName);
-		ldwProject.setDescription(ldwProjectDescription);
-		ldwProject.setGoal(ldwProjectGoal);
-		ldwProject.setCreator(ldwProjectCreator);
-		ldwProject.setHomePage(ldwProjectHomepage);
-		ldwProject.setReport(ldwProjectReport);
-		ldwProject.setLdWorkFlow(ldWorkflow);
-		
-		return ldwProject;
+		return new LDWProject(ldwProjectName, ldwProjectDescription, ldwProjectGoal, ldwProjectCreator,
+				ldwProjectHomepage, ldwProjectReport, ldWorkflow, ontProject.getURI());
 		
 	}
 	
@@ -137,7 +115,6 @@ public class LdwProjectService extends BaseService {
 				model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()),
 				project.getDescription());
 
-		// Verifica existência de Criador
 		if (URIalreadyExists(model, project.getCreator().getUri())) {
 			Individual ldwProjectCreator = model
 					.getIndividual(ldwProject
@@ -160,7 +137,6 @@ public class LdwProjectService extends BaseService {
 					ldwProjectCreator);
 		}
 
-		// Verifica existência de Homepage
 		if (URIalreadyExists(model, project.getHomePage().getUri())) {
 			Individual ldwProjectHomepage = model
 					.getIndividual(ldwProject
@@ -198,7 +174,6 @@ public class LdwProjectService extends BaseService {
 					ldwProjectHomepage);
 		}
 
-		// Verifica existência de Report
 
 		if (URIalreadyExists(model, project.getReport().getUri())) {
 			Individual ldwProjectReport = model.getIndividual(ldwProject
@@ -244,6 +219,75 @@ public class LdwProjectService extends BaseService {
 	}
 
 	private void insertLdwProject(OntModel model, LDWProject project) {
+	
+		Individual ldwProject = model.getOntClass(ClassURIEnum.LDWPROJECT.getUri()).createIndividual(project.getUri());
+		
+		ldwProject.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()),
+				project.getName());
+		ldwProject.addLiteral(model.getProperty(PropertyURIEnum.GOAL.getUri()),
+				project.getGoal());
+		ldwProject.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()),
+				project.getDescription());
+		
+		if (URIalreadyExists(model, project.getCreator().getUri())) {
+			Individual ldwProjectCreator = model
+					.getIndividual(ldwProject
+							.getPropertyResourceValue(
+									model.getProperty(PropertyURIEnum.CREATOR
+											.getUri())).getURI());
+			ldwProject.addProperty(
+					model.getProperty(PropertyURIEnum.CREATOR.getUri()),
+					ldwProjectCreator);
+		} 
+		else {
+			Individual ldwProjectCreator = model.getOntClass(
+					ClassURIEnum.PERSON.getUri()).createIndividual(
+					project.getCreator().getUri());
+			ldwProjectCreator.addLiteral(model.getProperty(PropertyURIEnum.NAME
+					.getUri()), project.getCreator().getName());
+			ldwProject.addProperty(
+					model.getProperty(PropertyURIEnum.CREATOR.getUri()),
+					ldwProjectCreator);
+		}
+		
+		
+			Individual ldwProjectHomepage = model.getOntClass(
+					ClassURIEnum.HOMEPAGE.getUri()).createIndividual(
+					project.getHomePage().getUri());
+			ldwProjectHomepage.addLiteral(model
+					.getProperty(PropertyURIEnum.NAME.getUri()), project
+					.getHomePage().getName());
+			Individual ldwProjectHomepageLocation = model.getOntClass(
+					ClassURIEnum.LOCATION.getUri()).createIndividual(
+					project.getHomePage().getLocation().getUri());
+			ldwProjectHomepageLocation.addLiteral(
+					model.getProperty(PropertyURIEnum.VALUE.getUri()), project
+							.getHomePage().getLocation().getValue());
+			ldwProjectHomepage.addProperty(
+					model.getProperty(PropertyURIEnum.LOCATION.getUri()),
+					ldwProjectHomepageLocation);
+			ldwProject.addProperty(
+					model.getProperty(PropertyURIEnum.HOMEPAGE.getUri()),
+					ldwProjectHomepage);
+			
+			Individual ldwProjectReport = model.getOntClass(
+					ClassURIEnum.REPORT.getUri()).createIndividual(
+					project.getReport().getUri());
+			ldwProjectReport.addLiteral(model.getProperty(PropertyURIEnum.NAME
+					.getUri()), project.getReport().getName());
+			Individual ldwProjectReportLocation = model.getOntClass(
+					ClassURIEnum.LOCATION.getUri()).createIndividual(
+					project.getReport().getLocation().getUri());
+			ldwProjectReportLocation.addLiteral(
+					model.getProperty(PropertyURIEnum.VALUE.getUri()), project
+							.getReport().getLocation().getValue());
+			ldwProjectReport.addProperty(
+					model.getProperty(PropertyURIEnum.LOCATION.getUri()),
+					ldwProjectReportLocation);
+			ldwProject.addProperty(
+					model.getProperty(PropertyURIEnum.REPORT.getUri()),
+					ldwProjectReport);
+		
 		
 	}
 	

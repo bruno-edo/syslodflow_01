@@ -6,8 +6,11 @@ public class Report extends BaseModel {
 	private Location location;
 	private String uri;
 
-	public Report() {
+	public Report(String name, Location location, String uri) {
 		
+		this.name = name;
+		this.location = location;
+		this.uri = uri;
 	}
 
 	public String getName() {

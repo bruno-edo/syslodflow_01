@@ -10,6 +10,13 @@ public class Homepage extends BaseModel {
 		
 	}
 	
+	public Homepage(String name, Location location, String uri) {
+		this.name = name;
+		this.location = location;
+		this.uri = uri;
+		
+	}
+
 	public String getName() {
 		return name;
 	}

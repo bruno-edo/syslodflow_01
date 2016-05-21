@@ -4,7 +4,7 @@ import java.util.List;
 
 
 public class LDWorkflowExecution extends BaseModel {
-	
+
 	private LDWStepExecution firstLdwStepExecution;
 	private List<LDWStepExecution> ldwStepExecutions;
 	private Report report;
@@ -14,8 +14,20 @@ public class LDWorkflowExecution extends BaseModel {
 	private String endedDate;
 	private String uri;
 	
-	public LDWorkflowExecution() {
+	
+	public LDWorkflowExecution(LDWStepExecution firstLdwStepExecution,
+			List<LDWStepExecution> ldwStepExecutions, Report report,
+			String description, String name, String startedDate,
+			String endedDate, String uri) {
 		
+		this.firstLdwStepExecution = firstLdwStepExecution;
+		this.ldwStepExecutions = ldwStepExecutions;
+		this.report = report;
+		this.description = description;
+		this.name = name;
+		this.startedDate = startedDate;
+		this.endedDate = endedDate;
+		this.uri = uri;
 	}
 
 	public LDWStepExecution getFirstLdwStepExecution() {

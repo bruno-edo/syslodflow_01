@@ -4,13 +4,11 @@ public class Location extends BaseModel {
 	
 	private String value;
 	private String uri;
-	
-	public Location() {
-		
-	}
 
-	public Location(String value) {
+
+	public Location(String value, String uri) {
 		this.value = value;
+		this.uri = uri;
 	}
 
 	public String getValue() {

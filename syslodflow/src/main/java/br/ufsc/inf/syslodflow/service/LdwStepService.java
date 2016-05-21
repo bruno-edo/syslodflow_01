@@ -1,9 +1,17 @@
 package br.ufsc.inf.syslodflow.service;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+
+import org.primefaces.model.UploadedFile;
 
 import br.ufsc.inf.syslodflow.entity.Dataset;
 import br.ufsc.inf.syslodflow.entity.Format;
@@ -36,7 +44,7 @@ public class LdwStepService extends BaseService {
 		Individual ldwStepTask = model.getIndividual(ontLdwStep.getPropertyResourceValue(model.getProperty(PropertyURIEnum.TASK.getUri())).getURI());
 		String ldwStepTaskName = getPropertyStringValue(ldwStepTask, model, PropertyURIEnum.NAME.getUri());
 		String ldwStepTaskDescription = getPropertyStringValue(ldwStepTask, model, PropertyURIEnum.DESCRIPTION.getUri());
-		Task task = new Task(ldwStepTaskName, ldwStepTaskDescription);
+		Task task = new Task(ldwStepTaskName, ldwStepTaskDescription, ldwStepTask.getURI());
 		
 		//InputDataSet
 		Individual ldwStepInputDataset = getSubIndividualByProperty(model, ontLdwStep, PropertyURIEnum.INPUTDATASET.getUri());
@@ -60,7 +68,7 @@ public class LdwStepService extends BaseService {
 		}
 
 
-		return new LDWStep(ldwStepName, ldwStepDescription, ldwStepCommand, task, inputDataset, outputDataset, tool, toolConfig, ldwStepExecutions, order);
+		return new LDWStep(ldwStepName, ldwStepDescription, ldwStepCommand, task, inputDataset, outputDataset, tool, toolConfig, ldwStepExecutions, order, ontLdwStep.getURI());
 
 	}
 
@@ -71,17 +79,17 @@ public class LdwStepService extends BaseService {
 
 			Individual ontFormat = model.getIndividual(ontDataset.getPropertyResourceValue(model.getProperty(PropertyURIEnum.FORMAT.getUri())).getURI());
 			String formatValue = getPropertyStringValue(ontFormat, model, PropertyURIEnum.VALUE.getUri());
-			Format format = new Format(formatValue);
+			Format format = new Format(formatValue, ontFormat.getURI());
 
 			Individual ontLicense = model.getIndividual(ontDataset.getPropertyResourceValue(model.getProperty(PropertyURIEnum.LICENSE.getUri())).getURI());
 			String licenseName = getPropertyStringValue(ontLicense, model, PropertyURIEnum.NAME.getUri());
-			License license = new License(licenseName);
+			License license = new License(licenseName, ontLicense.getURI());
 
 			Individual ontLocation = model.getIndividual(ontDataset.getPropertyResourceValue(model.getProperty(PropertyURIEnum.LOCATION.getUri())).getURI());
 			String locationValue = getPropertyStringValue(ontLocation, model, PropertyURIEnum.VALUE.getUri());
-			Location location = new Location(locationValue);
+			Location location = new Location(locationValue, ontLocation.getURI());
 
-			return new Dataset(dataSetName, format, license, location);
+			return new Dataset(dataSetName, format, license, location, ontDataset.getURI());
 		}
 		return null;
 
@@ -100,7 +108,7 @@ public class LdwStepService extends BaseService {
 				toolConfigurations.add(this.getToolConfiguration(model, node));		
 			}
 
-			return new Tool(toolName, new Location(locationValue), toolConfigurations);
+			return new Tool(toolName, new Location(locationValue, ontLocation.getURI()), toolConfigurations, ontTool.getURI());
 		}
 		return null;
 
@@ -114,7 +122,7 @@ public class LdwStepService extends BaseService {
 			Individual toolConfigLocation = model.getIndividual(individual.getPropertyResourceValue(model.getProperty(PropertyURIEnum.LOCATION.getUri())).getURI());
 			String toolConfiglocationValue = getPropertyStringValue(toolConfigLocation, model, PropertyURIEnum.VALUE.getUri());
 
-			return new ToolConfiguration(toolConfigName, new Location(toolConfiglocationValue));
+			return new ToolConfiguration(toolConfigName, new Location(toolConfiglocationValue, toolConfigLocation.getURI()), individual.getURI());
 		}
 		return null;
 
@@ -162,8 +170,54 @@ public class LdwStepService extends BaseService {
 		}
 		
 		return order;
-		
 	}
+		
+	
+	
+
+	
+	
+	
+	public List<Tool> getListTools(OntModel model) {
+		List<Individual> individuals = listIndividuals(model.getOntClass("http://ldwpo.aksw.org/terms/1.0/Tool"));
+		List<Tool> toolList = new ArrayList<Tool>();
+		for(Individual i: individuals) {
+			Tool tool = getTool(model, i);
+			toolList.add(tool);
+		}
+		return toolList;
+	}
+	
+	
+	public String saveFile(UploadedFile file, String projectName) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		String filePath = fc.getExternalContext().getInitParameter("filePath").toString();
+		filePath = filePath + "\\" + projectName;
+		String fileName = file.getFileName();
+		String extensao = "";
+		
+		try {
+			File targetFolder = new File(filePath);
+			if (!targetFolder.exists()) {
+				targetFolder.mkdirs();
+			} 
+			InputStream inputStream = file.getInputstream();
+			OutputStream out = new FileOutputStream(new File(targetFolder, fileName));
+			int read = 0;
+			byte[] bytes = new byte[1024];
+			while ((read = inputStream.read(bytes)) != -1) {
+				out.write(bytes, 0, read);
+			}
+			inputStream.close();
+			out.flush();
+			out.close();
+			return fileName + "." + extensao;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "Erro ao salvar";
+		}
+	}
+	
 
 
 

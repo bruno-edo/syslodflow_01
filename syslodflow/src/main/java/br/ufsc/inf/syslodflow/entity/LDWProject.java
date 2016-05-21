@@ -13,8 +13,24 @@ public class LDWProject extends BaseModel {
 	private String fileName;
 	private String uri;
 	
-	public LDWProject() {
+	public LDWProject(String name, String description,
+			String goal, Person creator,
+			Homepage homePage, Report report,
+			LDWorkflow ldWorkFlow, String uri) {
 		
+		this.creator = creator;
+		this.homePage = homePage;
+		this.ldWorkFlow = ldWorkFlow;
+		this.report = report;
+		this.goal = goal;
+		this.description = description;
+		this.name = name;
+		this.uri = uri;
+		
+	}
+
+	public LDWProject() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public Person getCreator() {

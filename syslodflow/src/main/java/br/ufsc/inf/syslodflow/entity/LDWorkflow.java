@@ -12,9 +12,20 @@ public class LDWorkflow extends BaseModel {
 	private List<LDWorkflowExecution> ldWorkFlowExecutions;
 	private List<LDWStep> ldwSteps;
 	private String uri;
-	
-	public LDWorkflow() {
+
+	public LDWorkflow(String description, String name, Condition preCondition,
+			Condition postCondition, LDWStep firstLdwStep,
+			List<LDWorkflowExecution> ldWorkFlowExecutions,
+			List<LDWStep> ldwSteps, String uri) {
 		
+		this.description = description;
+		this.name = name;
+		this.preCondition = preCondition;
+		this.postCondition = postCondition;
+		this.firstLdwStep = firstLdwStep;
+		this.ldWorkFlowExecutions = ldWorkFlowExecutions;
+		this.ldwSteps = ldwSteps;
+		this.uri = uri;
 	}
 
 	public LDWStep getFirstLdwStep() {

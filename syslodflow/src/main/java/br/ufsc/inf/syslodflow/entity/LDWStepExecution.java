@@ -23,7 +23,7 @@ public class LDWStepExecution extends BaseModel {
 			String description, Status status, Message message,
 			Person contributor, String startedDate,
 			String endedDate, LDWStepExecutionDTO nextStep,
-			LDWStepExecutionDTO previousStep) {
+			LDWStepExecutionDTO previousStep, String uri) {
 		
 		this.name = name;
 		this.description = description;
@@ -34,6 +34,7 @@ public class LDWStepExecution extends BaseModel {
 		this.endedDate = endedDate;
 		this.nextStep = nextStep;
 		this.previousStep = previousStep;
+		this.uri = uri;
 	}
 
 	public Status getStatus() {

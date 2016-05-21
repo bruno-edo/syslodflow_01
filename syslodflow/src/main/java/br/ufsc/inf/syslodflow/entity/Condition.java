@@ -5,12 +5,9 @@ public class Condition extends BaseModel {
 	private String description;
 	private String uri;
 	
-	public Condition() {
-		
-	}
-	
-	public Condition(String description) {
+	public Condition(String description, String uri) {
 		this.description = description;
+		this.uri = uri;
 		
 	}
 

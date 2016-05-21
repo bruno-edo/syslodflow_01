@@ -5,14 +5,11 @@ public class Task extends BaseModel {
 	private String name;
 	private String description;
 	private String uri;
-	
-	public Task() {
-		
-	}
 
-	public Task(String name, String description) {
+	public Task(String name, String description, String uri) {
 		this.name = name;
 		this.description = description;
+		this.uri = uri;
 	}
 
 	public String getName() {

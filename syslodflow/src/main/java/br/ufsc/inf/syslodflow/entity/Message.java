@@ -5,8 +5,9 @@ public class Message extends BaseModel {
 	private String value;
 	private String uri;
 	
-	public Message() {
-		
+	public Message(String value, String uri) {
+		this.value = value;
+		this.uri = uri;
 	}
 
 	public Message(String value) {

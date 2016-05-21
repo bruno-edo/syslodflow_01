@@ -16,15 +16,10 @@ public class LDWStep extends BaseModel {
 	private String uri;
 	private int order;
 
-
-	public LDWStep() {
-		
-	}
-
 	public LDWStep(String name, String description,
 			String command, Task task, Dataset inputDataset,
 			Dataset outputDataset, Tool tool, ToolConfiguration toolConfiguration,
-			List<LDWStepExecution> ldwStepExecutions, int order) {
+			List<LDWStepExecution> ldwStepExecutions, int order, String uri) {
 		
 		this.name = name;
 		this.description = description;
@@ -35,6 +30,7 @@ public class LDWStep extends BaseModel {
 		this.tool = tool;
 		this.toolConfiguration = toolConfiguration;
 		this.ldwStepExecutions = ldwStepExecutions;
+		this.uri = uri;
 	}
 
 	public Dataset getInputDataset() {

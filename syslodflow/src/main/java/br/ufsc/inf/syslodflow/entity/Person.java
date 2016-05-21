@@ -5,12 +5,9 @@ public class Person extends BaseModel {
 	private String name;
 	private String uri;
 	
-	public Person() {
-		
-	}
-
-	public Person(String name) {
+	public Person(String name, String uri) {
 		this.name = name;
+		this.uri = uri;
 	}
 
 	public String getName() {

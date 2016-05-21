@@ -5,8 +5,9 @@ public class Status extends BaseModel {
 	private String value;
 	private String uri;
 	
-	public Status() {
-		
+	public Status(String value, String uri) {
+		this.value = value;
+		this.uri = uri;
 	}
 
 	public Status(String value) {

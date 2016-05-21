@@ -1,19 +1,26 @@
 package br.ufsc.inf.syslodflow.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Tool extends BaseModel {
+public class Tool extends BaseModel implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private Location location;
 	private List<ToolConfiguration> toolConfigurations;
 	private String uri;
 	
-	public Tool(String name, Location location, List<ToolConfiguration> toolConfigurations) {
+	public Tool() {
+		
+	}
+	
+	public Tool(String name, Location location, List<ToolConfiguration> toolConfigurations, String uri) {
 		
 		this.name = name;
 		this.location = location;
 		this.toolConfigurations = toolConfigurations;
+		this.uri = uri;
 	}
 
 	public String getName() {

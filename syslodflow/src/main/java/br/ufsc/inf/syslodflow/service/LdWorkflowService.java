@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import br.ufsc.inf.syslodflow.entity.Condition;
+import br.ufsc.inf.syslodflow.entity.LDWProject;
 import br.ufsc.inf.syslodflow.entity.LDWStep;
 import br.ufsc.inf.syslodflow.entity.LDWorkflow;
 import br.ufsc.inf.syslodflow.entity.LDWorkflowExecution;
@@ -33,7 +34,7 @@ public class LdWorkflowService extends BaseService {
 		
 		StmtIterator iter = ontLdWorkflow.listProperties(model.getProperty(PropertyURIEnum.LDWSTEP.getUri()));
 		List<LDWStep> ldwSteps = new ArrayList<LDWStep>();
-		LDWStep firstLdwStep = new LDWStep();
+		LDWStep firstLdwStep = null;
 		while (iter.hasNext()){
 			Individual node = model.getIndividual(iter.nextStatement().getResource().getURI());
 			if(this.isFirstLdwStep(model, ontLdWorkflow, node)) {
@@ -42,16 +43,9 @@ public class LdWorkflowService extends BaseService {
 			ldwSteps.add(ldwStepService.getLdwStep(model, node));		
 		}
 		
-		LDWorkflow ldWorkflow = new LDWorkflow();
-		ldWorkflow.setName(ldwWorkflowName);
-		ldWorkflow.setDescription(ldwWorkflowDescription);
-		ldWorkflow.setPreCondition(new Condition(ldwWorkflowPreConditionDescription));
-		ldWorkflow.setPostCondition(new Condition(ldwWorkflowPostConditionDescription));
-		ldWorkflow.setFirstLdwStep(firstLdwStep);
-		ldWorkflow.setLdwSteps(ldwSteps);
-		ldWorkflow.setLdWorkFlowExecutions(this.listLdWorkflowExecutions(model, ontLdWorkflow));
-		
-		return ldWorkflow;
+		return new LDWorkflow(ldwWorkflowDescription, ldwWorkflowName, new Condition(ldwWorkflowPreConditionDescription, ldwWorkflowPreCondition.getURI()), 
+				new Condition(ldwWorkflowPostConditionDescription, ldwWorkflowPostCondition.getURI()), 
+				firstLdwStep, this.listLdWorkflowExecutions(model, ontLdWorkflow) , ldwSteps, ontLdWorkflow.getURI());
 	}
 	
 	public boolean isFirstLdwStep(OntModel model, Individual ontLdWorkflow, Individual ontLdwStep) {
@@ -71,5 +65,45 @@ public class LdWorkflowService extends BaseService {
 		
 		return ldWorkflowExecutions;
 	}
+	
+	
+	public void writeLdwWorkflow(OntModel model, LDWorkflow workflow) {
+		
+		if (URIalreadyExists(model, workflow.getUri()))
+			editLdWorkflow(model, workflow);
+		else 
+			insertLdWorkflow(model, workflow);
+	}
+	
+	private void editLdWorkflow(OntModel model, LDWorkflow workflow) {
+		
+		Individual ldworkflow = model.getIndividual(workflow.getUri());
+		
+		ldworkflow.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
+		ldworkflow.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), workflow.getName());
+		
+		ldworkflow.removeAll(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()));
+		ldworkflow.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), workflow.getName());
+		
+		Individual preCondition = model.getIndividual(ldworkflow.getPropertyResourceValue(model.getProperty(PropertyURIEnum.PRECONDITION.getUri())).getURI());
+		preCondition.removeAll(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()));
+		preCondition.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), workflow.getPreCondition().getDescription());
+		
+		Individual postCondition = model.getIndividual(ldworkflow.getPropertyResourceValue(model.getProperty(PropertyURIEnum.POSTCONDITION.getUri())).getURI());
+		postCondition.removeAll(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()));
+		postCondition.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), workflow.getPreCondition().getDescription());
+		
+		
+	}
+
+	private void insertLdWorkflow(OntModel model, LDWorkflow workflow) {
+		
+		
+		
+	}
+
+
+	
+	
 
 }

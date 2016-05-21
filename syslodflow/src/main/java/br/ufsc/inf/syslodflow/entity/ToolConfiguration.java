@@ -10,9 +10,10 @@ public class ToolConfiguration extends BaseModel {
 		
 	}
 
-	public ToolConfiguration(String name, Location location) {
+	public ToolConfiguration(String name, Location location, String uri) {
 		this.name = name;
 		this.location = location;
+		this.uri = uri;
 	}
 
 	public String getName() {

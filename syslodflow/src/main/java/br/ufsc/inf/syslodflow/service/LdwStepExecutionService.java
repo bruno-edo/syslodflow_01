@@ -19,15 +19,15 @@ public class LdwStepExecutionService extends BaseService {
 		
 		Individual ldwStepExecutionStatus = model.getIndividual(ontLdwStepExec.getPropertyResourceValue(model.getProperty(PropertyURIEnum.STATUS.getUri())).getURI());
 		String ldwStepExecutionStatusValue = getPropertyStringValue(ldwStepExecutionStatus, model, PropertyURIEnum.VALUE.getUri());
-		Status status = new Status(ldwStepExecutionStatusValue);
+		Status status = new Status(ldwStepExecutionStatusValue, ldwStepExecutionStatus.getURI());
 		
 		Individual ldwStepExecutionMessage = model.getIndividual(ontLdwStepExec.getPropertyResourceValue(model.getProperty(PropertyURIEnum.MESSAGE.getUri())).getURI());
 		String ldwStepExecutionStatusMessageValue = getPropertyStringValue(ldwStepExecutionMessage, model, PropertyURIEnum.VALUE.getUri());
-		Message msg = new Message(ldwStepExecutionStatusMessageValue);
+		Message msg = new Message(ldwStepExecutionStatusMessageValue, ldwStepExecutionMessage.getURI());
 		
 		Individual ldwStepExecutionContributor = model.getIndividual(ontLdwStepExec.getPropertyResourceValue(model.getProperty(PropertyURIEnum.CONTRIBUTOR.getUri())).getURI());
 		String ldwStepExecutionContributorName = getPropertyStringValue(ldwStepExecutionContributor, model, PropertyURIEnum.NAME.getUri());
-		Person contributor = new Person(ldwStepExecutionContributorName);
+		Person contributor = new Person(ldwStepExecutionContributorName, ldwStepExecutionContributor.getURI());
 		
 		String ldwStepExecutionStartedDate = getPropertyStringValue(ontLdwStepExec, model, PropertyURIEnum.STARTEDDATE.getUri());
 		String ldwStepExecutionEndedDate = getPropertyStringValue(ontLdwStepExec, model, PropertyURIEnum.ENDEDDATE.getUri());
@@ -36,7 +36,7 @@ public class LdwStepExecutionService extends BaseService {
 		LDWStepExecutionDTO previousStep = this.getPreviousStepExecution(model, ontLdwStepExec);
 		
 		return new LDWStepExecution(ldwStepExecutionName, ldwStepExecutionDescription, status, msg, contributor, ldwStepExecutionStartedDate, ldwStepExecutionEndedDate,
-				nextStep, previousStep);
+				nextStep, previousStep, ontLdwStepExec.getURI());
 	}
 	
 	private LDWStepExecutionDTO getNextStepExecution(OntModel model, Individual stepExecution) {

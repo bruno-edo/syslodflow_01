@@ -7,17 +7,15 @@ public class Dataset extends BaseModel {
 	private Location location;
 	private String name;
 	private String uri;
-	
-	public Dataset() {
-		
-	}
+
 	
 	public Dataset(String name, Format format, License license,
-			Location location) {
+			Location location, String uri) {
 		this.name = name;
 		this.format = format;
 		this.location = location;
 		this.license = license;
+		this.uri = uri;
 	}
 
 	public Format getFormat() {
