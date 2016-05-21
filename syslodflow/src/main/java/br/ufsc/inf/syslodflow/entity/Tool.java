@@ -11,10 +11,12 @@ public class Tool extends BaseModel implements Serializable {
 	private List<ToolConfiguration> toolConfigurations;
 	private String uri;
 	
-	public Tool() {
+	public Tool(String name, List<ToolConfiguration> toolConfigurations, String uri) {
 		
+		this.name = name;
+		this.toolConfigurations = toolConfigurations;
+		this.uri = uri;
 	}
-	
 	
 	public Tool(String name, Location location, List<ToolConfiguration> toolConfigurations, String uri) {
 		

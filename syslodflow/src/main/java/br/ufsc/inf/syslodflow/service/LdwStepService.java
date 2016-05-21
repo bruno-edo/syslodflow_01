@@ -22,7 +22,6 @@ import br.ufsc.inf.syslodflow.entity.Location;
 import br.ufsc.inf.syslodflow.entity.Task;
 import br.ufsc.inf.syslodflow.entity.Tool;
 import br.ufsc.inf.syslodflow.entity.ToolConfiguration;
-import br.ufsc.inf.syslodflow.enumerator.ClassURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.StepOrderEnum;
 
@@ -99,17 +98,22 @@ public class LdwStepService extends BaseService {
 	private Tool getTool(OntModel model, Individual ontTool) {
 		if(ontTool != null) {
 			String toolName = getPropertyStringValue(ontTool, model, PropertyURIEnum.NAME.getUri());
-			Individual ontLocation = getSubIndividualByProperty(model, ontTool, PropertyURIEnum.LOCATION.getUri());
-			String locationValue = getPropertyStringValue(ontLocation, model, PropertyURIEnum.VALUE.getUri());
-
 			StmtIterator iter = ontTool.listProperties(model.getProperty(PropertyURIEnum.TOOLCONFIGURATION.getUri()));
 			List<ToolConfiguration> toolConfigurations = new ArrayList<ToolConfiguration>();
 			while (iter.hasNext()){
 				Individual node = model.getIndividual(iter.nextStatement().getResource().getURI());
 				toolConfigurations.add(this.getToolConfiguration(model, node));		
 			}
-
+			
+			if(ontTool.hasProperty(model.getProperty(PropertyURIEnum.LOCATION.getUri()))) {
+			Individual ontLocation = getSubIndividualByProperty(model, ontTool, PropertyURIEnum.LOCATION.getUri());
+			String locationValue = getPropertyStringValue(ontLocation, model, PropertyURIEnum.VALUE.getUri());
 			return new Tool(toolName, new Location(locationValue, ontLocation.getURI()), toolConfigurations, ontTool.getURI());
+			}
+			else {
+				return new Tool(toolName, toolConfigurations, ontTool.getURI());
+			}
+
 		}
 		return null;
 
