@@ -155,7 +155,7 @@ public class LdwStepService extends BaseService {
 
 				} else {
 
-					if (ontLdwStep.getPropertyResourceValue(
+					if (!ontLdwStep.getPropertyResourceValue(
 							model.getProperty(PropertyURIEnum.PREVIOUSSTEP
 									.getUri())).hasProperty(
 							model.getProperty(PropertyURIEnum.PREVIOUSSTEP
