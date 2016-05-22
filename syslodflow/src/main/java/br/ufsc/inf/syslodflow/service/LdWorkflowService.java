@@ -6,7 +6,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import br.ufsc.inf.syslodflow.entity.Condition;
-import br.ufsc.inf.syslodflow.entity.LDWProject;
 import br.ufsc.inf.syslodflow.entity.LDWStep;
 import br.ufsc.inf.syslodflow.entity.LDWorkflow;
 import br.ufsc.inf.syslodflow.entity.LDWorkflowExecution;
@@ -93,6 +92,12 @@ public class LdWorkflowService extends BaseService {
 		Individual postCondition = model.getIndividual(ldworkflow.getPropertyResourceValue(model.getProperty(PropertyURIEnum.POSTCONDITION.getUri())).getURI());
 		postCondition.removeAll(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()));
 		postCondition.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), workflow.getPreCondition().getDescription());
+		
+		List<LDWStep> sortedLDWSteps = sortLDWSteps(workflow.getLdwSteps());
+		for(int i=0; i<sortedLDWSteps.size(); i++) {
+			ldwStepService.editLdwStep(model, sortedLDWSteps.get(i));
+		}
+		
 	}
 
 	private void insertLdWorkflow(OntModel model, LDWorkflow workflow) {
@@ -110,12 +115,32 @@ public class LdWorkflowService extends BaseService {
 		preCondition.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), workflow.getPostCondition().getDescription());
 		ldworkflow.addProperty(model.getProperty(PropertyURIEnum.POSTCONDITION.getUri()), postCondition);
 		
+		List<LDWStep> sortedLDWSteps = sortLDWSteps(workflow.getLdwSteps());
+		for(int i=0; i<sortedLDWSteps.size(); i++) {
+			ldwStepService.insertLdwStep(model, sortedLDWSteps.get(i));
+			ldworkflow.addProperty(model.getProperty(PropertyURIEnum.LDWSTEP.getUri()), model.getIndividual(sortedLDWSteps.get(i).getUri()));
+		}
 		
 		
+		ldworkflow.addProperty(model.getProperty(PropertyURIEnum.FIRSTLDWSTEP.getUri()), model.getIndividual(sortedLDWSteps.get(0).getUri()));
+		model.getIndividual(sortedLDWSteps.get(0).getUri()).addProperty(model.getProperty(PropertyURIEnum.NEXTSTEP.getUri()), model.getIndividual(sortedLDWSteps.get(1).getUri()));
+		model.getIndividual(sortedLDWSteps.get(1).getUri()).addProperty(model.getProperty(PropertyURIEnum.NEXTSTEP.getUri()), model.getIndividual(sortedLDWSteps.get(2).getUri()));
+		model.getIndividual(sortedLDWSteps.get(1).getUri()).addProperty(model.getProperty(PropertyURIEnum.PREVIOUSSTEP.getUri()), model.getIndividual(sortedLDWSteps.get(0).getUri()));
+		model.getIndividual(sortedLDWSteps.get(2).getUri()).addProperty(model.getProperty(PropertyURIEnum.NEXTSTEP.getUri()), model.getIndividual(sortedLDWSteps.get(3).getUri()));
+		model.getIndividual(sortedLDWSteps.get(2).getUri()).addProperty(model.getProperty(PropertyURIEnum.PREVIOUSSTEP.getUri()), model.getIndividual(sortedLDWSteps.get(2).getUri()));
+		model.getIndividual(sortedLDWSteps.get(3).getUri()).addProperty(model.getProperty(PropertyURIEnum.NEXTSTEP.getUri()), model.getIndividual(sortedLDWSteps.get(4).getUri()));
+		model.getIndividual(sortedLDWSteps.get(3).getUri()).addProperty(model.getProperty(PropertyURIEnum.PREVIOUSSTEP.getUri()), model.getIndividual(sortedLDWSteps.get(2).getUri()));
+		model.getIndividual(sortedLDWSteps.get(4).getUri()).addProperty(model.getProperty(PropertyURIEnum.PREVIOUSSTEP.getUri()), model.getIndividual(sortedLDWSteps.get(3).getUri()));
 		
-		
-		
-		
+	}
+	
+	@SuppressWarnings("null")
+	private List<LDWStep> sortLDWSteps(List<LDWStep> ldwsteps) {
+		List<LDWStep> sortedList = null;
+		for(int i=0; i<ldwsteps.size(); i++) {
+			sortedList.add(ldwsteps.get(i).getOrder()-1, ldwsteps.get(i));
+		}
+		return sortedList;
 	}
 
 

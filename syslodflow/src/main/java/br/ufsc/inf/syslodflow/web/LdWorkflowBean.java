@@ -50,7 +50,6 @@ public class LdWorkflowBean {
 	@PostConstruct
 	public void init() {
 		this.tab = 0;
-		
 
 	}
 	public String doEdit(LDWProjectDTO projectSelected){

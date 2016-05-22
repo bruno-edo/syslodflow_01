@@ -4,7 +4,7 @@ import java.util.List;
 
 public class LDWStep extends BaseModel {
 	
-	private Dataset inputDataset;
+	private List<Dataset> inputDatasets;
 	private Dataset outputDataset;
 	private List<LDWStepExecution> ldwStepExecutions;
 	private Tool tool;
@@ -17,7 +17,7 @@ public class LDWStep extends BaseModel {
 	private int order;
 
 	public LDWStep(String name, String description,
-			String command, Task task, Dataset inputDataset,
+			String command, Task task, List<Dataset> inputDatasets,
 			Dataset outputDataset, Tool tool, ToolConfiguration toolConfiguration,
 			List<LDWStepExecution> ldwStepExecutions, int order, String uri) {
 		
@@ -25,7 +25,7 @@ public class LDWStep extends BaseModel {
 		this.description = description;
 		this.command = command;
 		this.task = task;
-		this.inputDataset = inputDataset;
+		this.inputDatasets = inputDatasets;
 		this.outputDataset = outputDataset;
 		this.tool = tool;
 		this.toolConfiguration = toolConfiguration;
@@ -34,12 +34,12 @@ public class LDWStep extends BaseModel {
 		this.uri = uri;
 	}
 
-	public Dataset getInputDataset() {
-		return inputDataset;
+	public List<Dataset> getInputDatasets() {
+		return inputDatasets;
 	}
 
-	public void setInputDataset(Dataset inputDataset) {
-		this.inputDataset = inputDataset;
+	public void setInputDataset(List<Dataset> inputDatasets) {
+		this.inputDatasets = inputDatasets;
 	}
 
 	public Dataset getOutputDataset() {
