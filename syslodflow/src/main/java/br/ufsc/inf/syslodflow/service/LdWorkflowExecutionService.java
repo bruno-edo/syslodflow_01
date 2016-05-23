@@ -7,8 +7,6 @@ import javax.inject.Inject;
 
 import br.ufsc.inf.syslodflow.entity.LDWStepExecution;
 import br.ufsc.inf.syslodflow.entity.LDWorkflowExecution;
-import br.ufsc.inf.syslodflow.entity.Location;
-import br.ufsc.inf.syslodflow.entity.Report;
 import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
 
 import com.hp.hpl.jena.ontology.Individual;

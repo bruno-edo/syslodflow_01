@@ -22,6 +22,7 @@ import br.ufsc.inf.syslodflow.entity.Location;
 import br.ufsc.inf.syslodflow.entity.Task;
 import br.ufsc.inf.syslodflow.entity.Tool;
 import br.ufsc.inf.syslodflow.entity.ToolConfiguration;
+import br.ufsc.inf.syslodflow.enumerator.ClassURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.StepOrderEnum;
 
@@ -47,8 +48,12 @@ public class LdwStepService extends BaseService {
 		Task task = new Task(ldwStepTaskName, ldwStepTaskDescription, ldwStepTask.getURI());
 		
 		//InputDataSet
-		Individual ldwStepInputDataset = getSubIndividualByProperty(model, ontLdwStep, PropertyURIEnum.INPUTDATASET.getUri());
-		Dataset inputDataset = this.getDataset(model, ldwStepInputDataset);
+		StmtIterator iter = ontLdwStep.listProperties(model.getProperty(PropertyURIEnum.INPUTDATASET.getUri()));
+		List<Dataset> inputDatasets = new ArrayList<Dataset>();
+		while (iter.hasNext()){
+			Individual node = model.getIndividual(iter.nextStatement().getResource().getURI());
+			inputDatasets.add(this.getDataset(model, node));		
+		}
 		
 		//OutuputDataSet
 		Individual ldwStepOutputDataset = getSubIndividualByProperty(model, ontLdwStep, PropertyURIEnum.OUTPUTDATASET.getUri());
@@ -60,7 +65,7 @@ public class LdwStepService extends BaseService {
 		Individual ldwStepToolConfig = getSubIndividualByProperty(model, ontLdwStep, PropertyURIEnum.TOOLCONFIGURATION.getUri());
 		ToolConfiguration toolConfig = this.getToolConfiguration(model, ldwStepToolConfig);
 
-		StmtIterator iter = ontLdwStep.listProperties(model.getProperty(PropertyURIEnum.LDWSTEPEXECUTION.getUri()));
+		iter = ontLdwStep.listProperties(model.getProperty(PropertyURIEnum.LDWSTEPEXECUTION.getUri()));
 		List<LDWStepExecution> ldwStepExecutions = new ArrayList<LDWStepExecution>();
 		while (iter.hasNext()){
 			Individual node = model.getIndividual(iter.nextStatement().getResource().getURI());
@@ -68,7 +73,7 @@ public class LdwStepService extends BaseService {
 		}
 
 
-		return new LDWStep(ldwStepName, ldwStepDescription, ldwStepCommand, task, inputDataset, outputDataset, tool, toolConfig, ldwStepExecutions, order, ontLdwStep.getURI());
+		return new LDWStep(ldwStepName, ldwStepDescription, ldwStepCommand, task, inputDatasets, outputDataset, tool, toolConfig, ldwStepExecutions, order, ontLdwStep.getURI());
 
 	}
 
@@ -136,25 +141,19 @@ public class LdwStepService extends BaseService {
 	private int getOrder(OntModel model, Individual ontLdwStep) {
 
 		int order;
-		if (!ontLdwStep.hasProperty(model
-				.getProperty(PropertyURIEnum.PREVIOUSSTEP.getUri()))) {
+		if (!ontLdwStep.hasProperty(model.getProperty(PropertyURIEnum.PREVIOUSSTEP.getUri()))) {
 			order = StepOrderEnum.FIRST.getOrder();
 		}
 
 		else {
 
-			if (!ontLdwStep.hasProperty(model
-					.getProperty(PropertyURIEnum.NEXTSTEP.getUri()))) {
+			if (!ontLdwStep.hasProperty(model.getProperty(PropertyURIEnum.NEXTSTEP.getUri()))) {
 				order = StepOrderEnum.FIFTH.getOrder();
 			}
 
 			else {
 
-				if (!ontLdwStep.getPropertyResourceValue(
-						model.getProperty(PropertyURIEnum.NEXTSTEP.getUri()))
-						.hasProperty(
-								model.getProperty(PropertyURIEnum.NEXTSTEP
-										.getUri()))) {
+				if (!ontLdwStep.getPropertyResourceValue(model.getProperty(PropertyURIEnum.NEXTSTEP.getUri())).hasProperty(model.getProperty(PropertyURIEnum.NEXTSTEP.getUri()))) {
 					order = StepOrderEnum.FOURTH.getOrder();
 
 				} else {
@@ -216,8 +215,44 @@ public class LdwStepService extends BaseService {
 			return "Erro ao salvar";
 		}
 	}
-	
 
+	public void insertLdwStep(OntModel model, LDWStep step) {
+		
+		Individual ldwstep = model.getOntClass(ClassURIEnum.LDWSTEP.getUri()).createIndividual(step.getUri());
+		ldwstep.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), step.getName());
+		ldwstep.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), step.getName());
+		ldwstep.addLiteral(model.getProperty(PropertyURIEnum.COMMAND.getUri()), step.getCommand());
+		ldwstep.addProperty(model.getProperty(PropertyURIEnum.TOOL.getUri()), model.getIndividual(step.getTool().getUri()));
+		ldwstep.addProperty(model.getProperty(PropertyURIEnum.TASK.getUri()), model.getIndividual(step.getTask().getUri()));
+		for(int i=0; i<step.getInputDatasets().size(); i++) {
+			this.insertDataset(model, step.getInputDatasets().get(i));
+			ldwstep.addProperty(model.getProperty(PropertyURIEnum.INPUTDATASET.getUri()), model.getIndividual(step.getInputDatasets().get(i).getUri()));
+		}
+		this.insertDataset(model, step.getOutputDataset());
+		ldwstep.addProperty(model.getProperty(PropertyURIEnum.OUTPUTDATASET.getUri()), model.getIndividual(step.getOutputDataset().getUri()));
+		this.insertToolConfiguration(model, step.getToolConfiguration());
+		ldwstep.addProperty(model.getProperty(PropertyURIEnum.TOOLCONFIGURATION.getUri()), model.getIndividual(step.getToolConfiguration().getUri()));
+	}
+
+	public void editLdwStep(OntModel model, LDWStep ldwStep) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private void insertDataset(OntModel model, Dataset d) {
+		
+		
+		
+	}
+	
+	private void insertToolConfiguration(OntModel model, ToolConfiguration t) {
+		
+		Individual toolConfig = model.getOntClass(ClassURIEnum.TOOLCONFIGURATION.getUri()).createIndividual(t.getUri());
+		toolConfig.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), t.getName());
+		Individual location = model.getOntClass(ClassURIEnum.TOOLCONFIGURATION.getUri()).createIndividual(t.getLocation().getUri());
+		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), t.getLocation().getValue());
+		toolConfig.addProperty(model.getProperty(PropertyURIEnum.LOCATION.getUri()), location);
+	}
 
 
 }

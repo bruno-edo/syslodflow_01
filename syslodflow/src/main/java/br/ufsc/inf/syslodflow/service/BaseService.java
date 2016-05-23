@@ -3,7 +3,10 @@ package br.ufsc.inf.syslodflow.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.ufsc.inf.syslodflow.entity.Tool;
+import br.ufsc.inf.syslodflow.enumerator.ClassURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.NSURIEnum;
+import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
@@ -82,5 +85,17 @@ public class BaseService {
     	else
     		return false;
     }
+    
+    
+	private void insertTool(OntModel model, Tool t) {
+		
+		Individual tool = model.getOntClass(ClassURIEnum.TOOL.getUri()).createIndividual(t.getUri());
+		tool.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), t.getName());
+		Individual location = model.getOntClass(ClassURIEnum.LOCATION.getUri()).createIndividual(t.getLocation().getUri());
+		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), t.getLocation().getValue());
+		tool.addProperty(model.getProperty(PropertyURIEnum.LOCATION.getUri()), location);
+		
+	}
+    
 
 }

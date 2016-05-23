@@ -64,9 +64,17 @@
 					itemLabel="#{tool.name}" itemValue="#{tool}" />
 			</p:selectOneMenu>
 		</div>
-
 	</div>
-	
+
+	<div class="row">
+		<div class="col-lg-6">
+			<p:fileUpload value="#{ldWorkflowBean.smlUploaded}"
+				label="Procurar..." mode="simple" />
+			<p class="help-block">Utilizar arquivos JPG ou PNG. Tamanho
+				máximo: 3MB</p>
+		</div>
+	</div>
+
 
 	<h:commandButton styleClass="btn btn-outline btn-success"
 		style="margin-right: 5px;" value="Avançar" immediate="false"
