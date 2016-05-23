@@ -44,13 +44,13 @@ public class LdWorkflowBean {
 	private LDWStep step03;
 	private LDWStep step04;
 	private LDWStep step05;
-	private UploadedFile inputDataSetStep02;
+	private UploadedFile smlUploaded;
+
 	private List<Tool> listToolsStep02;
 	
 	@PostConstruct
 	public void init() {
 		this.tab = 0;
-		
 
 	}
 	public String doEdit(LDWProjectDTO projectSelected){
@@ -85,10 +85,20 @@ public class LdWorkflowBean {
 
 	public void teste() {
 		System.out.print("Passsou!!!!");
-		step02.getTool();
 	}
 	
-
+//	public boolean validaUpload() {
+//		String extensao = FilenameUtils.getExtension(smlUploaded.getFileName());
+//		if (smlUploaded.getSize() <= 0) {
+//			//Mensagem.exibirError(AlunoService.ARQUIVO_NAO_SELECIONADO);
+//			return false;
+//		}
+//		if (!extensao.equalsIgnoreCase("sml")) {
+////			Mensagem.exibirError(AlunoService.ARQUIVO_FORMATO_INVALIDO);
+//			return false;
+//		}
+//		return true;
+//	}
 
 	
 	public void nextTab() {
@@ -141,12 +151,11 @@ public class LdWorkflowBean {
 		this.step05 = step05;
 	}
 	
-	public UploadedFile getInputDataSetStep02() {
-		return inputDataSetStep02;
+	public UploadedFile getSmlUploaded() {
+		return smlUploaded;
 	}
-	
-	public void setInputDataSetStep02(UploadedFile inputDataSetStep02) {
-		this.inputDataSetStep02 = inputDataSetStep02;
+	public void setSmlUploaded(UploadedFile smlUploaded) {
+		this.smlUploaded = smlUploaded;
 	}
 	
 	public List<Tool> getListToolsStep02() {
