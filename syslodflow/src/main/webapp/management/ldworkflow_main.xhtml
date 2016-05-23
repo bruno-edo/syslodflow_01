@@ -23,6 +23,7 @@
 						</h3>
 					</div>
 					<div class="panel-body">
+					<p:messages id="message" autoUpdate="true" closable="true" />
 						<p:tabView id="tab" styleClass="col-lg-12" widgetVar="tab" activeIndex="#{ldWorkflowBean.tab}">
 						<p:ajax event="tabChange" listener="#{ldWorkflowBean.onTabChange}" />
 							<p:tab title="#{msg['crud.ldworkflow.title']}" id="tab0">

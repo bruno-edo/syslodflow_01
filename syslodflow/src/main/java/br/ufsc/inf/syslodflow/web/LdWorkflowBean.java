@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 
+import org.apache.commons.io.FilenameUtils;
 import org.primefaces.event.TabChangeEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -15,9 +16,11 @@ import br.ufsc.inf.syslodflow.entity.LDWProject;
 import br.ufsc.inf.syslodflow.entity.LDWStep;
 import br.ufsc.inf.syslodflow.entity.LDWorkflow;
 import br.ufsc.inf.syslodflow.entity.Tool;
+import br.ufsc.inf.syslodflow.service.LdWorkflowService;
 import br.ufsc.inf.syslodflow.service.LdwProjectService;
 import br.ufsc.inf.syslodflow.service.LdwStepService;
 import br.ufsc.inf.syslodflow.service.LdwpoService;
+import br.ufsc.inf.syslodflow.util.MessageUtil;
 import br.ufsc.inf.syslodflow.util.Navegacao;
 
 import com.hp.hpl.jena.ontology.OntModel;
@@ -35,9 +38,13 @@ public class LdWorkflowBean {
 	private LdwProjectService ldwProjectService;
 	@Inject
 	private LdwStepService ldwStepService;
+	@Inject
+	private LdWorkflowService ldWorkflowService;
 	
 	
 	private int tab;
+	private OntModel model;
+	private LDWProjectDTO ldwProjectSelected;
 	private LDWorkflow ldWorkflow;
 	private LDWStep step01;
 	private LDWStep step02;
@@ -53,15 +60,28 @@ public class LdWorkflowBean {
 		this.tab = 0;
 
 	}
+	
 	public String doEdit(LDWProjectDTO projectSelected){
-		OntModel model = ldwpoService.doLoadModel(projectSelected.getPath());
+		this.ldwProjectSelected = projectSelected;
+		this.model = ldwpoService.doLoadModel(projectSelected.getPath());
 		LDWProject ldwProject = ldwProjectService.getLDWProject(model);
 		this.ldWorkflow = ldwProject.getLdWorkFlow();
 		this.listToolsStep02 = this.ldwStepService.getListTools(model);
-		this.step01 = ldWorkflow.getLdwSteps().get(1);
-		this.step02 = ldWorkflow.getLdwSteps().get(2);
+		this.step01 = ldWorkflow.getLdwSteps().get(0);
+		this.step02 = ldWorkflow.getLdwSteps().get(1);
+		this.step03 = ldWorkflow.getLdwSteps().get(2);
+		this.step04 = ldWorkflow.getLdwSteps().get(3);
+		this.step05 = ldWorkflow.getLdwSteps().get(4);
 		
 		return Navegacao.LDWORKFLOW_MAIN;
+	}
+	
+
+	public void doSave() {
+		if(validaUpload()) {
+			
+			//ldWorkflowService.writeLdwWorkflow(model, ldWorkflow);
+		}
 	}
 	
 	/* CONTROLE TAB */
@@ -82,23 +102,18 @@ public class LdWorkflowBean {
 	    }
 	}
 	
-
-	public void teste() {
-		System.out.print("Passsou!!!!");
+	public boolean validaUpload() {
+		String extensao = FilenameUtils.getExtension(smlUploaded.getFileName());
+		if (smlUploaded.getSize() <= 0) {
+			MessageUtil.showError("crud.file.notfound");
+			return false;
+		}
+		if(!extensao.equalsIgnoreCase("sml")) {
+			MessageUtil.showError("crud.file.invalidformat");
+			return false;
+		}
+		return true;
 	}
-	
-//	public boolean validaUpload() {
-//		String extensao = FilenameUtils.getExtension(smlUploaded.getFileName());
-//		if (smlUploaded.getSize() <= 0) {
-//			//Mensagem.exibirError(AlunoService.ARQUIVO_NAO_SELECIONADO);
-//			return false;
-//		}
-//		if (!extensao.equalsIgnoreCase("sml")) {
-////			Mensagem.exibirError(AlunoService.ARQUIVO_FORMATO_INVALIDO);
-//			return false;
-//		}
-//		return true;
-//	}
 
 	
 	public void nextTab() {

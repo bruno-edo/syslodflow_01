@@ -1,6 +1,8 @@
 package br.ufsc.inf.syslodflow.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -17,6 +19,10 @@ import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 
 public class LdWorkflowService extends BaseService {
+	
+	public static final String FILE_NOT_FOUND = "Arquivo não encontrado";
+	public static final String FILE_INVALID_FORMAT = "Formato inválido";
+	
 	
 	@Inject
 	private LdwStepService ldwStepService;
@@ -42,6 +48,8 @@ public class LdWorkflowService extends BaseService {
 			}
 			ldwSteps.add(ldwStepService.getLdwStep(model, node));		
 		}
+		//List Order
+		ldwSteps = sortLDWSteps(ldwSteps);
 		
 		return new LDWorkflow(ldwWorkflowDescription, ldwWorkflowName, new Condition(ldwWorkflowPreConditionDescription, ldwWorkflowPreCondition.getURI()), 
 				new Condition(ldwWorkflowPostConditionDescription, ldwWorkflowPostCondition.getURI()), 
@@ -134,11 +142,14 @@ public class LdWorkflowService extends BaseService {
 		
 	}
 	
-	@SuppressWarnings("null")
 	private List<LDWStep> sortLDWSteps(List<LDWStep> ldwsteps) {
-		List<LDWStep> sortedList = null;
+		List<LDWStep> sortedList = new ArrayList<LDWStep>();
+		for(LDWStep s: ldwsteps){
+			sortedList.add(s);
+		}
+		
 		for(int i=0; i<ldwsteps.size(); i++) {
-			sortedList.add(ldwsteps.get(i).getOrder()-1, ldwsteps.get(i));
+			sortedList.set(ldwsteps.get(i).getOrder()-1, ldwsteps.get(i));
 		}
 		return sortedList;
 	}

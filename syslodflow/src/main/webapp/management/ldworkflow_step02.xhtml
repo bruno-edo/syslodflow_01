@@ -7,7 +7,7 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 
-<h:form role="form" id="form_workflow_step02" acceptcharset="ISO-8859-1">
+<h:form role="form" id="form_workflow_step02" acceptcharset="ISO-8859-1" enctype="multipart/form-data">
 	<h:inputHidden styleClass="form-control" />
 	<div class="form-group">
 		<div class="row">
@@ -48,7 +48,7 @@
 		<div class="row">
 			<div class="col-lg-8">
 				<label>#{msg['crud.ldworkflow.ldwstep.command']}</label>
-				<p:inputText styleClass="form-control" required="true" value="#{ldWorkflowBean.step02.command}"
+				<p:inputText styleClass="form-control" required="true" value="#{ldWorkflowBean.step02.command}" disabled="true"
 					requiredMessage="#{msg['crud.ldworkflow.ldwstep.command']} : #{msg['error.required']}"
 					maxlength="240" />
 			</div>
@@ -64,21 +64,21 @@
 					itemLabel="#{tool.name}" itemValue="#{tool}" />
 			</p:selectOneMenu>
 		</div>
-	</div>
+	</div><br/>
 
 	<div class="row">
 		<div class="col-lg-6">
+		<label>#{msg['crud.ldworkflow.ldwstep02.sml']}</label><br />
 			<p:fileUpload value="#{ldWorkflowBean.smlUploaded}"
-				label="Procurar..." mode="simple" />
-			<p class="help-block">Utilizar arquivos JPG ou PNG. Tamanho
-				máximo: 3MB</p>
+				label="#{msg['crud.search']}" mode="simple" />
+			<p class="help-block">#{msg['crud.ldworkflow.ldwstep02.sml.warning']}</p>
 		</div>
 	</div>
 
 
 	<h:commandButton styleClass="btn btn-outline btn-success"
 		style="margin-right: 5px;" value="Avançar" immediate="false"
-		type="submit" action="#{ldWorkflowBean.teste()}" />
+		type="submit" action="#{ldWorkflowBean.doSave()}" ajax="false" />
 	<h:commandButton styleClass="btn btn-outline btn-info" type="reset"
 		value="Limpar" />
 

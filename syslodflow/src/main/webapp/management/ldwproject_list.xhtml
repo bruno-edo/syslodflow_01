@@ -45,10 +45,18 @@
 						      #{project.creator}
 						  	 </h:column>
 						  	 <h:column headerClass="headeracoes">
+									<f:facet name="header">#{msg['crud.file.owl']}</f:facet>
+									<center>
+										<h:form id="form-download-owl">
+											<h:commandButton id="downloadOwl" action="#" styleClass="btn btn-success btn-xs" value="#{msg['crud.file.download']}" />
+										</h:form>
+									</center>
+								</h:column>
+						  	 <h:column headerClass="headeracoes">
 									<f:facet name="header">#{msg['crud.ldworkflow']}</f:facet>
 									<center>
 										<h:form id="form-open-workflow">
-											<h:commandButton id="openWorkflowButton" action="#{ldWorkflowBean.doEdit(project)}" styleClass="btn btn-success btn-xs" value="#{msg['crud.open']}" />
+											<h:commandButton id="openWorkflowButton" action="#{ldWorkflowBean.doEdit(project)}" styleClass="btn btn-info btn-xs" value="#{msg['crud.open']}" />
 										</h:form>
 									</center>
 								</h:column>

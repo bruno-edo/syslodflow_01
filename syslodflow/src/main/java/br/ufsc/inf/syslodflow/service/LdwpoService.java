@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,7 +16,11 @@ import javax.ejb.Stateless;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
+import org.apache.commons.io.FilenameUtils;
+import org.primefaces.model.UploadedFile;
+
 import br.ufsc.inf.syslodflow.enumerator.LangModelEnum;
+import br.ufsc.inf.syslodflow.util.MessageUtil;
 import br.ufsc.inf.syslodflow.util.MyFileVisitor;
 
 import com.hp.hpl.jena.ontology.OntModel;
@@ -88,6 +93,34 @@ public class LdwpoService {
 			return props.getProperty(key);
 			} catch (IOException e) {
 			return null;
+		}
+	}
+	
+	public String saveFile(UploadedFile file, String ldwProjectName, String fileName) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		String filePath = fc.getExternalContext().getInitParameter("filePath").toString();
+		filePath = filePath + "\\" + ldwProjectName;
+		String extension = FilenameUtils.getExtension(file.getFileName());
+		
+		try {
+			File targetFolder = new File(filePath);
+			if (!targetFolder.exists()) {
+				targetFolder.mkdirs();
+			} 
+			InputStream inputStream = file.getInputstream();
+			OutputStream out = new FileOutputStream(new File(targetFolder, fileName));
+			int read = 0;
+			byte[] bytes = new byte[1024];
+			while ((read = inputStream.read(bytes)) != -1) {
+				out.write(bytes, 0, read);
+			}
+			inputStream.close();
+			out.flush();
+			out.close();
+			return fileName + "." + extension;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return MessageUtil.getMessageBundle("crud.file.saveerror");
 		}
 	}
 
