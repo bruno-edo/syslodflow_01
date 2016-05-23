@@ -12,6 +12,22 @@
     <param-name>filePath</param-name>
     <param-value>C:\syslodflow\</param-value>
   </context-param>
+  
+    <filter>
+  	<filter-name>PrimeFaces FileUpload Filter</filter-name>
+    <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+    <init-param>
+    	<param-name>uploadDirectory</param-name>
+      	<param-value>/temp-Jboss/</param-value>
+    </init-param>
+  </filter>
+  
+  <filter-mapping>
+  	<filter-name>PrimeFaces FileUpload Filter</filter-name>
+    <servlet-name>Faces Servlet</servlet-name>
+  </filter-mapping>
+  
+  
   <servlet>
     <servlet-name>Faces Servlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
