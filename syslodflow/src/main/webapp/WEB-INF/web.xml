@@ -12,6 +12,10 @@
     <param-name>filePath</param-name>
     <param-value>C:\syslodflow\</param-value>
   </context-param>
+    <context-param>
+    <param-name>projectsPath</param-name>
+    <param-value>C:\ldwProjects\</param-value>
+  </context-param>
   
     <filter>
   	<filter-name>PrimeFaces FileUpload Filter</filter-name>
