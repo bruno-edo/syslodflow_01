@@ -10,7 +10,10 @@ public enum ClassURIEnum {
 	LOCATION("http://ldwpo.aksw.org/terms/1.0/Location"),
 	TOOL("http://ldwpo.aksw.org/terms/1.0/Tool"),
 	TOOLCONFIGURATION("http://ldwpo.aksw.org/terms/1.0/ToolConfiguration"),
-	REPORT("http://ldwpo.aksw.org/terms/1.0/Report");
+	REPORT("http://ldwpo.aksw.org/terms/1.0/Report"),
+	FORMAT("http://ldwpo.aksw.org/terms/1.0/Format"),
+	DATASET("http://ldwpo.aksw.org/terms/1.0/Dataset"),
+	LICENSE("http://ldwpo.aksw.org/terms/1.0/License");
 	
 	private String uri;
 	

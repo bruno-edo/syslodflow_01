@@ -234,25 +234,46 @@ public class LdwStepService extends BaseService {
 		ldwstep.addProperty(model.getProperty(PropertyURIEnum.TOOLCONFIGURATION.getUri()), model.getIndividual(step.getToolConfiguration().getUri()));
 	}
 
-	public void editLdwStep(OntModel model, LDWStep ldwStep) {
-		// TODO Auto-generated method stub
+	public void editLdwStep(OntModel model, LDWStep step) {
+		
+		Individual ldwstep = model.getIndividual(step.getUri());
+		ldwstep.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
+		ldwstep.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), step.getName());
+		ldwstep.removeAll(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()));
+		ldwstep.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), step.getName());
+		ldwstep.removeAll(model.getProperty(PropertyURIEnum.COMMAND.getUri()));
+		ldwstep.addLiteral(model.getProperty(PropertyURIEnum.COMMAND.getUri()), step.getCommand());
+		ldwstep.removeAll(model.getProperty(PropertyURIEnum.TOOL.getUri()));
+		ldwstep.addProperty(model.getProperty(PropertyURIEnum.TOOL.getUri()), model.getIndividual(step.getTool().getUri()));
+
+		for(int i=0; i<step.getInputDatasets().size(); i++) {
+			this.insertDataset(model, step.getInputDatasets().get(i));
+			ldwstep.addProperty(model.getProperty(PropertyURIEnum.INPUTDATASET.getUri()), model.getIndividual(step.getInputDatasets().get(i).getUri()));
+		}
+		this.insertDataset(model, step.getOutputDataset());
+		ldwstep.addProperty(model.getProperty(PropertyURIEnum.OUTPUTDATASET.getUri()), model.getIndividual(step.getOutputDataset().getUri()));
+		this.insertToolConfiguration(model, step.getToolConfiguration());
+		ldwstep.addProperty(model.getProperty(PropertyURIEnum.TOOLCONFIGURATION.getUri()), model.getIndividual(step.getToolConfiguration().getUri()));
 		
 	}
 	
 	private void insertDataset(OntModel model, Dataset d) {
-		
-		
-		
+		Individual dataset = model.getOntClass(ClassURIEnum.DATASET.getUri()).createIndividual(d.getUri());
+		dataset.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), d.getName());
+		dataset.addProperty(model.getProperty(PropertyURIEnum.FORMAT.getUri()), model.getIndividual(d.getFormat().getUri()));
+		dataset.addProperty(model.getProperty(PropertyURIEnum.LICENSE.getUri()), model.getIndividual(d.getLicense().getUri()));
+		Individual location = model.getOntClass(ClassURIEnum.LOCATION.getUri()).createIndividual(d.getLocation().getUri());
+		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), d.getLocation().getValue());
+		dataset.addProperty(model.getProperty(PropertyURIEnum.LOCATION.getUri()), location);	
 	}
 	
 	private void insertToolConfiguration(OntModel model, ToolConfiguration t) {
 		
 		Individual toolConfig = model.getOntClass(ClassURIEnum.TOOLCONFIGURATION.getUri()).createIndividual(t.getUri());
 		toolConfig.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), t.getName());
-		Individual location = model.getOntClass(ClassURIEnum.TOOLCONFIGURATION.getUri()).createIndividual(t.getLocation().getUri());
+		Individual location = model.getOntClass(ClassURIEnum.LOCATION.getUri()).createIndividual(t.getLocation().getUri());
 		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), t.getLocation().getValue());
 		toolConfig.addProperty(model.getProperty(PropertyURIEnum.LOCATION.getUri()), location);
 	}
-
-
+	
 }

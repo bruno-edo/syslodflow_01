@@ -3,6 +3,8 @@ package br.ufsc.inf.syslodflow.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.ufsc.inf.syslodflow.entity.Format;
+import br.ufsc.inf.syslodflow.entity.License;
 import br.ufsc.inf.syslodflow.entity.Tool;
 import br.ufsc.inf.syslodflow.enumerator.ClassURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.NSURIEnum;
@@ -95,6 +97,18 @@ public class BaseService {
 		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), t.getLocation().getValue());
 		tool.addProperty(model.getProperty(PropertyURIEnum.LOCATION.getUri()), location);
 		
+	}
+	
+	private void insertFormat(OntModel model, Format f) {
+		
+		Individual format = model.getOntClass(ClassURIEnum.FORMAT.getUri()).createIndividual(f.getUri());
+		format.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), f.getValue());
+	}
+	
+	private void insertLicense(OntModel model, License l) {
+		
+		Individual license = model.getOntClass(ClassURIEnum.LICENSE.getUri()).createIndividual(l.getUri());
+		license.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), l.getName());
 	}
     
 
