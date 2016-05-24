@@ -1,5 +1,6 @@
 package br.ufsc.inf.syslodflow.web;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,6 +10,7 @@ import javax.inject.Inject;
 
 import org.apache.commons.io.FilenameUtils;
 import org.primefaces.event.TabChangeEvent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 import br.ufsc.inf.syslodflow.dto.LDWProjectDTO;
@@ -79,7 +81,7 @@ public class LdWorkflowBean {
 
 	public void doSave() {
 		if(validaUpload()) {
-			
+			ldwpoService.saveFile(smlUploaded, ldwProjectSelected.getName(), "mapping");
 			//ldWorkflowService.writeLdwWorkflow(model, ldWorkflow);
 		}
 	}
@@ -115,6 +117,9 @@ public class LdWorkflowBean {
 		return true;
 	}
 
+	public StreamedContent getSmlDownload() throws FileNotFoundException {  
+        return ldwpoService.downloadFile(ldwProjectSelected.getName(), "mapping.sml");
+	}
 	
 	public void nextTab() {
 

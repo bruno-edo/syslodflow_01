@@ -1,6 +1,8 @@
 package br.ufsc.inf.syslodflow.service;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +19,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
 import org.apache.commons.io.FilenameUtils;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 import br.ufsc.inf.syslodflow.enumerator.LangModelEnum;
@@ -98,7 +102,7 @@ public class LdwpoService {
 	
 	public String saveFile(UploadedFile file, String ldwProjectName, String fileName) {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		String filePath = fc.getExternalContext().getInitParameter("filePath").toString();
+		String filePath = fc.getExternalContext().getInitParameter("projectsPath").toString();
 		filePath = filePath + "\\" + ldwProjectName;
 		String extension = FilenameUtils.getExtension(file.getFileName());
 		
@@ -108,7 +112,7 @@ public class LdwpoService {
 				targetFolder.mkdirs();
 			} 
 			InputStream inputStream = file.getInputstream();
-			OutputStream out = new FileOutputStream(new File(targetFolder, fileName));
+			OutputStream out = new FileOutputStream(new File(targetFolder, fileName.concat("." + extension)));
 			int read = 0;
 			byte[] bytes = new byte[1024];
 			while ((read = inputStream.read(bytes)) != -1) {
@@ -123,6 +127,22 @@ public class LdwpoService {
 			return MessageUtil.getMessageBundle("crud.file.saveerror");
 		}
 	}
+	
+	public StreamedContent downloadFile(String ldwProjectName, String fileName) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		String filePath = fc.getExternalContext().getInitParameter("projectsPath").toString();
+		filePath = filePath + "\\" + ldwProjectName + "\\" + fileName ;
+		FileInputStream stream;
+		try {
+			stream = new FileInputStream(filePath);
+			StreamedContent file = new DefaultStreamedContent(stream, fileName);
+			return file;
+		} catch (FileNotFoundException e) {
+			return null;
+		}
+	}
+	
+	
 
 
 }
