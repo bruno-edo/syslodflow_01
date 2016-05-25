@@ -3,6 +3,7 @@ package br.ufsc.inf.syslodflow.enumerator;
 public enum ClassURIEnum {
 	LDWPROJECT("http://ldwpo.aksw.org/terms/1.0/LDWProject"),
 	LDWORKFLOW("http://ldwpo.aksw.org/terms/1.0/LDWorkflow"),
+	LDWORKFLOWEXECUTION("http://ldwpo.aksw.org/terms/1.0/LDWorkflowExecution"),
 	LDWSTEP("http://ldwpo.aksw.org/terms/1.0/LDWStep"),
 	CONDITION("http://ldwpo.aksw.org/terms/1.0/Condition"),
 	PERSON("http://ldwpo.aksw.org/terms/1.0/Person"),

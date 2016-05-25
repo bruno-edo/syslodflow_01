@@ -47,7 +47,6 @@ public class LdwStepService extends BaseService {
 		String ldwStepTaskDescription = getPropertyStringValue(ldwStepTask, model, PropertyURIEnum.DESCRIPTION.getUri());
 		Task task = new Task(ldwStepTaskName, ldwStepTaskDescription, ldwStepTask.getURI());
 		
-		//InputDataSet
 		StmtIterator iter = ontLdwStep.listProperties(model.getProperty(PropertyURIEnum.INPUTDATASET.getUri()));
 		List<Dataset> inputDatasets = new ArrayList<Dataset>();
 		while (iter.hasNext()){
@@ -55,11 +54,9 @@ public class LdwStepService extends BaseService {
 			inputDatasets.add(this.getDataset(model, node));		
 		}
 		
-		//OutuputDataSet
 		Individual ldwStepOutputDataset = getSubIndividualByProperty(model, ontLdwStep, PropertyURIEnum.OUTPUTDATASET.getUri());
 		Dataset outputDataset = this.getDataset(model, ldwStepOutputDataset);
 		
-		// Tool
 		Individual ldwStepTool = getSubIndividualByProperty(model, ontLdwStep, PropertyURIEnum.TOOL.getUri());
 		Tool tool = this.getTool(model, ldwStepTool);
 		Individual ldwStepToolConfig = getSubIndividualByProperty(model, ontLdwStep, PropertyURIEnum.TOOLCONFIGURATION.getUri());
@@ -245,16 +242,11 @@ public class LdwStepService extends BaseService {
 		ldwstep.addLiteral(model.getProperty(PropertyURIEnum.COMMAND.getUri()), step.getCommand());
 		ldwstep.removeAll(model.getProperty(PropertyURIEnum.TOOL.getUri()));
 		ldwstep.addProperty(model.getProperty(PropertyURIEnum.TOOL.getUri()), model.getIndividual(step.getTool().getUri()));
-
 		for(int i=0; i<step.getInputDatasets().size(); i++) {
-			this.insertDataset(model, step.getInputDatasets().get(i));
-			ldwstep.addProperty(model.getProperty(PropertyURIEnum.INPUTDATASET.getUri()), model.getIndividual(step.getInputDatasets().get(i).getUri()));
+			this.editDataset(model, step.getInputDatasets().get(i));
 		}
-		this.insertDataset(model, step.getOutputDataset());
-		ldwstep.addProperty(model.getProperty(PropertyURIEnum.OUTPUTDATASET.getUri()), model.getIndividual(step.getOutputDataset().getUri()));
-		this.insertToolConfiguration(model, step.getToolConfiguration());
-		ldwstep.addProperty(model.getProperty(PropertyURIEnum.TOOLCONFIGURATION.getUri()), model.getIndividual(step.getToolConfiguration().getUri()));
-		
+		this.editDataset(model, step.getOutputDataset());
+		this.editToolConfiguration(model, step.getToolConfiguration());
 	}
 	
 	private void insertDataset(OntModel model, Dataset d) {
@@ -267,6 +259,23 @@ public class LdwStepService extends BaseService {
 		dataset.addProperty(model.getProperty(PropertyURIEnum.LOCATION.getUri()), location);	
 	}
 	
+	private void editDataset(OntModel model, Dataset d) {
+		
+		Individual dataset = model.getIndividual(d.getUri());
+		dataset.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
+		dataset.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), d.getName());
+		
+		dataset.removeAll(model.getProperty(PropertyURIEnum.FORMAT.getUri()));
+		dataset.addProperty(model.getProperty(PropertyURIEnum.FORMAT.getUri()), model.getIndividual(d.getFormat().getUri()));
+		
+		dataset.removeAll(model.getProperty(PropertyURIEnum.LICENSE.getUri()));
+		dataset.addProperty(model.getProperty(PropertyURIEnum.LICENSE.getUri()), model.getIndividual(d.getLicense().getUri()));
+		
+		Individual location = model.getIndividual(d.getLocation().getUri());
+		location.removeAll(model.getProperty(PropertyURIEnum.VALUE.getUri()));
+		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), d.getLocation().getValue());	
+	}
+	
 	private void insertToolConfiguration(OntModel model, ToolConfiguration t) {
 		
 		Individual toolConfig = model.getOntClass(ClassURIEnum.TOOLCONFIGURATION.getUri()).createIndividual(t.getUri());
@@ -276,4 +285,14 @@ public class LdwStepService extends BaseService {
 		toolConfig.addProperty(model.getProperty(PropertyURIEnum.LOCATION.getUri()), location);
 	}
 	
+	private void editToolConfiguration(OntModel model, ToolConfiguration t) {
+		
+		Individual toolConfig = model.getIndividual(t.getUri());
+		toolConfig.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
+		toolConfig.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), t.getName());
+		Individual location = model.getIndividual(t.getLocation().getUri());
+		location.removeAll(model.getProperty(PropertyURIEnum.VALUE.getUri()));
+		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), t.getLocation().getValue());	
+
+	}
 }

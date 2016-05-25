@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import br.ufsc.inf.syslodflow.entity.LDWStepExecution;
 import br.ufsc.inf.syslodflow.entity.LDWorkflowExecution;
+import br.ufsc.inf.syslodflow.enumerator.ClassURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
 
 import com.hp.hpl.jena.ontology.Individual;
@@ -37,7 +38,20 @@ public class LdWorkflowExecutionService extends BaseService {
 		}
 		
 		return new LDWorkflowExecution(firstLdwStepExecution, ldwStepExecutions, description, name, startedDate, endedDate, ontLdwWorkFlowExecution.getURI());
+	}
+	
+	public void insertLDWorkflowExecution(OntModel model, LDWorkflowExecution l) {
 		
+		// FAZER A RELACAO ENTRE LDWORKFLOW E LDWORKFLOWEXECUTION (dAR UM JEITO)
+		
+		Individual ldworkflowexecution = model.getOntClass(ClassURIEnum.LDWORKFLOWEXECUTION.getUri()).createIndividual(l.getUri());
+		
+		ldworkflowexecution.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), l.getName());
+		ldworkflowexecution.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), l.getDescription());
+		
+		for(int i=0; i<l.getLdwStepExecutions().size(); i++) {
+			ldwStepExecutionService.insertLdwStepExecution(model, l.getLdwStepExecutions().get(i));
+		}
 	}
 
 	

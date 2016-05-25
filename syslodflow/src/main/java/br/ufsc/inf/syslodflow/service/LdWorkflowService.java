@@ -1,8 +1,6 @@
-package br.ufsc.inf.syslodflow.service;
+	package br.ufsc.inf.syslodflow.service;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;

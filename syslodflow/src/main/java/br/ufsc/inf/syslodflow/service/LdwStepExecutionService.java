@@ -63,5 +63,11 @@ public class LdwStepExecutionService extends BaseService {
 		return null;
 	}
 
+	public void insertLdwStepExecution(OntModel model,
+			LDWStepExecution ldwStepExecution) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }
