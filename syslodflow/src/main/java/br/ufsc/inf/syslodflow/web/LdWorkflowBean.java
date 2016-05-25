@@ -53,6 +53,7 @@ public class LdWorkflowBean {
 	private LDWStep step03;
 	private LDWStep step04;
 	private LDWStep step05;
+	private StreamedContent smlDownload;
 	private UploadedFile smlUploaded;
 
 	private List<Tool> listToolsStep02;
@@ -118,8 +119,9 @@ public class LdWorkflowBean {
 	}
 
 	public StreamedContent getSmlDownload() throws FileNotFoundException {  
-        return ldwpoService.downloadFile(ldwProjectSelected.getName(), "mapping.sml");
-	}
+		this.smlDownload = ldwpoService.downloadFile(ldwProjectSelected.getName(), "text/sml", "mapping.sml");
+        return smlDownload;
+        }
 	
 	public void nextTab() {
 

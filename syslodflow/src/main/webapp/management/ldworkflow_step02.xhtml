@@ -68,8 +68,11 @@
 
 	<div class="row">
 		<div class="col-lg-6">
-		<label>#{msg['crud.ldworkflow.ldwstep02.sml']}</label><br />
-		
+		<label>#{msg['crud.ldworkflow.ldwstep02.sml']}</label>
+		<h:commandLink id="downloadSml" rendered="#{ldWorkflowBean.smlDownload != null}" styleClass="btn btn-default btn-xs" value="#{msg['crud.file.download']}">	
+		<i class="fa fa-download" />
+			<p:fileDownload value="#{ldWorkflowBean.smlDownload}"  />
+		</h:commandLink>
 			<p:fileUpload value="#{ldWorkflowBean.smlUploaded}"
 				label="#{msg['crud.search']}" mode="simple" />
 			<p class="help-block">#{msg['crud.ldworkflow.ldwstep02.sml.warning']}</p>

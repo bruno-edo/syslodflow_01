@@ -128,14 +128,14 @@ public class LdwpoService {
 		}
 	}
 	
-	public StreamedContent downloadFile(String ldwProjectName, String fileName) {
+	public StreamedContent downloadFile(String ldwProjectName, String contentType, String fileName) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		String filePath = fc.getExternalContext().getInitParameter("projectsPath").toString();
 		filePath = filePath + "\\" + ldwProjectName + "\\" + fileName ;
 		FileInputStream stream;
 		try {
 			stream = new FileInputStream(filePath);
-			StreamedContent file = new DefaultStreamedContent(stream, fileName);
+			StreamedContent file = new DefaultStreamedContent(stream, contentType, fileName);
 			return file;
 		} catch (FileNotFoundException e) {
 			return null;
