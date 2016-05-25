@@ -25,6 +25,7 @@ import br.ufsc.inf.syslodflow.entity.ToolConfiguration;
 import br.ufsc.inf.syslodflow.enumerator.ClassURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.StepOrderEnum;
+import br.ufsc.inf.syslodflow.enumerator.ToolSupportedEnum;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntModel;
@@ -181,6 +182,18 @@ public class LdwStepService extends BaseService {
 			toolList.add(tool);
 		}
 		return toolList;
+	}
+	
+	public List<Tool> getListToolsStep02(OntModel model) {
+		List<Tool> generalTools = getListTools(model);
+		List<Tool> supportedTools = new ArrayList<Tool>();
+		for(Tool t: generalTools) {
+			if(t.getName().equalsIgnoreCase(ToolSupportedEnum.SPARQLIFY.getName())){
+				supportedTools.add(t);
+			}
+		}
+		return supportedTools;
+		
 	}
 	
 	

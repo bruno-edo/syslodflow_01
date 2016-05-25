@@ -69,7 +69,7 @@ public class LdWorkflowBean {
 		this.model = ldwpoService.doLoadModel(projectSelected.getPath());
 		LDWProject ldwProject = ldwProjectService.getLDWProject(model);
 		this.ldWorkflow = ldwProject.getLdWorkFlow();
-		this.listToolsStep02 = this.ldwStepService.getListTools(model);
+		this.listToolsStep02 = this.ldwStepService.getListToolsStep02(model);
 		this.step01 = ldWorkflow.getLdwSteps().get(0);
 		this.step02 = ldWorkflow.getLdwSteps().get(1);
 		this.step03 = ldWorkflow.getLdwSteps().get(2);
@@ -120,8 +120,8 @@ public class LdWorkflowBean {
 
 	public StreamedContent getSmlDownload() throws FileNotFoundException {  
 		this.smlDownload = ldwpoService.downloadFile(ldwProjectSelected.getName(), "text/sml", "mapping.sml");
-        return smlDownload;
-        }
+		return smlDownload;
+	}
 	
 	public void nextTab() {
 
