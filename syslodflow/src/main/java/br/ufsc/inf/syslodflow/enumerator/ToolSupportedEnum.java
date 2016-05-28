@@ -1,7 +1,10 @@
 package br.ufsc.inf.syslodflow.enumerator;
 
 public enum ToolSupportedEnum {
-	SPARQLIFY("Sparqlify");
+	SPARQLIFY("Sparqlify"),
+	VIRTUOSO("Virtuoso RDF Store"),
+	MYSQL("MySQL"),
+	LIMES("LIMES");
 	
 	private String name;
 	

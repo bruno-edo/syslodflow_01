@@ -184,6 +184,17 @@ public class LdwStepService extends BaseService {
 		return toolList;
 	}
 	
+	public List<Tool> getListToolsStep01(OntModel model) {
+		List<Tool> generalTools = getListTools(model);
+		List<Tool> supportedTools = new ArrayList<Tool>();
+		for(Tool t: generalTools) {
+			if(t.getName().equalsIgnoreCase(ToolSupportedEnum.MYSQL.getName())){
+				supportedTools.add(t);
+			}
+		}
+		return supportedTools;
+	}
+	
 	public List<Tool> getListToolsStep02(OntModel model) {
 		List<Tool> generalTools = getListTools(model);
 		List<Tool> supportedTools = new ArrayList<Tool>();
@@ -193,8 +204,41 @@ public class LdwStepService extends BaseService {
 			}
 		}
 		return supportedTools;
-		
 	}
+	
+	public List<Tool> getListToolsStep03(OntModel model) {
+		List<Tool> generalTools = getListTools(model);
+		List<Tool> supportedTools = new ArrayList<Tool>();
+		for(Tool t: generalTools) {
+			if(t.getName().equalsIgnoreCase(ToolSupportedEnum.VIRTUOSO.getName())){
+				supportedTools.add(t);
+			}
+		}
+		return supportedTools;
+	}
+	
+	public List<Tool> getListToolsStep04(OntModel model) {
+		List<Tool> generalTools = getListTools(model);
+		List<Tool> supportedTools = new ArrayList<Tool>();
+		for(Tool t: generalTools) {
+			if(t.getName().equalsIgnoreCase(ToolSupportedEnum.LIMES.getName())){
+				supportedTools.add(t);
+			}
+		}
+		return supportedTools;
+	}
+	
+	public List<Tool> getListToolsStep05(OntModel model) {
+		List<Tool> generalTools = getListTools(model);
+		List<Tool> supportedTools = new ArrayList<Tool>();
+		for(Tool t: generalTools) {
+			if(t.getName().equalsIgnoreCase(ToolSupportedEnum.VIRTUOSO.getName())){
+				supportedTools.add(t);
+			}
+		}
+		return supportedTools;
+	}
+	
 	
 	
 	public String saveFile(UploadedFile file, String projectName) {

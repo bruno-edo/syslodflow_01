@@ -55,8 +55,15 @@ public class LdWorkflowBean {
 	private LDWStep step05;
 	private StreamedContent smlDownload;
 	private UploadedFile smlUploaded;
-
+	
+	/**
+	 *  Tools lists
+	 */
+	private List<Tool> listToolsStep01;
 	private List<Tool> listToolsStep02;
+	private List<Tool> listToolsStep03;
+	private List<Tool> listToolsStep04;
+	private List<Tool> listToolsStep05;
 	
 	@PostConstruct
 	public void init() {
@@ -68,23 +75,30 @@ public class LdWorkflowBean {
 		this.ldwProjectSelected = projectSelected;
 		this.model = ldwpoService.doLoadModel(projectSelected.getPath());
 		LDWProject ldwProject = ldwProjectService.getLDWProject(model);
-		this.ldWorkflow = ldwProject.getLdWorkFlow();
-		this.listToolsStep02 = this.ldwStepService.getListToolsStep02(model);
-		this.step01 = ldWorkflow.getLdwSteps().get(0);
-		this.step02 = ldWorkflow.getLdwSteps().get(1);
-		this.step03 = ldWorkflow.getLdwSteps().get(2);
-		this.step04 = ldWorkflow.getLdwSteps().get(3);
-		this.step05 = ldWorkflow.getLdwSteps().get(4);
-		
+		this.ldWorkflow = ldwProject.getLdWorkFlow();	
+		this.doLoadTools();	
 		return Navegacao.LDWORKFLOW_MAIN;
 	}
 	
-
 	public void doSave() {
 		if(validaUpload()) {
 			ldwpoService.saveFile(smlUploaded, ldwProjectSelected.getName(), "mapping");
 			//ldWorkflowService.writeLdwWorkflow(model, ldWorkflow);
 		}
+	}
+	
+	public void doLoadTools() {
+		this.listToolsStep01 = this.ldwStepService.getListToolsStep02(model);
+		this.listToolsStep02 = this.ldwStepService.getListToolsStep02(model);
+		this.listToolsStep03 = this.ldwStepService.getListToolsStep03(model);
+		this.listToolsStep04 = this.ldwStepService.getListToolsStep04(model);
+		this.listToolsStep05 = this.ldwStepService.getListToolsStep05(model);
+		
+		this.step01 = ldWorkflow.getLdwSteps().get(0);
+		this.step02 = ldWorkflow.getLdwSteps().get(1);
+		this.step03 = ldWorkflow.getLdwSteps().get(2);
+		this.step04 = ldWorkflow.getLdwSteps().get(3);
+		this.step05 = ldWorkflow.getLdwSteps().get(4);
 	}
 	
 	/* CONTROLE TAB */
@@ -180,12 +194,44 @@ public class LdWorkflowBean {
 		this.smlUploaded = smlUploaded;
 	}
 	
+	public List<Tool> getListToolsStep01() {
+		return listToolsStep01;
+	}
+
+	public void setListToolsStep01(List<Tool> listToolsStep01) {
+		this.listToolsStep01 = listToolsStep01;
+	}
+
 	public List<Tool> getListToolsStep02() {
 		return listToolsStep02;
 	}
 	
 	public void setListToolsStep02(List<Tool> listToolsStep02) {
 		this.listToolsStep02 = listToolsStep02;
+	}
+
+	public List<Tool> getListToolsStep03() {
+		return listToolsStep03;
+	}
+
+	public void setListToolsStep03(List<Tool> listToolsStep03) {
+		this.listToolsStep03 = listToolsStep03;
+	}
+
+	public List<Tool> getListToolsStep04() {
+		return listToolsStep04;
+	}
+
+	public void setListToolsStep04(List<Tool> listToolsStep04) {
+		this.listToolsStep04 = listToolsStep04;
+	}
+
+	public List<Tool> getListToolsStep05() {
+		return listToolsStep05;
+	}
+
+	public void setListToolsStep05(List<Tool> listToolsStep05) {
+		this.listToolsStep05 = listToolsStep05;
 	}
 	
 	
