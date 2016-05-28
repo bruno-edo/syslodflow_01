@@ -104,192 +104,90 @@ public class LdwProjectService extends BaseService {
 		Individual ldwProject = model.getIndividual(project.getUri());
 		ldwProject.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
 		ldwProject.removeAll(model.getProperty(PropertyURIEnum.GOAL.getUri()));
-		ldwProject.removeAll(model.getProperty(PropertyURIEnum.DESCRIPTION
-				.getUri()));
-
-		ldwProject.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()),
-				project.getName());
-		ldwProject.addLiteral(model.getProperty(PropertyURIEnum.GOAL.getUri()),
-				project.getGoal());
-		ldwProject.addLiteral(
-				model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()),
-				project.getDescription());
-
-		if (URIalreadyExists(model, project.getCreator().getUri())) {
-			Individual ldwProjectCreator = model
-					.getIndividual(ldwProject
-							.getPropertyResourceValue(
-									model.getProperty(PropertyURIEnum.CREATOR
-											.getUri())).getURI());
-			ldwProject.removeAll(model.getProperty(PropertyURIEnum.CREATOR
-					.getUri()));
-			ldwProject.addProperty(
-					model.getProperty(PropertyURIEnum.CREATOR.getUri()),
-					ldwProjectCreator);
-		} else {
-			Individual ldwProjectCreator = model.getOntClass(
-					ClassURIEnum.PERSON.getUri()).createIndividual(
-					project.getCreator().getUri());
-			ldwProjectCreator.addLiteral(model.getProperty(PropertyURIEnum.NAME
-					.getUri()), project.getCreator().getName());
-			ldwProject.addProperty(
-					model.getProperty(PropertyURIEnum.CREATOR.getUri()),
-					ldwProjectCreator);
+		ldwProject.removeAll(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()));
+		ldwProject.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()),project.getName());
+		ldwProject.addLiteral(model.getProperty(PropertyURIEnum.GOAL.getUri()),project.getGoal());
+		ldwProject.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()),project.getDescription());
+		ldwProject.addProperty(model.getProperty(PropertyURIEnum.CREATOR.getUri()), model.getIndividual(project.getCreator().getUri()));
+		writeHomepage(model, project.getHomePage());
+		ldwProject.removeAll(model.getProperty(PropertyURIEnum.HOMEPAGE.getUri()));
+		ldwProject.addProperty(model.getProperty(PropertyURIEnum.HOMEPAGE.getUri()), model.getIndividual(project.getHomePage().getUri()));
+		writeReport(model, project.getReport());
+		ldwProject.removeAll(model.getProperty(PropertyURIEnum.REPORT.getUri()));
+		ldwProject.addProperty(model.getProperty(PropertyURIEnum.REPORT.getUri()),model.getIndividual(project.getReport().getUri()));
 		}
-
-		if (URIalreadyExists(model, project.getHomePage().getUri())) {
-			Individual ldwProjectHomepage = model
-					.getIndividual(ldwProject
-							.getPropertyResourceValue(
-									model.getProperty(PropertyURIEnum.HOMEPAGE
-											.getUri())).getURI());
-			Individual ldwProjectHomepageLocation = model
-					.getIndividual(ldwProjectHomepage
-							.getPropertyResourceValue(
-									model.getProperty(PropertyURIEnum.LOCATION
-											.getUri())).getURI());
-			ldwProjectHomepageLocation.removeAll(model
-					.getProperty(PropertyURIEnum.VALUE.getUri()));
-			ldwProjectHomepageLocation.addLiteral(
-					model.getProperty(PropertyURIEnum.VALUE.getUri()), project
-							.getHomePage().getLocation().getValue());
-		} else {
-			Individual ldwProjectHomepage = model.getOntClass(
-					ClassURIEnum.HOMEPAGE.getUri()).createIndividual(
-					project.getHomePage().getUri());
-			ldwProjectHomepage.addLiteral(model
-					.getProperty(PropertyURIEnum.NAME.getUri()), project
-					.getHomePage().getName());
-			Individual ldwProjectHomepageLocation = model.getOntClass(
-					ClassURIEnum.LOCATION.getUri()).createIndividual(
-					project.getHomePage().getLocation().getUri());
-			ldwProjectHomepageLocation.addLiteral(
-					model.getProperty(PropertyURIEnum.VALUE.getUri()), project
-							.getHomePage().getLocation().getValue());
-			ldwProjectHomepage.addProperty(
-					model.getProperty(PropertyURIEnum.LOCATION.getUri()),
-					ldwProjectHomepageLocation);
-			ldwProject.addProperty(
-					model.getProperty(PropertyURIEnum.HOMEPAGE.getUri()),
-					ldwProjectHomepage);
-		}
-
-
-		if (URIalreadyExists(model, project.getReport().getUri())) {
-			Individual ldwProjectReport = model.getIndividual(ldwProject
-					.getPropertyResourceValue(
-							model.getProperty(PropertyURIEnum.REPORT.getUri()))
-					.getURI());
-			ldwProjectReport.removeAll(model.getProperty(PropertyURIEnum.NAME
-					.getUri()));
-			Individual ldwProjectReportLocation = model
-					.getIndividual(ldwProjectReport
-							.getPropertyResourceValue(
-									model.getProperty(PropertyURIEnum.LOCATION
-											.getUri())).getURI());
-			ldwProjectReportLocation.removeAll(model
-					.getProperty(PropertyURIEnum.VALUE.getUri()));
-			ldwProject.addLiteral(model.getProperty(PropertyURIEnum.NAME
-					.getUri()), project.getReport().getName());
-			ldwProjectReportLocation.addLiteral(
-					model.getProperty(PropertyURIEnum.VALUE.getUri()), project
-							.getReport().getLocation().getValue());
-
-		} else {
-			Individual ldwProjectReport = model.getOntClass(
-					ClassURIEnum.REPORT.getUri()).createIndividual(
-					project.getReport().getUri());
-			ldwProjectReport.addLiteral(model.getProperty(PropertyURIEnum.NAME
-					.getUri()), project.getReport().getName());
-			Individual ldwProjectReportLocation = model.getOntClass(
-					ClassURIEnum.LOCATION.getUri()).createIndividual(
-					project.getReport().getLocation().getUri());
-			ldwProjectReportLocation.addLiteral(
-					model.getProperty(PropertyURIEnum.VALUE.getUri()), project
-							.getReport().getLocation().getValue());
-			ldwProjectReport.addProperty(
-					model.getProperty(PropertyURIEnum.LOCATION.getUri()),
-					ldwProjectReportLocation);
-			ldwProject.addProperty(
-					model.getProperty(PropertyURIEnum.REPORT.getUri()),
-					ldwProjectReport);
-
-		}
-		
-	}
 
 	private void insertLdwProject(OntModel model, LDWProject project) {
 	
 		Individual ldwProject = model.getOntClass(ClassURIEnum.LDWPROJECT.getUri()).createIndividual(project.getUri());
-		
-		ldwProject.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()),
-				project.getName());
-		ldwProject.addLiteral(model.getProperty(PropertyURIEnum.GOAL.getUri()),
-				project.getGoal());
-		ldwProject.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()),
-				project.getDescription());
-		
-		if (URIalreadyExists(model, project.getCreator().getUri())) {
-			Individual ldwProjectCreator = model
-					.getIndividual(ldwProject
-							.getPropertyResourceValue(
-									model.getProperty(PropertyURIEnum.CREATOR
-											.getUri())).getURI());
-			ldwProject.addProperty(
-					model.getProperty(PropertyURIEnum.CREATOR.getUri()),
-					ldwProjectCreator);
-		} 
-		else {
-			Individual ldwProjectCreator = model.getOntClass(
-					ClassURIEnum.PERSON.getUri()).createIndividual(
-					project.getCreator().getUri());
-			ldwProjectCreator.addLiteral(model.getProperty(PropertyURIEnum.NAME
-					.getUri()), project.getCreator().getName());
-			ldwProject.addProperty(
-					model.getProperty(PropertyURIEnum.CREATOR.getUri()),
-					ldwProjectCreator);
-		}
-		
-		
-			Individual ldwProjectHomepage = model.getOntClass(
-					ClassURIEnum.HOMEPAGE.getUri()).createIndividual(
-					project.getHomePage().getUri());
-			ldwProjectHomepage.addLiteral(model
-					.getProperty(PropertyURIEnum.NAME.getUri()), project
-					.getHomePage().getName());
-			Individual ldwProjectHomepageLocation = model.getOntClass(
-					ClassURIEnum.LOCATION.getUri()).createIndividual(
-					project.getHomePage().getLocation().getUri());
-			ldwProjectHomepageLocation.addLiteral(
-					model.getProperty(PropertyURIEnum.VALUE.getUri()), project
-							.getHomePage().getLocation().getValue());
-			ldwProjectHomepage.addProperty(
-					model.getProperty(PropertyURIEnum.LOCATION.getUri()),
-					ldwProjectHomepageLocation);
-			ldwProject.addProperty(
-					model.getProperty(PropertyURIEnum.HOMEPAGE.getUri()),
-					ldwProjectHomepage);
-			
-			Individual ldwProjectReport = model.getOntClass(
-					ClassURIEnum.REPORT.getUri()).createIndividual(
-					project.getReport().getUri());
-			ldwProjectReport.addLiteral(model.getProperty(PropertyURIEnum.NAME
-					.getUri()), project.getReport().getName());
-			Individual ldwProjectReportLocation = model.getOntClass(
-					ClassURIEnum.LOCATION.getUri()).createIndividual(
-					project.getReport().getLocation().getUri());
-			ldwProjectReportLocation.addLiteral(
-					model.getProperty(PropertyURIEnum.VALUE.getUri()), project
-							.getReport().getLocation().getValue());
-			ldwProjectReport.addProperty(
-					model.getProperty(PropertyURIEnum.LOCATION.getUri()),
-					ldwProjectReportLocation);
-			ldwProject.addProperty(
-					model.getProperty(PropertyURIEnum.REPORT.getUri()),
-					ldwProjectReport);
+		ldwProject.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()),project.getName());
+		ldwProject.addLiteral(model.getProperty(PropertyURIEnum.GOAL.getUri()),project.getGoal());
+		ldwProject.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()),project.getDescription());
+		ldwProject.addProperty(model.getProperty(PropertyURIEnum.CREATOR.getUri()), model.getIndividual(project.getCreator().getUri()));
+		writeHomepage(model, project.getHomePage());
+		ldwProject.addProperty(model.getProperty(PropertyURIEnum.HOMEPAGE.getUri()), model.getIndividual(project.getHomePage().getUri()));
+		writeReport(model, project.getReport());
+		ldwProject.addProperty(model.getProperty(PropertyURIEnum.REPORT.getUri()),model.getIndividual(project.getReport().getUri()));
 		
 		
 	}
+	
+	private void writeReport(OntModel model, Report r) {
+		
+		if (URIalreadyExists(model, r.getUri()))
+			editReport(model, r);
+		else 
+			insertReport(model, r);
+	}
+	
+	private void insertReport(OntModel model, Report r) {
+		
+		Individual report = model.getOntClass(ClassURIEnum.REPORT.getUri()).createIndividual(r.getUri());
+		report.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), r.getName());
+		Individual location = model.getOntClass(ClassURIEnum.LOCATION.getUri()).createIndividual(r.getLocation().getUri());
+		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), r.getLocation().getValue());
+		report.addProperty(model.getProperty(PropertyURIEnum.LOCATION.getUri()),location);
+		
+	}
+
+	private void editReport(OntModel model, Report r) {
+		
+		Individual report = model.getIndividual(r.getUri());
+		report.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
+		report.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), r.getName());
+		Individual location = model.getIndividual(r.getLocation().getUri());
+		location.removeAll(model.getProperty(PropertyURIEnum.VALUE.getUri()));
+		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), r.getLocation().getValue());
+	}
+
+	private void writeHomepage(OntModel model, Homepage h) {
+		
+		if (URIalreadyExists(model, h.getUri()))
+			editHomepage(model, h);
+		else 
+			insertHomepage(model, h);
+	}
+	
+	private void insertHomepage(OntModel model, Homepage h) {
+		
+		Individual homepage = model.getOntClass(ClassURIEnum.HOMEPAGE.getUri()).createIndividual(h.getUri());
+		homepage.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), h.getName());
+		Individual location = model.getOntClass(ClassURIEnum.LOCATION.getUri()).createIndividual(h.getLocation().getUri());
+		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), h.getLocation().getValue());
+		homepage.addProperty(model.getProperty(PropertyURIEnum.LOCATION.getUri()),location);
+	}
+	
+	private void editHomepage(OntModel model, Homepage h) {
+		
+		Individual homepage = model.getIndividual(h.getUri());
+		homepage.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
+		homepage.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), h.getName());
+		Individual location = model.getIndividual(h.getLocation().getUri());
+		location.removeAll(model.getProperty(PropertyURIEnum.VALUE.getUri()));
+		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), h.getLocation().getValue());
+	}
+	
+	
 	
 	
 }
