@@ -1,19 +1,17 @@
 package br.ufsc.inf.syslodflow.entity;
 
-import br.ufsc.inf.syslodflow.dto.LDWStepExecutionDTO;
 
 public class LDWStepExecution extends BaseModel {
 	
 	private Status status;
 	private Message message;
-	private LDWStepExecutionDTO nextStep;
-	private LDWStepExecutionDTO previousStep;
 	private Person contributor;
 	private String description;
 	private String name;
 	private String startedDate;
 	private String endedDate;
 	private String uri;
+	private int order;
 	
 	public LDWStepExecution() {
 		
@@ -22,8 +20,7 @@ public class LDWStepExecution extends BaseModel {
 	public LDWStepExecution(String name,
 			String description, Status status, Message message,
 			Person contributor, String startedDate,
-			String endedDate, LDWStepExecutionDTO nextStep,
-			LDWStepExecutionDTO previousStep, String uri) {
+			String endedDate, int order, String uri) {
 		
 		this.name = name;
 		this.description = description;
@@ -32,8 +29,7 @@ public class LDWStepExecution extends BaseModel {
 		this.contributor = contributor;
 		this.startedDate = startedDate;
 		this.endedDate = endedDate;
-		this.nextStep = nextStep;
-		this.previousStep = previousStep;
+		this.order = order;
 		this.uri = uri;
 	}
 
@@ -48,18 +44,6 @@ public class LDWStepExecution extends BaseModel {
 	}
 	public void setMessage(Message message) {
 		this.message = message;
-	}
-	public LDWStepExecutionDTO getNextStep() {
-		return nextStep;
-	}
-	public void setNextStep(LDWStepExecutionDTO nextStep) {
-		this.nextStep = nextStep;
-	}
-	public LDWStepExecutionDTO getPreviousStep() {
-		return previousStep;
-	}
-	public void setPrevioustStep(LDWStepExecutionDTO previousStep) {
-		this.previousStep = previousStep;
 	}
 	public Person getContributor() {
 		return contributor;
@@ -92,12 +76,18 @@ public class LDWStepExecution extends BaseModel {
 		this.endedDate = endedDate;
 	}
 	
-	@Override
+	public int getOrder() {
+		return order;
+	}
+
+	public void setOrder(int order) {
+		this.order = order;
+	}
+	
 	public String getUri() {
 		return uri;
 	}
 
-	@Override
 	public void setUri(String uri) {
 		this.uri = uri;
 	}

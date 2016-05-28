@@ -40,21 +40,52 @@ public class LdWorkflowExecutionService extends BaseService {
 		return new LDWorkflowExecution(firstLdwStepExecution, ldwStepExecutions, description, name, startedDate, endedDate, ontLdwWorkFlowExecution.getURI());
 	}
 	
-	public void insertLDWorkflowExecution(OntModel model, LDWorkflowExecution l) {
-		
-		// FAZER A RELACAO ENTRE LDWORKFLOW E LDWORKFLOWEXECUTION (dAR UM JEITO)
+	public void insertLDWorkflowExecution(OntModel model, LDWorkflowExecution l, Individual ldworkflow) {
 		
 		Individual ldworkflowexecution = model.getOntClass(ClassURIEnum.LDWORKFLOWEXECUTION.getUri()).createIndividual(l.getUri());
-		
 		ldworkflowexecution.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), l.getName());
 		ldworkflowexecution.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), l.getDescription());
-		
+		List<LDWStepExecution> sortedLDWStepExecutions = sortLDWStepExecutions(l.getLdwStepExecutions());
 		for(int i=0; i<l.getLdwStepExecutions().size(); i++) {
 			ldwStepExecutionService.insertLdwStepExecution(model, l.getLdwStepExecutions().get(i));
+			ldworkflowexecution.addProperty(model.getProperty(PropertyURIEnum.LDWSTEPEXECUTION.getUri()), model.getIndividual(sortedLDWStepExecutions.get(i).getUri()));
 		}
+		ldworkflowexecution.addProperty(model.getProperty(PropertyURIEnum.FIRSTLDWSTEPEXECUTION.getUri()), model.getIndividual(sortedLDWStepExecutions.get(0).getUri()));
+		model.getIndividual(sortedLDWStepExecutions.get(0).getUri()).addProperty(model.getProperty(PropertyURIEnum.NEXTSTEP.getUri()), model.getIndividual(sortedLDWStepExecutions.get(1).getUri()));
+		model.getIndividual(sortedLDWStepExecutions.get(1).getUri()).addProperty(model.getProperty(PropertyURIEnum.NEXTSTEP.getUri()), model.getIndividual(sortedLDWStepExecutions.get(2).getUri()));
+		model.getIndividual(sortedLDWStepExecutions.get(1).getUri()).addProperty(model.getProperty(PropertyURIEnum.PREVIOUSSTEP.getUri()), model.getIndividual(sortedLDWStepExecutions.get(0).getUri()));
+		model.getIndividual(sortedLDWStepExecutions.get(2).getUri()).addProperty(model.getProperty(PropertyURIEnum.NEXTSTEP.getUri()), model.getIndividual(sortedLDWStepExecutions.get(3).getUri()));
+		model.getIndividual(sortedLDWStepExecutions.get(2).getUri()).addProperty(model.getProperty(PropertyURIEnum.PREVIOUSSTEP.getUri()), model.getIndividual(sortedLDWStepExecutions.get(2).getUri()));
+		model.getIndividual(sortedLDWStepExecutions.get(3).getUri()).addProperty(model.getProperty(PropertyURIEnum.NEXTSTEP.getUri()), model.getIndividual(sortedLDWStepExecutions.get(4).getUri()));
+		model.getIndividual(sortedLDWStepExecutions.get(3).getUri()).addProperty(model.getProperty(PropertyURIEnum.PREVIOUSSTEP.getUri()), model.getIndividual(sortedLDWStepExecutions.get(2).getUri()));
+		model.getIndividual(sortedLDWStepExecutions.get(4).getUri()).addProperty(model.getProperty(PropertyURIEnum.PREVIOUSSTEP.getUri()), model.getIndividual(sortedLDWStepExecutions.get(3).getUri()));
+		ldworkflowexecution.addProperty(model.getProperty(PropertyURIEnum.LDWORKFLOWEXECUTION.getUri()), ldworkflow);
+	}
+	
+	public void editLDWorkflowExecution(OntModel model, LDWorkflowExecution l) {
+		
+		Individual ldworkflowexecution = model.getIndividual(l.getUri());
+		ldworkflowexecution.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
+		ldworkflowexecution.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), l.getName());
+		ldworkflowexecution.removeAll(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()));
+		ldworkflowexecution.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), l.getDescription());
+		List<LDWStepExecution> sortedLDWStepExecutions = sortLDWStepExecutions(l.getLdwStepExecutions());
+		for(int i=0; i<sortedLDWStepExecutions.size(); i++) {
+			ldwStepExecutionService.editLdwStepExecution(model, sortedLDWStepExecutions.get(i));
+		}
+	}
+		
+	private List<LDWStepExecution> sortLDWStepExecutions(List<LDWStepExecution> ldwstepexecutions) {
+		List<LDWStepExecution> sortedList = new ArrayList<LDWStepExecution>();
+		for(LDWStepExecution s: ldwstepexecutions){
+			sortedList.add(s);
+		}
+		
+		for(int i=0; i<ldwstepexecutions.size(); i++) {
+			sortedList.set(ldwstepexecutions.get(i).getOrder()-1, ldwstepexecutions.get(i));
+		}
+		return sortedList;
 	}
 
 	
-	
-
 }

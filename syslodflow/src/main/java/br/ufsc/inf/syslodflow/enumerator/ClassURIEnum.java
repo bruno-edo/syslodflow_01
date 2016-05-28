@@ -4,6 +4,7 @@ public enum ClassURIEnum {
 	LDWPROJECT("http://ldwpo.aksw.org/terms/1.0/LDWProject"),
 	LDWORKFLOW("http://ldwpo.aksw.org/terms/1.0/LDWorkflow"),
 	LDWORKFLOWEXECUTION("http://ldwpo.aksw.org/terms/1.0/LDWorkflowExecution"),
+	LDWSTEPEXECUTION("http://ldwpo.aksw.org/terms/1.0/LDWStepExecution"),
 	LDWSTEP("http://ldwpo.aksw.org/terms/1.0/LDWStep"),
 	CONDITION("http://ldwpo.aksw.org/terms/1.0/Condition"),
 	PERSON("http://ldwpo.aksw.org/terms/1.0/Person"),
@@ -14,7 +15,8 @@ public enum ClassURIEnum {
 	REPORT("http://ldwpo.aksw.org/terms/1.0/Report"),
 	FORMAT("http://ldwpo.aksw.org/terms/1.0/Format"),
 	DATASET("http://ldwpo.aksw.org/terms/1.0/Dataset"),
-	LICENSE("http://ldwpo.aksw.org/terms/1.0/License");
+	LICENSE("http://ldwpo.aksw.org/terms/1.0/License"),
+	MESSAGE("http://ldwpo.aksw.org/terms/1.0/Message");
 	
 	private String uri;
 	

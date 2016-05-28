@@ -3,12 +3,13 @@ package br.ufsc.inf.syslodflow.service;
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntModel;
 
-import br.ufsc.inf.syslodflow.dto.LDWStepExecutionDTO;
 import br.ufsc.inf.syslodflow.entity.LDWStepExecution;
 import br.ufsc.inf.syslodflow.entity.Message;
 import br.ufsc.inf.syslodflow.entity.Person;
 import br.ufsc.inf.syslodflow.entity.Status;
+import br.ufsc.inf.syslodflow.enumerator.ClassURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
+import br.ufsc.inf.syslodflow.enumerator.StepOrderEnum;
 
 public class LdwStepExecutionService extends BaseService {
 	
@@ -16,6 +17,8 @@ public class LdwStepExecutionService extends BaseService {
 		
 		String ldwStepExecutionName = getPropertyStringValue(ontLdwStepExec, model, PropertyURIEnum.NAME.getUri());
 		String ldwStepExecutionDescription = getPropertyStringValue(ontLdwStepExec, model, PropertyURIEnum.DESCRIPTION.getUri());
+		
+		int order = getOrder(model, ontLdwStepExec);
 		
 		Individual ldwStepExecutionStatus = model.getIndividual(ontLdwStepExec.getPropertyResourceValue(model.getProperty(PropertyURIEnum.STATUS.getUri())).getURI());
 		String ldwStepExecutionStatusValue = getPropertyStringValue(ldwStepExecutionStatus, model, PropertyURIEnum.VALUE.getUri());
@@ -32,40 +35,88 @@ public class LdwStepExecutionService extends BaseService {
 		String ldwStepExecutionStartedDate = getPropertyStringValue(ontLdwStepExec, model, PropertyURIEnum.STARTEDDATE.getUri());
 		String ldwStepExecutionEndedDate = getPropertyStringValue(ontLdwStepExec, model, PropertyURIEnum.ENDEDDATE.getUri());
 		
-		LDWStepExecutionDTO nextStep = this.getNextStepExecution(model, ontLdwStepExec);
-		LDWStepExecutionDTO previousStep = this.getPreviousStepExecution(model, ontLdwStepExec);
-		
-		return new LDWStepExecution(ldwStepExecutionName, ldwStepExecutionDescription, status, msg, contributor, ldwStepExecutionStartedDate, ldwStepExecutionEndedDate,
-				nextStep, previousStep, ontLdwStepExec.getURI());
+		return new LDWStepExecution(ldwStepExecutionName, ldwStepExecutionDescription, status, msg, contributor, ldwStepExecutionStartedDate, ldwStepExecutionEndedDate, order, ontLdwStepExec.getURI());
 	}
 	
-	private LDWStepExecutionDTO getNextStepExecution(OntModel model, Individual stepExecution) {
+	public void insertLdwStepExecution(OntModel model, LDWStepExecution l) {
 		
-		if(stepExecution.hasProperty(model.getProperty(PropertyURIEnum.NEXTSTEP.getUri()))) {
-			Individual nextStep =  getSubIndividualByProperty(model, stepExecution, PropertyURIEnum.NEXTSTEP.getUri());
-			String nextStepName = getPropertyStringValue(nextStep, model, PropertyURIEnum.NAME.getUri());
-			String nextStepURI = nextStep.getURI();
-			return new LDWStepExecutionDTO(nextStepName, nextStepURI);
+		Individual ldwstepexecution = model.getOntClass(ClassURIEnum.LDWSTEPEXECUTION.getUri()).createIndividual(l.getUri());
+		ldwstepexecution.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), l.getName());
+		ldwstepexecution.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), l.getDescription());
+		ldwstepexecution.addProperty(model.getProperty(PropertyURIEnum.CONTRIBUTOR.getUri()), model.getIndividual(l.getContributor().getUri()));
+		this.insertMessage(model, l.getMessage());
+		Individual message = model.getIndividual(l.getMessage().getUri());
+		ldwstepexecution.addProperty(model.getProperty(PropertyURIEnum.MESSAGE.getUri()), message);
+		
+	}
+	
+	private void insertMessage(OntModel model, Message m) {
+		
+		Individual message = model.getOntClass(ClassURIEnum.MESSAGE.getUri()).createIndividual(m.getUri());
+		message.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), m.getValue());
+	}
+	
+	private void editMessage(OntModel model, Message m) {
+		
+		Individual message = model.getIndividual(m.getUri());
+		message.removeAll(model.getProperty(PropertyURIEnum.VALUE.getUri()));
+		message.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), m.getValue());
+	}
+	
+	
+	
+	private int getOrder(OntModel model, Individual ontLdwStepExecution) {
+
+		int order;
+		if (!ontLdwStepExecution.hasProperty(model.getProperty(PropertyURIEnum.PREVIOUSSTEP.getUri()))) {
+			order = StepOrderEnum.FIRST.getOrder();
 		}
-		else { return null; }
-	}
-	
-	private LDWStepExecutionDTO getPreviousStepExecution(OntModel model, Individual stepExecution) {
-		
-		if(stepExecution.hasProperty(model.getProperty(PropertyURIEnum.PREVIOUSSTEP.getUri()))) {
-			Individual previousStep = getSubIndividualByProperty(model, stepExecution, PropertyURIEnum.NEXTSTEP.getUri());
-			String previousStepName = getPropertyStringValue(previousStep, model, PropertyURIEnum.NAME.getUri());
-			if(previousStep != null) {
-				String previousStepURI = previousStep.getURI();
-				return new LDWStepExecutionDTO(previousStepName, previousStepURI);
+
+		else {
+
+			if (!ontLdwStepExecution.hasProperty(model.getProperty(PropertyURIEnum.NEXTSTEP.getUri()))) {
+				order = StepOrderEnum.FIFTH.getOrder();
 			}
+
+			else {
+
+				if (!ontLdwStepExecution.getPropertyResourceValue(model.getProperty(PropertyURIEnum.NEXTSTEP.getUri())).hasProperty(model.getProperty(PropertyURIEnum.NEXTSTEP.getUri()))) {
+					order = StepOrderEnum.FOURTH.getOrder();
+
+				} else {
+
+					if (!ontLdwStepExecution.getPropertyResourceValue(
+							model.getProperty(PropertyURIEnum.PREVIOUSSTEP
+									.getUri())).hasProperty(
+							model.getProperty(PropertyURIEnum.PREVIOUSSTEP
+									.getUri()))) {
+						order = StepOrderEnum.SECOND.getOrder();
+
+					} else {
+						order = StepOrderEnum.THIRD.getOrder();
+					}
+				}
+			}
+
 		}
-		return null;
+		
+		return order;
 	}
 
-	public void insertLdwStepExecution(OntModel model,
-			LDWStepExecution ldwStepExecution) {
-		// TODO Auto-generated method stub
+	public void editLdwStepExecution(OntModel model,
+			LDWStepExecution l) {
+		
+		Individual ldwstepexecution = model.getIndividual(l.getUri());
+		ldwstepexecution.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
+		ldwstepexecution.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), l.getName());
+		ldwstepexecution.removeAll(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()));
+		ldwstepexecution.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), l.getDescription());
+		ldwstepexecution.removeAll(model.getProperty(PropertyURIEnum.CONTRIBUTOR.getUri()));
+		ldwstepexecution.addProperty(model.getProperty(PropertyURIEnum.CONTRIBUTOR.getUri()), model.getIndividual(l.getContributor().getUri()));
+		this.editMessage(model, l.getMessage());
+		Individual message = model.getIndividual(l.getMessage().getUri());
+		ldwstepexecution.removeAll(model.getProperty(PropertyURIEnum.MESSAGE.getUri()));
+		ldwstepexecution.addProperty(model.getProperty(PropertyURIEnum.MESSAGE.getUri()), message);
 		
 	}
 
