@@ -93,66 +93,70 @@ public class LdwProjectService extends BaseService {
 		return model;
 	}
 	
-	public void writeLdwProject(OntModel model, LDWProject project) {
+	public OntModel writeLdwProject(OntModel model, LDWProject project) {
 		
 		if (URIalreadyExists(model, project.getUri()))
-			editLdwProject(model, project);
+			return editLdwProject(model, project);
 		else 
-			insertLdwProject(model, project);
+			return insertLdwProject(model, project);
 	}
 	
-	private void editLdwProject(OntModel model, LDWProject project) {
+	private OntModel editLdwProject(OntModel model, LDWProject project) {
 
 		Individual ldwProject = model.getIndividual(project.getUri());
 		ldwProject.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
 		ldwProject.removeAll(model.getProperty(PropertyURIEnum.GOAL.getUri()));
 		ldwProject.removeAll(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()));
+		ldwProject.removeAll(model.getProperty(PropertyURIEnum.CREATOR.getUri()));
 		ldwProject.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()),project.getName());
 		ldwProject.addLiteral(model.getProperty(PropertyURIEnum.GOAL.getUri()),project.getGoal());
 		ldwProject.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()),project.getDescription());
 		ldwProject.addProperty(model.getProperty(PropertyURIEnum.CREATOR.getUri()), model.getIndividual(project.getCreator().getUri()));
-		writeHomepage(model, project.getHomePage());
+		model = writeHomepage(model, project.getHomePage());
 		ldwProject.removeAll(model.getProperty(PropertyURIEnum.HOMEPAGE.getUri()));
 		ldwProject.addProperty(model.getProperty(PropertyURIEnum.HOMEPAGE.getUri()), model.getIndividual(project.getHomePage().getUri()));
-		writeReport(model, project.getReport());
+		model = writeReport(model, project.getReport());
 		ldwProject.removeAll(model.getProperty(PropertyURIEnum.REPORT.getUri()));
 		ldwProject.addProperty(model.getProperty(PropertyURIEnum.REPORT.getUri()),model.getIndividual(project.getReport().getUri()));
-		}
+		return model;
+		
+	}
 
-	private void insertLdwProject(OntModel model, LDWProject project) {
+	private OntModel insertLdwProject(OntModel model, LDWProject project) {
 	
 		Individual ldwProject = model.getOntClass(ClassURIEnum.LDWPROJECT.getUri()).createIndividual(project.getUri());
 		ldwProject.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()),project.getName());
 		ldwProject.addLiteral(model.getProperty(PropertyURIEnum.GOAL.getUri()),project.getGoal());
 		ldwProject.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()),project.getDescription());
 		ldwProject.addProperty(model.getProperty(PropertyURIEnum.CREATOR.getUri()), model.getIndividual(project.getCreator().getUri()));
-		writeHomepage(model, project.getHomePage());
+		model = writeHomepage(model, project.getHomePage());
 		ldwProject.addProperty(model.getProperty(PropertyURIEnum.HOMEPAGE.getUri()), model.getIndividual(project.getHomePage().getUri()));
-		writeReport(model, project.getReport());
+		model = writeReport(model, project.getReport());
 		ldwProject.addProperty(model.getProperty(PropertyURIEnum.REPORT.getUri()),model.getIndividual(project.getReport().getUri()));
-		
+		return model;
 		
 	}
 	
-	private void writeReport(OntModel model, Report r) {
+	private OntModel writeReport(OntModel model, Report r) {
 		
 		if (URIalreadyExists(model, r.getUri()))
-			editReport(model, r);
+			return editReport(model, r);
 		else 
-			insertReport(model, r);
+			return insertReport(model, r);
 	}
 	
-	private void insertReport(OntModel model, Report r) {
+	private OntModel insertReport(OntModel model, Report r) {
 		
 		Individual report = model.getOntClass(ClassURIEnum.REPORT.getUri()).createIndividual(r.getUri());
 		report.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), r.getName());
 		Individual location = model.getOntClass(ClassURIEnum.LOCATION.getUri()).createIndividual(r.getLocation().getUri());
 		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), r.getLocation().getValue());
 		report.addProperty(model.getProperty(PropertyURIEnum.LOCATION.getUri()),location);
+		return model;
 		
 	}
 
-	private void editReport(OntModel model, Report r) {
+	private OntModel editReport(OntModel model, Report r) {
 		
 		Individual report = model.getIndividual(r.getUri());
 		report.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
@@ -160,26 +164,28 @@ public class LdwProjectService extends BaseService {
 		Individual location = model.getIndividual(r.getLocation().getUri());
 		location.removeAll(model.getProperty(PropertyURIEnum.VALUE.getUri()));
 		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), r.getLocation().getValue());
+		return model;
 	}
 
-	private void writeHomepage(OntModel model, Homepage h) {
+	private OntModel writeHomepage(OntModel model, Homepage h) {
 		
 		if (URIalreadyExists(model, h.getUri()))
-			editHomepage(model, h);
+			return editHomepage(model, h);
 		else 
-			insertHomepage(model, h);
+			return insertHomepage(model, h);
 	}
 	
-	private void insertHomepage(OntModel model, Homepage h) {
+	private OntModel insertHomepage(OntModel model, Homepage h) {
 		
 		Individual homepage = model.getOntClass(ClassURIEnum.HOMEPAGE.getUri()).createIndividual(h.getUri());
 		homepage.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), h.getName());
 		Individual location = model.getOntClass(ClassURIEnum.LOCATION.getUri()).createIndividual(h.getLocation().getUri());
 		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), h.getLocation().getValue());
 		homepage.addProperty(model.getProperty(PropertyURIEnum.LOCATION.getUri()),location);
+		return model;
 	}
 	
-	private void editHomepage(OntModel model, Homepage h) {
+	private OntModel editHomepage(OntModel model, Homepage h) {
 		
 		Individual homepage = model.getIndividual(h.getUri());
 		homepage.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
@@ -187,6 +193,7 @@ public class LdwProjectService extends BaseService {
 		Individual location = model.getIndividual(h.getLocation().getUri());
 		location.removeAll(model.getProperty(PropertyURIEnum.VALUE.getUri()));
 		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), h.getLocation().getValue());
+		return model;
 	}
 	
 	public String createUri(String name) {

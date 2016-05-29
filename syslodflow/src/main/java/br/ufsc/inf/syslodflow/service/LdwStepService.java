@@ -270,7 +270,7 @@ public class LdwStepService extends BaseService {
 		}
 	}
 
-	public void insertLdwStep(OntModel model, LDWStep step) {
+	public OntModel insertLdwStep(OntModel model, LDWStep step) {
 		
 		Individual ldwstep = model.getOntClass(ClassURIEnum.LDWSTEP.getUri()).createIndividual(step.getUri());
 		ldwstep.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), step.getName());
@@ -286,6 +286,7 @@ public class LdwStepService extends BaseService {
 		ldwstep.addProperty(model.getProperty(PropertyURIEnum.OUTPUTDATASET.getUri()), model.getIndividual(step.getOutputDataset().getUri()));
 		this.insertToolConfiguration(model, step.getToolConfiguration());
 		ldwstep.addProperty(model.getProperty(PropertyURIEnum.TOOLCONFIGURATION.getUri()), model.getIndividual(step.getToolConfiguration().getUri()));
+			
 	}
 
 	public void editLdwStep(OntModel model, LDWStep step) {

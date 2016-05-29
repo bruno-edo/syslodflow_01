@@ -15,6 +15,7 @@ import br.ufsc.inf.syslodflow.dto.LDWProjectDTO;
 import br.ufsc.inf.syslodflow.entity.LDWProject;
 import br.ufsc.inf.syslodflow.entity.LDWorkflow;
 import br.ufsc.inf.syslodflow.entity.Person;
+import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
 import br.ufsc.inf.syslodflow.service.LdwProjectService;
 import br.ufsc.inf.syslodflow.service.LdwpoService;
 import br.ufsc.inf.syslodflow.service.PersonService;
@@ -76,8 +77,9 @@ public class LdwProjectBean {
 				String uriProject = ldwProjectService.createUri(ldwProject.getName());
 				ldwProject.setUri(uriProject);
 			}
-
-			this.ontModel = ldwProjectService.saveLdwProject(ontModel, ldwProject);
+			ontModel = this.ldwProjectService.writeLdwProject(ontModel, ldwProject);
+			ontModel.getIndividual(ldwProject.getUri()).getPropertyValue(ontModel.getProperty(PropertyURIEnum.DESCRIPTION.getUri())).asLiteral().getString();
+			ontModel.getIndividual(ldwProject.getUri()).getPropertyResourceValue(ontModel.getProperty(PropertyURIEnum.CREATOR.getUri())).getURI();
 			this.ldwpoService.doSaveModel(ontModel, ldwProject.getFileName());
 			return Navegacao.LDWPROJECT_LIST;
 		} else {

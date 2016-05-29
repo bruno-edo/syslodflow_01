@@ -14,18 +14,18 @@ public class PersonConverter implements Converter {
 		
 		@Override
 		public Object getAsObject(FacesContext context, UIComponent component,String value) {
-			Tool tool  = null;
+			Person person  = null;
 			if (!value.equals(null) && !value.isEmpty() && !value.equals("null")) {
-	            return (Tool) component.getAttributes().get(value);
+	            return (Person) component.getAttributes().get(value);
 	        }
-	        return tool;
+	        return person;
 		}
 
 		@Override
 		public String getAsString(FacesContext context, UIComponent component,	Object value) {
-			if (value instanceof Tool) {
-				Tool entity = (Tool) value;
-	            if (entity != null && entity instanceof Tool && entity.getName() != null) {
+			if (value instanceof Person) {
+				Person entity = (Person) value;
+	            if (entity != null && entity instanceof Person && entity.getName() != null) {
 	            	component.getAttributes().put(entity.getName().toString(), entity);
 	                return entity.getName().toString();
 	            }

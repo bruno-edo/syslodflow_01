@@ -2,7 +2,7 @@
 
 
 <!DOCTYPE rdf:RDF [
-    <!ENTITY pwo "http:/purl.org/spar/pwo#" >
+    <!ENTITY pwo "http://purl.org/spar/pwo#" >
     <!ENTITY dc "http://purl.org/dc/terms/" >
     <!ENTITY prov "http://www.w3.org/ns/prov#" >
     <!ENTITY foaf "http://xmlns.com/foaf/0.1/" >
@@ -25,7 +25,7 @@
      xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
      xmlns:swrl="http://www.w3.org/2003/11/swrl#"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-     xmlns:pwo="http:/purl.org/spar/pwo#"
+     xmlns:pwo="http://purl.org/spar/pwo#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:doap="http://usefulinc.com/ns/doap#"
