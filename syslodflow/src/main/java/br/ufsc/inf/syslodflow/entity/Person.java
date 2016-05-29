@@ -9,6 +9,10 @@ public class Person extends BaseModel {
 		this.name = name;
 		this.uri = uri;
 	}
+	
+	public Person() {
+		
+	}
 
 	public String getName() {
 		return name;

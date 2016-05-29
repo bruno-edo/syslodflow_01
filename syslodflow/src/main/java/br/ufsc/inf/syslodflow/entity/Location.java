@@ -10,6 +10,10 @@ public class Location extends BaseModel {
 		this.value = value;
 		this.uri = uri;
 	}
+	
+	public Location() {
+		
+	}
 
 	public String getValue() {
 		return value;

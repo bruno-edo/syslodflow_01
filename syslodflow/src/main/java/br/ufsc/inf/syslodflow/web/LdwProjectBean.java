@@ -15,6 +15,7 @@ import br.ufsc.inf.syslodflow.entity.LDWorkflow;
 import br.ufsc.inf.syslodflow.service.LdwProjectService;
 import br.ufsc.inf.syslodflow.service.LdwpoService;
 import br.ufsc.inf.syslodflow.util.Navegacao;
+import br.ufsc.inf.syslodflow.util.StringUtils;
 
 import com.hp.hpl.jena.ontology.OntModel;
 
@@ -62,9 +63,21 @@ public class LdwProjectBean {
 	}
 	
 	public String doSave() {
-		this.ontModel = ldwProjectService.saveLdwProject(ontModel, ldwProject);
-		this.ldwpoService.doSaveModel(ontModel, ldwProject.getFileName());
-		return Navegacao.LDWPROJECT_LIST;
+		//Valida nome do projeto 
+		if(StringUtils.isValidNameProject(ldwProject.getName())){
+			if(ldwProject.getUri() == null) {
+				String uriProject = ldwProjectService.createUri(ldwProject.getName());
+				ldwProject.setUri(uriProject);
+			}
+
+			this.ontModel = ldwProjectService.saveLdwProject(ontModel, ldwProject);
+			this.ldwpoService.doSaveModel(ontModel, ldwProject.getFileName());
+			return Navegacao.LDWPROJECT_LIST;
+		} else {
+			return Navegacao.MESMA_PAGINA;
+		}
+
+
 	}	
 	
 	/* CONTROLE TAB */

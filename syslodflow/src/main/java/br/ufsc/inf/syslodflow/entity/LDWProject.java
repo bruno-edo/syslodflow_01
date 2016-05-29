@@ -30,7 +30,8 @@ public class LDWProject extends BaseModel {
 	}
 
 	public LDWProject() {
-		// TODO Auto-generated constructor stub
+		homePage = new Homepage();
+		creator = new Person();
 	}
 
 	public Person getCreator() {

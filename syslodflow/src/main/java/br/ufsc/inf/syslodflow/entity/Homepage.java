@@ -7,7 +7,7 @@ public class Homepage extends BaseModel {
 	private String uri;
 	
 	public Homepage() {
-		
+		location = new Location();
 	}
 	
 	public Homepage(String name, Location location, String uri) {

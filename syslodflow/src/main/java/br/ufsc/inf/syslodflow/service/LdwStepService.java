@@ -352,4 +352,37 @@ public class LdwStepService extends BaseService {
 		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), t.getLocation().getValue());	
 
 	}
+	
+	public void writeTool(OntModel model, Tool t) {
+    	
+    	if(URIalreadyExists(model, t.getUri()))
+    		insertTool(model, t);
+    	else
+    		editTool(model, t);
+    }
+    
+    
+	private void editTool(OntModel model, Tool t) {
+		
+		Individual tool = model.getIndividual(t.getUri());
+		tool.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
+		tool.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), t.getName());
+		Individual location = model.getOntClass(ClassURIEnum.LOCATION.getUri()).createIndividual(t.getLocation().getUri());
+		location.removeAll(model.getProperty(PropertyURIEnum.VALUE.getUri()));
+		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), t.getLocation().getValue());
+		
+	}
+	
+	private void insertTool(OntModel model, Tool t) {
+		
+		Individual tool = model.getOntClass(ClassURIEnum.TOOL.getUri()).createIndividual(t.getUri());
+		tool.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), t.getName());
+		Individual location = model.getOntClass(ClassURIEnum.LOCATION.getUri()).createIndividual(t.getLocation().getUri());
+		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), t.getLocation().getValue());
+		tool.addProperty(model.getProperty(PropertyURIEnum.LOCATION.getUri()), location);
+		
+	}
+	
+	
+	
 }

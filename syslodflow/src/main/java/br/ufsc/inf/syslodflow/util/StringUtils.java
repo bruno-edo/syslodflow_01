@@ -1,13 +1,10 @@
 package br.ufsc.inf.syslodflow.util;
 
 import java.text.Normalizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-/**
- * Classe utilit&aacute;ria.
- * @author carloshp
- * (c)2014-2015 COMDAT Ltda. Todos os direitos reservados.
- */
-// FIXME Desnecessario
+
 public class StringUtils {
 	public static String tirarAcentuacao(String str){
 		if(str != null){
@@ -15,5 +12,16 @@ public class StringUtils {
 		}else{
 			return "";
 		}		
+	}
+	 /**
+	  * Validação do nome do Projeto. Apenas espaços em branco e letras.
+	  * @param str
+	  * @return valid
+	  */
+	public static boolean isValidNameProject(String str) {
+		Pattern p = Pattern.compile("^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$");
+		Matcher m = p.matcher(str);
+		return m.matches();
+		
 	}
 }

@@ -14,7 +14,9 @@ import br.ufsc.inf.syslodflow.entity.Location;
 import br.ufsc.inf.syslodflow.entity.Person;
 import br.ufsc.inf.syslodflow.entity.Report;
 import br.ufsc.inf.syslodflow.enumerator.ClassURIEnum;
+import br.ufsc.inf.syslodflow.enumerator.NSURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
+import br.ufsc.inf.syslodflow.util.StringUtils;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntModel;
@@ -187,6 +189,17 @@ public class LdwProjectService extends BaseService {
 		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), h.getLocation().getValue());
 	}
 	
+	public String createUri(String name) {
+		String tmp = StringUtils.tirarAcentuacao(name);
+		tmp = tmp.trim();
+		tmp = tmp.replaceAll(" ", "_");
+		String firstChar = tmp.substring(0, 1).toLowerCase();
+		tmp = firstChar.concat(tmp.substring(1));
+		
+		return NSURIEnum.NS.getUri().concat(tmp);
+		
+		
+	}
 	
 	
 	
