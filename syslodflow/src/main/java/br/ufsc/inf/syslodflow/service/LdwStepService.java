@@ -383,6 +383,48 @@ public class LdwStepService extends BaseService {
 		
 	}
 	
+	public void writeFormat(OntModel model, Format f) {
+		
+		if(URIalreadyExists(model, f.getUri()))
+			editFormat(model, f);
+		else
+			insertFormat(model, f);
+	}
+	
+	private void editFormat(OntModel model, Format f) {
+	
+		Individual format = model.getIndividual(f.getUri());
+		format.removeAll(model.getProperty(PropertyURIEnum.VALUE.getUri()));
+		format.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), f.getValue());
+		
+	}
+
+	private void insertFormat(OntModel model, Format f) {
+		
+		Individual format = model.getOntClass(ClassURIEnum.FORMAT.getUri()).createIndividual(f.getUri());
+		format.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), f.getValue());
+	}
+
+	public void writeLicense(OntModel model, License l) {
+		
+		if(URIalreadyExists(model, l.getUri()))
+			editLicense(model, l);
+		else 
+			insertLicense(model, l);
+	}
+		
+	private void editLicense(OntModel model, License l) {
+		Individual license = model.getIndividual(l.getUri());
+		license.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
+		license.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), l.getName());
+	}
+
+	private void insertLicense(OntModel model, License l) {
+		
+		Individual license = model.getOntClass(ClassURIEnum.LICENSE.getUri()).createIndividual(l.getUri());
+		license.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), l.getName());
+	}
+	
 	
 	
 }

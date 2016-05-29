@@ -3,12 +3,7 @@ package br.ufsc.inf.syslodflow.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.ufsc.inf.syslodflow.entity.Format;
-import br.ufsc.inf.syslodflow.entity.License;
-import br.ufsc.inf.syslodflow.entity.Location;
 import br.ufsc.inf.syslodflow.entity.Person;
-import br.ufsc.inf.syslodflow.entity.Tool;
-import br.ufsc.inf.syslodflow.entity.ToolConfiguration;
 import br.ufsc.inf.syslodflow.enumerator.ClassURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.NSURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
@@ -24,8 +19,6 @@ import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 
 public class BaseService {
-	
-	
 	
 	public static List<Individual> listIndividuals(OntClass classe) {
 
@@ -127,20 +120,5 @@ public class BaseService {
     	Individual person = model.getIndividual(p.getUri());
     	person.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
     	person.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), p.getName());
-    }
-    
-	
-	private void insertFormat(OntModel model, Format f) {
-		
-		Individual format = model.getOntClass(ClassURIEnum.FORMAT.getUri()).createIndividual(f.getUri());
-		format.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), f.getValue());
-	}
-	
-	private void insertLicense(OntModel model, License l) {
-		
-		Individual license = model.getOntClass(ClassURIEnum.LICENSE.getUri()).createIndividual(l.getUri());
-		license.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), l.getName());
-	}
-    
-
+    }    
 }

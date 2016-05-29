@@ -73,12 +73,12 @@ public class LdWorkflowService extends BaseService {
 	}
 	
 	
-	public void writeLdwWorkflow(OntModel model, LDWorkflow workflow) {
+	public void writeLdwWorkflow(OntModel model, LDWorkflow workflow, Individual ldwproject) {
 		
 		if (URIalreadyExists(model, workflow.getUri()))
 			editLdWorkflow(model, workflow);
 		else 
-			insertLdWorkflow(model, workflow);
+			insertLdWorkflow(model, workflow, ldwproject);
 	}
 	
 	private void editLdWorkflow(OntModel model, LDWorkflow workflow) {
@@ -106,7 +106,7 @@ public class LdWorkflowService extends BaseService {
 		
 	}
 
-	private void insertLdWorkflow(OntModel model, LDWorkflow workflow) {
+	private void insertLdWorkflow(OntModel model, LDWorkflow workflow, Individual ldwproject) {
 		
 		Individual ldworkflow = model.getOntClass(ClassURIEnum.LDWORKFLOW.getUri()).createIndividual(workflow.getUri());
 		
@@ -138,6 +138,7 @@ public class LdWorkflowService extends BaseService {
 		model.getIndividual(sortedLDWSteps.get(3).getUri()).addProperty(model.getProperty(PropertyURIEnum.PREVIOUSSTEP.getUri()), model.getIndividual(sortedLDWSteps.get(2).getUri()));
 		model.getIndividual(sortedLDWSteps.get(4).getUri()).addProperty(model.getProperty(PropertyURIEnum.PREVIOUSSTEP.getUri()), model.getIndividual(sortedLDWSteps.get(3).getUri()));
 		
+		ldwproject.addProperty(model.getProperty(PropertyURIEnum.LDWORKFLOW.getUri()), ldworkflow);
 	}
 	
 	private List<LDWStep> sortLDWSteps(List<LDWStep> ldwsteps) {
