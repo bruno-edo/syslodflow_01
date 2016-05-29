@@ -1,5 +1,7 @@
 package br.ufsc.inf.syslodflow.web;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -12,8 +14,10 @@ import org.primefaces.event.TabChangeEvent;
 import br.ufsc.inf.syslodflow.dto.LDWProjectDTO;
 import br.ufsc.inf.syslodflow.entity.LDWProject;
 import br.ufsc.inf.syslodflow.entity.LDWorkflow;
+import br.ufsc.inf.syslodflow.entity.Person;
 import br.ufsc.inf.syslodflow.service.LdwProjectService;
 import br.ufsc.inf.syslodflow.service.LdwpoService;
+import br.ufsc.inf.syslodflow.service.PersonService;
 import br.ufsc.inf.syslodflow.util.Navegacao;
 import br.ufsc.inf.syslodflow.util.StringUtils;
 
@@ -31,8 +35,12 @@ public class LdwProjectBean {
 	private LdwpoService ldwpoService;
 	@Inject
 	private LdwProjectService ldwProjectService;
+	@Inject
+	private PersonService personService;
+	
 	
 	private int tab;
+	private List<Person> personsList;
 	private LDWProject ldwProject;
 	private LDWProjectDTO ldwProjectDTOSelected;
 	private DataModel<LDWProjectDTO> listLdwProjects;
@@ -43,14 +51,12 @@ public class LdwProjectBean {
 		ldwProject = new LDWProject();
 		this.tab = 0;
 		listLdwProjects = new ListDataModel<LDWProjectDTO>(ldwProjectService.getListLdwProjectDTO());
-		
 	}
 	
 	/* NAVEGACAO */ 
 	
 	public String doNew() {
 		ldwProject =  new LDWProject();
-		ldwpoService.init();
 		return Navegacao.LDWPROJECT_CRUD;
 	}
 	
@@ -59,6 +65,7 @@ public class LdwProjectBean {
 		this.ontModel = ldwpoService.doLoadModel(ldwProjectDTOSelected.getPath());
 		this.ldwProject = ldwProjectService.getLDWProject(ontModel);
 		this.ldwProject.setFileName(ldwProjectDTOSelected.getFileName());
+		this.personsList = personService.listPersons(ontModel);
 		return Navegacao.LDWPROJECT_CRUD;
 	}
 	
@@ -126,6 +133,14 @@ public class LdwProjectBean {
 
 	public void setTab(int tab) {
 		this.tab = tab;
+	}
+
+	public List<Person> getPersonsList() {
+		return personsList;
+	}
+
+	public void setPersonsList(List<Person> personsList) {
+		this.personsList = personsList;
 	}
 	
 	
