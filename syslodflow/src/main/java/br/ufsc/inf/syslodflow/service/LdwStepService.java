@@ -279,14 +279,14 @@ public class LdwStepService extends BaseService {
 		ldwstep.addProperty(model.getProperty(PropertyURIEnum.TOOL.getUri()), model.getIndividual(step.getTool().getUri()));
 		ldwstep.addProperty(model.getProperty(PropertyURIEnum.TASK.getUri()), model.getIndividual(step.getTask().getUri()));
 		for(int i=0; i<step.getInputDatasets().size(); i++) {
-			this.insertDataset(model, step.getInputDatasets().get(i));
+			model = this.insertDataset(model, step.getInputDatasets().get(i));
 			ldwstep.addProperty(model.getProperty(PropertyURIEnum.INPUTDATASET.getUri()), model.getIndividual(step.getInputDatasets().get(i).getUri()));
 		}
-		this.insertDataset(model, step.getOutputDataset());
+		model = this.insertDataset(model, step.getOutputDataset());
 		ldwstep.addProperty(model.getProperty(PropertyURIEnum.OUTPUTDATASET.getUri()), model.getIndividual(step.getOutputDataset().getUri()));
-		this.insertToolConfiguration(model, step.getToolConfiguration());
+		model = this.insertToolConfiguration(model, step.getToolConfiguration());
 		ldwstep.addProperty(model.getProperty(PropertyURIEnum.TOOLCONFIGURATION.getUri()), model.getIndividual(step.getToolConfiguration().getUri()));
-			
+		return model;	
 	}
 
 	public void editLdwStep(OntModel model, LDWStep step) {
@@ -301,13 +301,13 @@ public class LdwStepService extends BaseService {
 		ldwstep.removeAll(model.getProperty(PropertyURIEnum.TOOL.getUri()));
 		ldwstep.addProperty(model.getProperty(PropertyURIEnum.TOOL.getUri()), model.getIndividual(step.getTool().getUri()));
 		for(int i=0; i<step.getInputDatasets().size(); i++) {
-			this.editDataset(model, step.getInputDatasets().get(i));
+			model = this.editDataset(model, step.getInputDatasets().get(i));
 		}
-		this.editDataset(model, step.getOutputDataset());
-		this.editToolConfiguration(model, step.getToolConfiguration());
+		model = this.editDataset(model, step.getOutputDataset());
+		model = this.editToolConfiguration(model, step.getToolConfiguration());
 	}
 	
-	private void insertDataset(OntModel model, Dataset d) {
+	private OntModel insertDataset(OntModel model, Dataset d) {
 		Individual dataset = model.getOntClass(ClassURIEnum.DATASET.getUri()).createIndividual(d.getUri());
 		dataset.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), d.getName());
 		dataset.addProperty(model.getProperty(PropertyURIEnum.FORMAT.getUri()), model.getIndividual(d.getFormat().getUri()));
@@ -315,9 +315,10 @@ public class LdwStepService extends BaseService {
 		Individual location = model.getOntClass(ClassURIEnum.LOCATION.getUri()).createIndividual(d.getLocation().getUri());
 		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), d.getLocation().getValue());
 		dataset.addProperty(model.getProperty(PropertyURIEnum.LOCATION.getUri()), location);	
+		return model;
 	}
 	
-	private void editDataset(OntModel model, Dataset d) {
+	private OntModel editDataset(OntModel model, Dataset d) {
 		
 		Individual dataset = model.getIndividual(d.getUri());
 		dataset.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
@@ -332,18 +333,20 @@ public class LdwStepService extends BaseService {
 		Individual location = model.getIndividual(d.getLocation().getUri());
 		location.removeAll(model.getProperty(PropertyURIEnum.VALUE.getUri()));
 		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), d.getLocation().getValue());	
+		return model;
 	}
 	
-	private void insertToolConfiguration(OntModel model, ToolConfiguration t) {
+	private OntModel insertToolConfiguration(OntModel model, ToolConfiguration t) {
 		
 		Individual toolConfig = model.getOntClass(ClassURIEnum.TOOLCONFIGURATION.getUri()).createIndividual(t.getUri());
 		toolConfig.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), t.getName());
 		Individual location = model.getOntClass(ClassURIEnum.LOCATION.getUri()).createIndividual(t.getLocation().getUri());
 		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), t.getLocation().getValue());
 		toolConfig.addProperty(model.getProperty(PropertyURIEnum.LOCATION.getUri()), location);
+		return model;
 	}
 	
-	private void editToolConfiguration(OntModel model, ToolConfiguration t) {
+	private OntModel editToolConfiguration(OntModel model, ToolConfiguration t) {
 		
 		Individual toolConfig = model.getIndividual(t.getUri());
 		toolConfig.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
@@ -351,19 +354,20 @@ public class LdwStepService extends BaseService {
 		Individual location = model.getIndividual(t.getLocation().getUri());
 		location.removeAll(model.getProperty(PropertyURIEnum.VALUE.getUri()));
 		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), t.getLocation().getValue());	
+		return model;
 
 	}
 	
-	public void writeTool(OntModel model, Tool t) {
+	public OntModel writeTool(OntModel model, Tool t) {
     	
     	if(URIalreadyExists(model, t.getUri()))
-    		insertTool(model, t);
+    		return insertTool(model, t);
     	else
-    		editTool(model, t);
+    		return editTool(model, t);
     }
     
     
-	private void editTool(OntModel model, Tool t) {
+	private OntModel editTool(OntModel model, Tool t) {
 		
 		Individual tool = model.getIndividual(t.getUri());
 		tool.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
@@ -371,59 +375,63 @@ public class LdwStepService extends BaseService {
 		Individual location = model.getOntClass(ClassURIEnum.LOCATION.getUri()).createIndividual(t.getLocation().getUri());
 		location.removeAll(model.getProperty(PropertyURIEnum.VALUE.getUri()));
 		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), t.getLocation().getValue());
+		return model;
 		
 	}
 	
-	private void insertTool(OntModel model, Tool t) {
+	private OntModel insertTool(OntModel model, Tool t) {
 		
 		Individual tool = model.getOntClass(ClassURIEnum.TOOL.getUri()).createIndividual(t.getUri());
 		tool.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), t.getName());
 		Individual location = model.getOntClass(ClassURIEnum.LOCATION.getUri()).createIndividual(t.getLocation().getUri());
 		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), t.getLocation().getValue());
 		tool.addProperty(model.getProperty(PropertyURIEnum.LOCATION.getUri()), location);
-		
+		return model;
 	}
 	
-	public void writeFormat(OntModel model, Format f) {
+	public OntModel writeFormat(OntModel model, Format f) {
 		
 		if(URIalreadyExists(model, f.getUri()))
-			editFormat(model, f);
+			return editFormat(model, f);
 		else
-			insertFormat(model, f);
+			return insertFormat(model, f);
 	}
 	
-	private void editFormat(OntModel model, Format f) {
+	private OntModel editFormat(OntModel model, Format f) {
 	
 		Individual format = model.getIndividual(f.getUri());
 		format.removeAll(model.getProperty(PropertyURIEnum.VALUE.getUri()));
 		format.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), f.getValue());
-		
+		return model;
 	}
 
-	private void insertFormat(OntModel model, Format f) {
+	private OntModel insertFormat(OntModel model, Format f) {
 		
 		Individual format = model.getOntClass(ClassURIEnum.FORMAT.getUri()).createIndividual(f.getUri());
 		format.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), f.getValue());
+		return model;
 	}
 
-	public void writeLicense(OntModel model, License l) {
+	public OntModel writeLicense(OntModel model, License l) {
 		
 		if(URIalreadyExists(model, l.getUri()))
-			editLicense(model, l);
+			return editLicense(model, l);
 		else 
-			insertLicense(model, l);
+			return insertLicense(model, l);
 	}
 		
-	private void editLicense(OntModel model, License l) {
+	private OntModel editLicense(OntModel model, License l) {
 		Individual license = model.getIndividual(l.getUri());
 		license.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
 		license.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), l.getName());
+		return model;
 	}
 
-	private void insertLicense(OntModel model, License l) {
+	private OntModel insertLicense(OntModel model, License l) {
 		
 		Individual license = model.getOntClass(ClassURIEnum.LICENSE.getUri()).createIndividual(l.getUri());
 		license.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), l.getName());
+		return model;
 	}
 	
 	

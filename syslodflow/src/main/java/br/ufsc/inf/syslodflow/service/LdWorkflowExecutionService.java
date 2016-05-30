@@ -40,7 +40,14 @@ public class LdWorkflowExecutionService extends BaseService {
 		return new LDWorkflowExecution(firstLdwStepExecution, ldwStepExecutions, description, name, startedDate, endedDate, ontLdwWorkFlowExecution.getURI());
 	}
 	
-	public void insertLDWorkflowExecution(OntModel model, LDWorkflowExecution l, Individual ldworkflow) {
+	
+	public OntModel writeLDWorkflowExecution(OntModel model, LDWorkflowExecution l, Individual ldworkflow) {
+		if(URIalreadyExists(model, l.getUri())) 
+			return editLDWorkflowExecution(model, l);
+		else 
+			return insertLDWorkflowExecution(model, l, ldworkflow);
+	}
+	public OntModel insertLDWorkflowExecution(OntModel model, LDWorkflowExecution l, Individual ldworkflow) {
 		
 		Individual ldworkflowexecution = model.getOntClass(ClassURIEnum.LDWORKFLOWEXECUTION.getUri()).createIndividual(l.getUri());
 		ldworkflowexecution.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), l.getName());
@@ -60,9 +67,10 @@ public class LdWorkflowExecutionService extends BaseService {
 		model.getIndividual(sortedLDWStepExecutions.get(3).getUri()).addProperty(model.getProperty(PropertyURIEnum.PREVIOUSSTEP.getUri()), model.getIndividual(sortedLDWStepExecutions.get(2).getUri()));
 		model.getIndividual(sortedLDWStepExecutions.get(4).getUri()).addProperty(model.getProperty(PropertyURIEnum.PREVIOUSSTEP.getUri()), model.getIndividual(sortedLDWStepExecutions.get(3).getUri()));
 		ldworkflowexecution.addProperty(model.getProperty(PropertyURIEnum.LDWORKFLOWEXECUTION.getUri()), ldworkflow);
+		return model;
 	}
 	
-	public void editLDWorkflowExecution(OntModel model, LDWorkflowExecution l) {
+	public OntModel editLDWorkflowExecution(OntModel model, LDWorkflowExecution l) {
 		
 		Individual ldworkflowexecution = model.getIndividual(l.getUri());
 		ldworkflowexecution.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
@@ -73,6 +81,7 @@ public class LdWorkflowExecutionService extends BaseService {
 		for(int i=0; i<sortedLDWStepExecutions.size(); i++) {
 			ldwStepExecutionService.editLdwStepExecution(model, sortedLDWStepExecutions.get(i));
 		}
+		return model;
 	}
 		
 	private List<LDWStepExecution> sortLDWStepExecutions(List<LDWStepExecution> ldwstepexecutions) {

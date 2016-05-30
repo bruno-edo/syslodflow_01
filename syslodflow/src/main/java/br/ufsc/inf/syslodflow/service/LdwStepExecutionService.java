@@ -38,32 +38,23 @@ public class LdwStepExecutionService extends BaseService {
 		return new LDWStepExecution(ldwStepExecutionName, ldwStepExecutionDescription, status, msg, contributor, ldwStepExecutionStartedDate, ldwStepExecutionEndedDate, order, ontLdwStepExec.getURI());
 	}
 	
-	public void insertLdwStepExecution(OntModel model, LDWStepExecution l) {
+	public OntModel writeLdwStepExecution(OntModel model, LDWStepExecution l) {
+		if(URIalreadyExists(model, l.getUri())) 
+			return editLdwStepExecution(model, l);
+		else
+			return insertLdwStepExecution(model, l);
+	}
+	
+	public OntModel insertLdwStepExecution(OntModel model, LDWStepExecution l) {
 		
 		Individual ldwstepexecution = model.getOntClass(ClassURIEnum.LDWSTEPEXECUTION.getUri()).createIndividual(l.getUri());
 		ldwstepexecution.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), l.getName());
 		ldwstepexecution.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), l.getDescription());
 		ldwstepexecution.addProperty(model.getProperty(PropertyURIEnum.CONTRIBUTOR.getUri()), model.getIndividual(l.getContributor().getUri()));
-		this.insertMessage(model, l.getMessage());
 		Individual message = model.getIndividual(l.getMessage().getUri());
 		ldwstepexecution.addProperty(model.getProperty(PropertyURIEnum.MESSAGE.getUri()), message);
-		
+		return model;
 	}
-	
-	private void insertMessage(OntModel model, Message m) {
-		
-		Individual message = model.getOntClass(ClassURIEnum.MESSAGE.getUri()).createIndividual(m.getUri());
-		message.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), m.getValue());
-	}
-	
-	private void editMessage(OntModel model, Message m) {
-		
-		Individual message = model.getIndividual(m.getUri());
-		message.removeAll(model.getProperty(PropertyURIEnum.VALUE.getUri()));
-		message.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), m.getValue());
-	}
-	
-	
 	
 	private int getOrder(OntModel model, Individual ontLdwStepExecution) {
 
@@ -103,8 +94,7 @@ public class LdwStepExecutionService extends BaseService {
 		return order;
 	}
 
-	public void editLdwStepExecution(OntModel model,
-			LDWStepExecution l) {
+	public OntModel editLdwStepExecution(OntModel model, LDWStepExecution l) {
 		
 		Individual ldwstepexecution = model.getIndividual(l.getUri());
 		ldwstepexecution.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
@@ -113,10 +103,10 @@ public class LdwStepExecutionService extends BaseService {
 		ldwstepexecution.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), l.getDescription());
 		ldwstepexecution.removeAll(model.getProperty(PropertyURIEnum.CONTRIBUTOR.getUri()));
 		ldwstepexecution.addProperty(model.getProperty(PropertyURIEnum.CONTRIBUTOR.getUri()), model.getIndividual(l.getContributor().getUri()));
-		this.editMessage(model, l.getMessage());
 		Individual message = model.getIndividual(l.getMessage().getUri());
 		ldwstepexecution.removeAll(model.getProperty(PropertyURIEnum.MESSAGE.getUri()));
 		ldwstepexecution.addProperty(model.getProperty(PropertyURIEnum.MESSAGE.getUri()), message);
+		return model;
 		
 	}
 
