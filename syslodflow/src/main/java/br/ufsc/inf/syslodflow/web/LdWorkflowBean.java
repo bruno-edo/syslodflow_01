@@ -56,6 +56,7 @@ public class LdWorkflowBean {
 	private StreamedContent smlDownload;
 	private UploadedFile smlUploaded;
 	
+	
 	/**
 	 *  Tools lists
 	 */

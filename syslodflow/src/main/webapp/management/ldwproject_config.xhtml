@@ -47,14 +47,20 @@
 
 	<div class="form-group">
 		<div class="row">
-		<div class="col-lg-6">
+		<div class="col-lg-4">
 			<label>#{msg['crud.ldwproject.creator']}</label><br />
 			<p:selectOneMenu id="creator"  style="width: 100%" value="#{ldwProjectBean.ldwProject.creator}">
 				<f:selectItems value="#{ldwProjectBean.personsList}" var="person" 
 					itemLabel="#{person.name}" itemValue="#{person}" />
 			</p:selectOneMenu>
+			</div><br/>
+		<div class="col-lg-2">	
+			<h:commandLink id="personButton" onclick="PF('dialog_person').show();" styleClass="btn btn-default" value="Adicionar">	
+			<i class="fa fa-plus" />
+			</h:commandLink>
 		</div>
-		</div>
+		
+	</div>
 
 
 		<div class="row">
@@ -63,12 +69,20 @@
 				<p:inputText styleClass="form-control"
 					value="#{ldwProjectBean.ldwProject.homePage.location.value}" />
 			</div>
-		</div>
+
+	</div>
 	</div>
 
+	<p:dialog header="Adicionar Pessoa" widgetVar="dialog_person" modal="true" height="100">
+		<label>#{msg['crud.ldwproject.name']}</label>
+		<p:inputText styleClass="form-control" 	value="#{ldwProjectBean.person.name}" />
+		<h:commandButton styleClass="btn btn-outline btn-success"
+			style="margin-right: 5px;" value="Salvar" immediate="false"
+		action="#{ldwProjectBean.doSavePerson()}" />
+	</p:dialog>  
 
 	<h:commandButton styleClass="btn btn-outline btn-success"
-		style="margin-right: 5px;" value="Avançar" immediate="false" type="submit"
+		style="margin-right: 5px;" value="Salvar" immediate="false" type="submit"
 		action="#{ldwProjectBean.doSave}" />
 	<h:commandButton styleClass="btn btn-outline btn-info" type="reset"
 		value="Limpar" />

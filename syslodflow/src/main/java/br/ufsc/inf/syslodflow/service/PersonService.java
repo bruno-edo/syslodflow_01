@@ -29,25 +29,25 @@ public class PersonService extends BaseService {
 			return new Person(name, individual.getURI());
 		}
 
-		public void writePerson(OntModel model, Person p) {
+		public OntModel writePerson(OntModel model, Person p) {
 	    	
 	    	if(URIalreadyExists(model, p.getUri()))
-	    		insertPerson(model, p);
+	    		return insertPerson(model, p);
 	    	else
-	    		editPerson(model, p);
+	    		return editPerson(model, p);
 	    }
 	    
-	    private void insertPerson(OntModel model, Person p) {
-	    	
+	    private OntModel insertPerson(OntModel model, Person p) {
 	    	Individual person = model.getOntClass(ClassURIEnum.PERSON.getUri()).createIndividual(p.getUri());
 	    	person.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), p.getName());
+	    	return model;
 	    }
 	    
-	    private void editPerson(OntModel model, Person p) {
-	    	
+	    private OntModel editPerson(OntModel model, Person p) {
 	    	Individual person = model.getIndividual(p.getUri());
 	    	person.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
 	    	person.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), p.getName());
+	    	return model;
 	    }    
 	
 	

@@ -46,6 +46,8 @@ public class LdwProjectBean {
 	private LDWProjectDTO ldwProjectDTOSelected;
 	private DataModel<LDWProjectDTO> listLdwProjects;
 	private OntModel ontModel;
+	private Person person;
+	private boolean addPerson;
 	
 	@PostConstruct
 	public void init() {
@@ -106,6 +108,18 @@ public class LdwProjectBean {
 	    	this.setTab(5);
 	    }
 	}
+	
+	public void doNewPerson() {
+		addPerson = true;
+	
+	}
+	
+	public void doSavePerson() {
+		this.ontModel = personService.writePerson(ontModel, person); 
+		this.ldwpoService.doSaveModel(ontModel, ldwProject.getFileName());
+		this.personsList = personService.listPersons(ontModel);
+		addPerson = false;
+	}
 
 	public LDWProject getLdwProject() {
 		return ldwProject;
@@ -144,7 +158,21 @@ public class LdwProjectBean {
 	public void setPersonsList(List<Person> personsList) {
 		this.personsList = personsList;
 	}
-	
-	
+
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+
+	public boolean isAddPerson() {
+		return addPerson;
+	}
+
+	public void setAddPerson(boolean addPerson) {
+		this.addPerson = addPerson;
+	}
 	
 }
