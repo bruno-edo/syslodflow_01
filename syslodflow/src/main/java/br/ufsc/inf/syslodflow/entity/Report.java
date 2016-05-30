@@ -1,5 +1,13 @@
 package br.ufsc.inf.syslodflow.entity;
 
+/**
+ * @author jeanmorais
+ *
+ */
+/**
+ * @author jeanmorais
+ *
+ */
 public class Report extends BaseModel {
 	
 	private String name;
@@ -38,5 +46,11 @@ public class Report extends BaseModel {
 	public void setUri(String uri) {
 		this.uri = uri;
 	}
+
+	@Override
+	public String toString() {
+		return "report";
+	}
+	
 	
 }

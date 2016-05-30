@@ -55,9 +55,11 @@
 			</p:selectOneMenu>
 			</div><br/>
 		<div class="col-lg-2">	
-			<h:commandLink id="personButton" onclick="PF('dialog_person').show();" styleClass="btn btn-default" value="Adicionar">	
-			<i class="fa fa-plus" />
-			</h:commandLink>
+			<h:commandButton styleClass="btn btn-outline btn-primary"
+				 value="Adicionar" immediate="true"
+				actionListener="#{ldwProjectBean.doNewPerson()}" >
+				<f:ajax execute="@form" render="@form"/>
+				</h:commandButton>
 		</div>
 		
 	</div>
@@ -73,13 +75,19 @@
 	</div>
 	</div>
 
-	<p:dialog header="Adicionar Pessoa" widgetVar="dialog_person" modal="true" height="100">
+	<p:dialog header="Adicionar Pessoa" widgetVar="dialog_person"
+		modal="true" resizable="false"  height="180" width="400">
+		<h5><span class="label label-warning">Atenção</span> O Nome deve conter apenas letras.</h5>
+
 		<label>#{msg['crud.ldwproject.name']}</label>
-		<p:inputText styleClass="form-control" 	value="#{ldwProjectBean.person.name}" />
+			<p:inputText styleClass="form-control" 
+				value="#{ldwProjectBean.person.name}"/><br/>
+	
 		<h:commandButton styleClass="btn btn-outline btn-success"
-			style="margin-right: 5px;" value="Salvar" immediate="false"
-		action="#{ldwProjectBean.doSavePerson()}" />
-	</p:dialog>  
+			value="Salvar" immediate="false"
+			action="#{ldwProjectBean.doSavePerson()}" />
+			
+	</p:dialog>
 
 	<h:commandButton styleClass="btn btn-outline btn-success"
 		style="margin-right: 5px;" value="Salvar" immediate="false" type="submit"

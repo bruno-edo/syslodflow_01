@@ -18,10 +18,17 @@ public class StringUtils {
 	  * @param str
 	  * @return valid
 	  */
-	public static boolean isValidNameProject(String str) {
+	public static boolean isValidName(String str) {
 		Pattern p = Pattern.compile("^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$");
 		Matcher m = p.matcher(str);
 		return m.matches();
 		
+	}
+	
+	public static String formatName(String str) {
+		String tmp = StringUtils.tirarAcentuacao(str);
+		tmp = tmp.trim();
+		tmp = tmp.replaceAll(" ", "_");
+		return tmp;
 	}
 }

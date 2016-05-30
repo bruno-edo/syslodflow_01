@@ -66,6 +66,13 @@ public class Person extends BaseModel implements Serializable {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "person";
+	}
+	
+	
 	
 	
 	

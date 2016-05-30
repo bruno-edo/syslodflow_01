@@ -94,6 +94,22 @@ public class LdwProjectService extends BaseService {
 	}
 	
 	public OntModel writeLdwProject(OntModel model, LDWProject project) {
+		if(project.getUri() == null) {
+			//LDWProject Uri
+			String uriProject = createUri(project.getName(), project.toString());
+			project.setUri(uriProject);
+			// Homepage Uri
+			String uriHomepage = createUri(project.getName(), project.getHomePage().toString());
+			project.getHomePage().setUri(uriHomepage);
+			String uriLocationHomepage = createUri(project.getName(), project.getHomePage().getLocation().toString().concat("_").concat(project.getHomePage().toString()));
+			project.getHomePage().getLocation().setUri(uriLocationHomepage);
+			// Report Uri
+			String uriReport = createUri(project.getName(), project.getReport().toString());
+			project.getReport().setUri(uriReport);
+			String nameReport = StringUtils.formatName(project.getName()).concat(".html");
+			
+		}
+		
 		
 		if (URIalreadyExists(model, project.getUri()))
 			return editLdwProject(model, project);
@@ -196,16 +212,9 @@ public class LdwProjectService extends BaseService {
 		return model;
 	}
 	
-	public String createUri(String name) {
-		String tmp = StringUtils.tirarAcentuacao(name);
-		tmp = tmp.trim();
-		tmp = tmp.replaceAll(" ", "_");
-		String firstChar = tmp.substring(0, 1).toLowerCase();
-		tmp = firstChar.concat(tmp.substring(1));
-		
-		return NSURIEnum.NS.getUri().concat(tmp);
-		
-		
+	public String createUri(String name, String nameClass) {
+		String tmp = StringUtils.formatName(name);
+		return NSURIEnum.NS.getUri().concat(nameClass + "_").concat(tmp);
 	}
 	
 	

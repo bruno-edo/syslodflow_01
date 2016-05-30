@@ -32,9 +32,9 @@ public class PersonService extends BaseService {
 		public OntModel writePerson(OntModel model, Person p) {
 	    	
 	    	if(URIalreadyExists(model, p.getUri()))
-	    		return insertPerson(model, p);
-	    	else
 	    		return editPerson(model, p);
+	    	else
+	    		return insertPerson(model, p);
 	    }
 	    
 	    private OntModel insertPerson(OntModel model, Person p) {

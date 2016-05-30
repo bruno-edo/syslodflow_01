@@ -9,11 +9,11 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.TabChangeEvent;
 
 import br.ufsc.inf.syslodflow.dto.LDWProjectDTO;
 import br.ufsc.inf.syslodflow.entity.LDWProject;
-import br.ufsc.inf.syslodflow.entity.LDWorkflow;
 import br.ufsc.inf.syslodflow.entity.Person;
 import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
 import br.ufsc.inf.syslodflow.service.LdwProjectService;
@@ -24,10 +24,7 @@ import br.ufsc.inf.syslodflow.util.StringUtils;
 
 import com.hp.hpl.jena.ontology.OntModel;
 
-/**
- * Managed bean do usu&aacute;rio do sistema.
- * @author jeanmorais
- */
+
 @ManagedBean(name="ldwProjectBean")
 @SessionScoped
 public class LdwProjectBean {
@@ -47,7 +44,6 @@ public class LdwProjectBean {
 	private DataModel<LDWProjectDTO> listLdwProjects;
 	private OntModel ontModel;
 	private Person person;
-	private boolean addPerson;
 	
 	@PostConstruct
 	public void init() {
@@ -74,11 +70,7 @@ public class LdwProjectBean {
 	
 	public String doSave() {
 		//Valida nome do projeto 
-		if(StringUtils.isValidNameProject(ldwProject.getName())){
-			if(ldwProject.getUri() == null) {
-				String uriProject = ldwProjectService.createUri(ldwProject.getName());
-				ldwProject.setUri(uriProject);
-			}
+		if(StringUtils.isValidName(ldwProject.getName())){
 			ontModel = this.ldwProjectService.writeLdwProject(ontModel, ldwProject);
 			ontModel.getIndividual(ldwProject.getUri()).getPropertyValue(ontModel.getProperty(PropertyURIEnum.DESCRIPTION.getUri())).asLiteral().getString();
 			ontModel.getIndividual(ldwProject.getUri()).getPropertyResourceValue(ontModel.getProperty(PropertyURIEnum.CREATOR.getUri())).getURI();
@@ -87,8 +79,6 @@ public class LdwProjectBean {
 		} else {
 			return Navegacao.MESMA_PAGINA;
 		}
-
-
 	}	
 	
 	/* CONTROLE TAB */
@@ -110,15 +100,21 @@ public class LdwProjectBean {
 	}
 	
 	public void doNewPerson() {
-		addPerson = true;
-	
+		person = new Person();
+		RequestContext.getCurrentInstance().execute("PF('dialog_person').show();");
 	}
 	
 	public void doSavePerson() {
-		this.ontModel = personService.writePerson(ontModel, person); 
-		this.ldwpoService.doSaveModel(ontModel, ldwProject.getFileName());
-		this.personsList = personService.listPersons(ontModel);
-		addPerson = false;
+		if(person.getName() != null || person.getName().isEmpty()) {
+			if(StringUtils.isValidName(person.getName())) {
+				String uri = ldwProjectService.createUri(person.getName(), person.toString());
+				person.setUri(uri);
+				this.ontModel = personService.writePerson(ontModel, person); 
+				this.ldwpoService.doSaveModel(ontModel, ldwProject.getFileName());
+				this.personsList = personService.listPersons(ontModel);
+				person = new Person();
+			}
+		}
 	}
 
 	public LDWProject getLdwProject() {
@@ -165,14 +161,6 @@ public class LdwProjectBean {
 
 	public void setPerson(Person person) {
 		this.person = person;
-	}
-
-	public boolean isAddPerson() {
-		return addPerson;
-	}
-
-	public void setAddPerson(boolean addPerson) {
-		this.addPerson = addPerson;
 	}
 	
 }
