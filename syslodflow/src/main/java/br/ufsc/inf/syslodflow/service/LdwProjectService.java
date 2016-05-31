@@ -106,8 +106,8 @@ public class LdwProjectService extends BaseService {
 			// Report Uri
 			String uriReport = createUri(project.getName(), project.getReport().toString());
 			project.getReport().setUri(uriReport);
-			String nameReport = StringUtils.formatName(project.getName()).concat(".html");
-			
+			String nameReport = project.getReport().toString().concat("_").concat(StringUtils.formatName(project.getName()).concat(".html"));
+			project.getReport().setName(nameReport);
 		}
 		
 		
