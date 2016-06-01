@@ -77,10 +77,16 @@ public class LdWorkflowBean {
 		this.model = ldwpoService.doLoadModel(projectSelected.getPath());
 		LDWProject ldwProject = ldwProjectService.getLDWProject(model);
 		this.ldWorkflow = ldwProject.getLdWorkFlow();	
+		if(ldWorkflow == null) {
+			doNew();
+		}
 		this.doLoadTools();	
 		return Navegacao.LDWORKFLOW_MAIN;
 	}
 	
+	public void doNew() {
+		// criar um metódo pra configurar um novo workflow, com as tasks e tools ja setadas nos steps
+	}
 	public void doSave() {
 		if(validaUpload()) {
 			ldwpoService.saveFile(smlUploaded, ldwProjectSelected.getName(), "mapping");

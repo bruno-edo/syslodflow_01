@@ -10,6 +10,10 @@ public class Condition extends BaseModel {
 		this.uri = uri;
 		
 	}
+	
+	public Condition() {
+		
+	}
 
 	public String getDescription() {
 		return description;
@@ -27,6 +31,11 @@ public class Condition extends BaseModel {
 	@Override
 	public void setUri(String uri) {
 		this.uri = uri;
+	}
+
+	@Override
+	public String toString() {
+		return "condition";
 	}
 	
 	

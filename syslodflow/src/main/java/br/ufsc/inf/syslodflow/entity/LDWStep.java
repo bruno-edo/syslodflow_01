@@ -33,6 +33,10 @@ public class LDWStep extends BaseModel {
 		this.order = order;
 		this.uri = uri;
 	}
+	
+	public LDWStep() {
+		 
+	}
 
 	public List<Dataset> getInputDatasets() {
 		return inputDatasets;

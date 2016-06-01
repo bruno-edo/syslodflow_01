@@ -27,6 +27,11 @@ public class LDWorkflow extends BaseModel {
 		this.ldwSteps = ldwSteps;
 		this.uri = uri;
 	}
+	
+	public LDWorkflow() {
+		preCondition = new Condition();
+		postCondition = new Condition();
+	}
 
 	public LDWStep getFirstLdwStep() {
 		return firstLdwStep;
