@@ -20,6 +20,11 @@ public class Report extends BaseModel {
 		this.location = location;
 		this.uri = uri;
 	}
+	
+	public Report() {
+		location = new Location();
+		
+	}
 
 	public String getName() {
 		return name;

@@ -32,6 +32,7 @@ public class LDWProject extends BaseModel {
 	public LDWProject() {
 		homePage = new Homepage();
 		creator = new Person();
+		report = new Report();
 	}
 
 	public Person getCreator() {

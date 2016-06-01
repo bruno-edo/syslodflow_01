@@ -55,7 +55,10 @@ public class LdwProjectBean {
 	/* NAVEGACAO */ 
 	
 	public String doNew() {
-		ldwProject =  new LDWProject();
+		this.ldwProject =  new LDWProject();
+		this.ontModel = ldwpoService.doNewModel();
+		this.personsList = personService.listPersons(ontModel);
+		person = new Person();
 		return Navegacao.LDWPROJECT_CRUD;
 	}
 	
@@ -71,9 +74,12 @@ public class LdwProjectBean {
 	public String doSave() {
 		//Valida nome do projeto 
 		if(StringUtils.isValidName(ldwProject.getName())){
+			if(ldwProject.getUri() == null){
+				ldwProject.setFileName(StringUtils.formatName(ldwProject.getName()).concat(".owl"));
+			}
 			ontModel = this.ldwProjectService.writeLdwProject(ontModel, ldwProject);
-			ontModel.getIndividual(ldwProject.getUri()).getPropertyValue(ontModel.getProperty(PropertyURIEnum.DESCRIPTION.getUri())).asLiteral().getString();
-			ontModel.getIndividual(ldwProject.getUri()).getPropertyResourceValue(ontModel.getProperty(PropertyURIEnum.CREATOR.getUri())).getURI();
+//			ontModel.getIndividual(ldwProject.getUri()).getPropertyValue(ontModel.getProperty(PropertyURIEnum.DESCRIPTION.getUri())).asLiteral().getString();
+//			ontModel.getIndividual(ldwProject.getUri()).getPropertyResourceValue(ontModel.getProperty(PropertyURIEnum.CREATOR.getUri())).getURI();
 			this.ldwpoService.doSaveModel(ontModel, ldwProject.getFileName());
 			return Navegacao.LDWPROJECT_LIST;
 		} else {

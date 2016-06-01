@@ -43,7 +43,7 @@ public class LdwpoService {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
 		String filePath = scontext.getRealPath("/ontology/");
-		java.nio.file.Path pathLdwpo = Paths.get(filePath, "ldwpo.owl");
+		java.nio.file.Path pathLdwpo = Paths.get(filePath, "modelo.owl");
 		
 		OntModel model = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
         model.read(pathLdwpo.toUri().toString(), "");

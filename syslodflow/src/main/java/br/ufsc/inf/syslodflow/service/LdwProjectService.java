@@ -78,7 +78,11 @@ public class LdwProjectService extends BaseService {
 		String reportLocationValue = getPropertyStringValue(reportLocation, model, PropertyURIEnum.VALUE.getUri());
 		
 		Resource workflow = ontProject.getPropertyResourceValue(model.getProperty(PropertyURIEnum.LDWORKFLOW.getUri()));
-		LDWorkflow ldWorkflow = ldwWorkflowService.getLDWorkflow(model, model.getIndividual(workflow.getURI()));
+		LDWorkflow ldWorkflow = null;
+		if(workflow != null) {
+			ldWorkflow = ldwWorkflowService.getLDWorkflow(model, model.getIndividual(workflow.getURI()));
+		}
+		
 		
 		Person ldwProjectCreator = new Person(creatorName, creator.getURI());
 		Homepage ldwProjectHomepage = new Homepage(homepageName, new Location(homepageLocationValue, homepageLocation.getURI()), homepage.getURI());
@@ -103,12 +107,13 @@ public class LdwProjectService extends BaseService {
 			project.getHomePage().setUri(uriHomepage);
 			String uriLocationHomepage = createUri(project.getName(), project.getHomePage().getLocation().toString().concat("_").concat(project.getHomePage().toString()));
 			project.getHomePage().getLocation().setUri(uriLocationHomepage);
+			String nameHomepage = project.getHomePage().toString().concat("_").concat(StringUtils.formatName(project.getName()));
+			project.getHomePage().setName(nameHomepage);
 			// Report Uri
 			String uriReport = createUri(project.getName(), project.getReport().toString());
 			project.getReport().setUri(uriReport);
 			String nameReport = project.getReport().toString().concat("_").concat(StringUtils.formatName(project.getName()).concat(".html"));
 			project.getReport().setName(nameReport);
-			
 			String uriLocationReport = createUri(project.getName(), project.getReport().getLocation().toString().concat("_").concat(project.getReport().toString()));
 			project.getReport().getLocation().setUri(uriLocationReport);
 			project.getReport().getLocation().setValue(ldwpoService.getProjectsPath(StringUtils.formatName(project.getName())));
