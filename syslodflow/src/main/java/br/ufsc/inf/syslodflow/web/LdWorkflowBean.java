@@ -86,11 +86,12 @@ public class LdWorkflowBean {
 	
 	public void doNew() {
 		// criar um metódo pra configurar um novo workflow, com as tasks e tools ja setadas nos steps
+		ldWorkflow = ldWorkflowService.doNewWorkflow(model);
 	}
 	public void doSave() {
-		if(validaUpload()) {
-			ldwpoService.saveFile(smlUploaded, ldwProjectSelected.getName(), "mapping");
+		if(validaUpload()) {	
 			//ldWorkflowService.writeLdwWorkflow(model, ldWorkflow);
+			ldwpoService.saveFile(smlUploaded, ldwProjectSelected.getName(), "mapping");
 		}
 	}
 	

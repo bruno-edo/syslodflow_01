@@ -28,7 +28,7 @@ public class StringUtils {
 	public static String formatName(String str) {
 		String tmp = StringUtils.tirarAcentuacao(str);
 		tmp = tmp.trim();
-		tmp = tmp.replaceAll(" ", "_");
+		tmp = tmp.replaceAll(" ", "_").toLowerCase();
 		return tmp;
 	}
 }

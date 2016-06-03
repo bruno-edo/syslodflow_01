@@ -8,21 +8,18 @@ public class Tool extends BaseModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private Location location;
-	private List<ToolConfiguration> toolConfigurations;
 	private String uri;
 	
-	public Tool(String name, List<ToolConfiguration> toolConfigurations, String uri) {
+	public Tool(String name, String uri) {
 		
 		this.name = name;
-		this.toolConfigurations = toolConfigurations;
 		this.uri = uri;
 	}
 	
-	public Tool(String name, Location location, List<ToolConfiguration> toolConfigurations, String uri) {
+	public Tool(String name, Location location, String uri) {
 		
 		this.name = name;
 		this.location = location;
-		this.toolConfigurations = toolConfigurations;
 		this.uri = uri;
 	}
 
@@ -40,14 +37,6 @@ public class Tool extends BaseModel implements Serializable {
 
 	public void setLocation(Location location) {
 		this.location = location;
-	}
-
-	public List<ToolConfiguration> getToolConfigurations() {
-		return toolConfigurations;
-	}
-
-	public void setToolConfigurations(List<ToolConfiguration> toolConfigurations) {
-		this.toolConfigurations = toolConfigurations;
 	}
 
 	@Override

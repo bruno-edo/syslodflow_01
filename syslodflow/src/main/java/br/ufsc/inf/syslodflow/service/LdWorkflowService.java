@@ -9,7 +9,9 @@ import br.ufsc.inf.syslodflow.entity.Condition;
 import br.ufsc.inf.syslodflow.entity.LDWStep;
 import br.ufsc.inf.syslodflow.entity.LDWorkflow;
 import br.ufsc.inf.syslodflow.entity.LDWorkflowExecution;
+import br.ufsc.inf.syslodflow.entity.Task;
 import br.ufsc.inf.syslodflow.enumerator.ClassURIEnum;
+import br.ufsc.inf.syslodflow.enumerator.IndividualEnum;
 import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
 
 import com.hp.hpl.jena.ontology.Individual;
@@ -60,6 +62,43 @@ public class LdWorkflowService extends BaseService {
 		return firstLdwStep.equals(ontLdwStep);
 	}
 	
+	public LDWorkflow doNewWorkflow(OntModel model) {
+		// Step 01
+		LDWStep step01 = new LDWStep();
+		step01.setTask(new Task(IndividualEnum.TASK_EXTRACT_DATA_LEGACYSYS.getUri()));
+		
+		
+		// Step 02
+		LDWStep step02 = new LDWStep();
+		step02.setTask(new Task(IndividualEnum.TASK_CONVERTING_DATA.getUri()));
+		
+		// Step 03
+		LDWStep step03 = new LDWStep();
+		step03.setTask(new Task(IndividualEnum.TASK_STORAGE_GRAPH.getUri()));
+		
+		// Step 04
+		LDWStep step04 = new LDWStep();
+		step04.setTask(new Task(IndividualEnum.TASK_INTERLINKING.getUri()));
+		
+		// Step 05
+		LDWStep step05 = new LDWStep();
+		step05.setTask(new Task(IndividualEnum.TASK_STORAGE_GRAPH.getUri()));
+		
+		// Steps
+		List<LDWStep> steps = new ArrayList<LDWStep>();
+		steps.add(step01);
+		steps.add(step02);
+		steps.add(step03);
+		steps.add(step04);
+		steps.add(step05);
+		
+		LDWorkflow ldWorkflow = new LDWorkflow();
+		ldWorkflow.setLdwSteps(steps);
+		
+		return ldWorkflow;
+		
+	}
+	
 	public List<LDWorkflowExecution> listLdWorkflowExecutions(OntModel model, Individual ontLdWorkflow) {
 		
 		StmtIterator iter = ontLdWorkflow.listProperties(model.getProperty(PropertyURIEnum.LDWORKFLOWEXECUTION.getUri()));
@@ -73,7 +112,15 @@ public class LdWorkflowService extends BaseService {
 	}
 	
 	
-	public OntModel writeLdwWorkflow(OntModel model, LDWorkflow workflow, Individual ldwproject) {
+	public OntModel writeLdwWorkflow(OntModel model, LDWorkflow workflow, String ldwprojectName) {
+		
+		// Pre condition
+		String uriPreCondition = createUri(ldwprojectName, workflow.getPreCondition().toString().concat("_preCondition_").concat(workflow.toString()));
+		
+		// Pos condition
+		
+		
+		
 		
 		if (URIalreadyExists(model, workflow.getUri()))
 			return editLdWorkflow(model, workflow);

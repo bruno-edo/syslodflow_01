@@ -111,10 +111,10 @@ public class LdwStepService extends BaseService {
 			if(ontTool.hasProperty(model.getProperty(PropertyURIEnum.LOCATION.getUri()))) {
 			Individual ontLocation = getSubIndividualByProperty(model, ontTool, PropertyURIEnum.LOCATION.getUri());
 			String locationValue = getPropertyStringValue(ontLocation, model, PropertyURIEnum.VALUE.getUri());
-			return new Tool(toolName, new Location(locationValue, ontLocation.getURI()), toolConfigurations, ontTool.getURI());
+			return new Tool(toolName, new Location(locationValue, ontLocation.getURI()), ontTool.getURI());
 			}
 			else {
-				return new Tool(toolName, toolConfigurations, ontTool.getURI());
+				return new Tool(toolName, ontTool.getURI());
 			}
 
 		}
