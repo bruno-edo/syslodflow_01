@@ -19,6 +19,7 @@ import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
 import br.ufsc.inf.syslodflow.service.LdwProjectService;
 import br.ufsc.inf.syslodflow.service.LdwpoService;
 import br.ufsc.inf.syslodflow.service.PersonService;
+import br.ufsc.inf.syslodflow.util.MessageUtil;
 import br.ufsc.inf.syslodflow.util.Navegacao;
 import br.ufsc.inf.syslodflow.util.StringUtils;
 
@@ -81,8 +82,10 @@ public class LdwProjectBean {
 //			ontModel.getIndividual(ldwProject.getUri()).getPropertyValue(ontModel.getProperty(PropertyURIEnum.DESCRIPTION.getUri())).asLiteral().getString();
 //			ontModel.getIndividual(ldwProject.getUri()).getPropertyResourceValue(ontModel.getProperty(PropertyURIEnum.CREATOR.getUri())).getURI();
 			this.ldwpoService.doSaveModel(ontModel, ldwProject.getFileName());
+			
 			return Navegacao.LDWPROJECT_LIST;
 		} else {
+			MessageUtil.showError("crud.invalid.name");
 			return Navegacao.MESMA_PAGINA;
 		}
 	}	

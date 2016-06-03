@@ -11,6 +11,10 @@ public class Task extends BaseModel {
 		this.description = description;
 		this.uri = uri;
 	}
+	
+	public Task(String uri) {
+		this.uri = uri;
+	}
 
 	public String getName() {
 		return name;
