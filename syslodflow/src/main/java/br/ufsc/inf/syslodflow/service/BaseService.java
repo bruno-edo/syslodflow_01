@@ -3,10 +3,7 @@ package br.ufsc.inf.syslodflow.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.ufsc.inf.syslodflow.entity.Person;
-import br.ufsc.inf.syslodflow.enumerator.ClassURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.NSURIEnum;
-import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;

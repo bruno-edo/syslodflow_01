@@ -9,6 +9,10 @@ public class Format extends BaseModel {
 		this.value = value;
 		this.uri = uri;
 	}
+	
+	public Format(String uri) {
+		this.uri = uri;
+	}
 
 	public String getValue() {
 		return value;

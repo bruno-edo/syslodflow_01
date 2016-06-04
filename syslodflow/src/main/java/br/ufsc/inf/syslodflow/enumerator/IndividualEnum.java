@@ -6,7 +6,8 @@ public enum IndividualEnum {
 	TASK_EXTRACT_DATA_LEGACYSYS("http://ldwpo.aksw.org/terms/1.0/task_extracting_data_from_legacy_systems"),
 	TASK_CONVERTING_DATA("http://ldwpo.aksw.org/terms/1.0/task_extracting_converting_data"),
 	TASK_STORAGE_GRAPH("http://ldwpo.aksw.org/terms/1.0/task_storage_graph"),
-	TASK_INTERLINKING("http://ldwpo.aksw.org/terms/1.0/task_interlinking_test");
+	TASK_INTERLINKING("http://ldwpo.aksw.org/terms/1.0/task_interlinking_test"),
+	FORMAT_CSV("http://ldwpo.aksw.org/terms/1.0/format_csv");
 	
 	private String uri;
 	

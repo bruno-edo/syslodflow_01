@@ -6,6 +6,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import br.ufsc.inf.syslodflow.entity.Condition;
+import br.ufsc.inf.syslodflow.entity.Dataset;
+import br.ufsc.inf.syslodflow.entity.Format;
 import br.ufsc.inf.syslodflow.entity.LDWStep;
 import br.ufsc.inf.syslodflow.entity.LDWorkflow;
 import br.ufsc.inf.syslodflow.entity.LDWorkflowExecution;
@@ -28,6 +30,8 @@ public class LdWorkflowService extends BaseService {
 	private LdwStepService ldwStepService;
 	@Inject
 	private LdWorkflowExecutionService ldWorkflowExecutionService;
+	@Inject
+	private LdwProjectService ldwProjectService;
 	
 	public LDWorkflow getLDWorkflow(OntModel model, Individual ontLdWorkflow) {
 		
@@ -66,7 +70,6 @@ public class LdWorkflowService extends BaseService {
 		// Step 01
 		LDWStep step01 = new LDWStep();
 		step01.setTask(new Task(IndividualEnum.TASK_EXTRACT_DATA_LEGACYSYS.getUri()));
-		
 		
 		// Step 02
 		LDWStep step02 = new LDWStep();
@@ -112,12 +115,35 @@ public class LdWorkflowService extends BaseService {
 	}
 	
 	
-	public OntModel writeLdwWorkflow(OntModel model, LDWorkflow workflow, String ldwprojectName) {
+	public OntModel writeLdwWorkflow(OntModel model, LDWorkflow workflow, String ldwprojectName, Individual ldwproject) {
 		
-		// Pre condition
-		String uriPreCondition = createUri(ldwprojectName, workflow.getPreCondition().toString().concat("_preCondition_").concat(workflow.toString()));
+		if(workflow.getUri() != null) {
+			// Create Uris
+			
+			// Pre condition
+			String uriPreCondition = ldwProjectService.createUri(ldwprojectName, workflow.getPreCondition().toString().concat("_preCondition_").concat(workflow.toString()));
+			workflow.getPreCondition().setUri(uriPreCondition);
+			
+			// Post condition
+			String uriPostCondition = ldwProjectService.createUri(ldwprojectName, workflow.getPostCondition().toString().concat("_postCondition_").concat(workflow.toString()));
+			workflow.getPostCondition().setUri(uriPostCondition);
+			
+			// Steps
+			String uriStep01 =  ldwProjectService.createUri(ldwprojectName, workflow.getLdwSteps().get(0).toString().concat("01"));
+			workflow.getLdwSteps().get(0).setUri(uriStep01);
+			workflow.getLdwSteps().get(0).setOutputDataset(new Dataset("evaluations.csv", new Format(IndividualEnum.FORMAT_CSV.getUri()), 
+					license, location, uri));
+			workflow.setFirstLdwStep(workflow.getLdwSteps().get(0));
 		
-		// Pos condition
+			
+			
+			
+			
+			
+			
+		}
+
+		
 		
 		
 		
