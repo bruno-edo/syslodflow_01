@@ -11,10 +11,13 @@ import br.ufsc.inf.syslodflow.entity.Format;
 import br.ufsc.inf.syslodflow.entity.LDWStep;
 import br.ufsc.inf.syslodflow.entity.LDWorkflow;
 import br.ufsc.inf.syslodflow.entity.LDWorkflowExecution;
+import br.ufsc.inf.syslodflow.entity.License;
+import br.ufsc.inf.syslodflow.entity.Location;
 import br.ufsc.inf.syslodflow.entity.Task;
 import br.ufsc.inf.syslodflow.enumerator.ClassURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.IndividualEnum;
 import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
+import br.ufsc.inf.syslodflow.util.StringUtils;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntModel;
@@ -32,6 +35,8 @@ public class LdWorkflowService extends BaseService {
 	private LdWorkflowExecutionService ldWorkflowExecutionService;
 	@Inject
 	private LdwProjectService ldwProjectService;
+	@Inject 
+	private LdwpoService ldwpoService;
 	
 	public LDWorkflow getLDWorkflow(OntModel model, Individual ontLdWorkflow) {
 		
@@ -115,32 +120,33 @@ public class LdWorkflowService extends BaseService {
 	}
 	
 	
-	public OntModel writeLdwWorkflow(OntModel model, LDWorkflow workflow, String ldwprojectName, Individual ldwproject) {
+	public OntModel writeLdwWorkflow(OntModel model, LDWorkflow workflow, String ldwProjectName, Individual ldwproject) {
 		
 		if(workflow.getUri() != null) {
 			// Create Uris
 			
 			// Pre condition
-			String uriPreCondition = ldwProjectService.createUri(ldwprojectName, workflow.getPreCondition().toString().concat("_preCondition_").concat(workflow.toString()));
+			String uriPreCondition = ldwProjectService.createUri(ldwProjectName, workflow.getPreCondition().toString().concat("_preCondition_").concat(workflow.toString()));
 			workflow.getPreCondition().setUri(uriPreCondition);
 			
 			// Post condition
-			String uriPostCondition = ldwProjectService.createUri(ldwprojectName, workflow.getPostCondition().toString().concat("_postCondition_").concat(workflow.toString()));
+			String uriPostCondition = ldwProjectService.createUri(ldwProjectName, workflow.getPostCondition().toString().concat("_postCondition_").concat(workflow.toString()));
 			workflow.getPostCondition().setUri(uriPostCondition);
 			
-			// Steps
-			String uriStep01 =  ldwProjectService.createUri(ldwprojectName, workflow.getLdwSteps().get(0).toString().concat("01"));
+			// Step 01
+			String uriStep01 =  ldwProjectService.createUri(ldwProjectName, workflow.getLdwSteps().get(0).toString().concat("01"));
 			workflow.getLdwSteps().get(0).setUri(uriStep01);
-			workflow.getLdwSteps().get(0).setOutputDataset(new Dataset("evaluations.csv", new Format(IndividualEnum.FORMAT_CSV.getUri()), 
-					license, location, uri));
+			Location locationDatasetCsv = getUriLocationDataset(ldwProjectName);
+			String uriDatasetCsv = ldwProjectService.createUri(ldwProjectName, Dataset.class.toString().concat("_").concat("csv"));
+			workflow.getLdwSteps().get(0).setOutputDataset(new Dataset("dataset.csv", new Format(IndividualEnum.FORMAT_CSV.getUri()), 
+					new License(IndividualEnum.NO_LICENSE.getUri()), locationDatasetCsv, uriDatasetCsv));
+			
 			workflow.setFirstLdwStep(workflow.getLdwSteps().get(0));
+			
+			//Step 02
+			String uriStep02 = ldwProjectService.createUri(ldwProjectName, workflow.getLdwSteps().get(1).toString().concat("02"));
+			
 		
-			
-			
-			
-			
-			
-			
 		}
 
 		
@@ -153,6 +159,8 @@ public class LdWorkflowService extends BaseService {
 		else 
 			return insertLdWorkflow(model, workflow, ldwproject);
 	}
+	
+	
 	
 	private OntModel editLdWorkflow(OntModel model, LDWorkflow workflow) {
 		
@@ -227,7 +235,13 @@ public class LdWorkflowService extends BaseService {
 		return sortedList;
 	}
 
-
+	public Location getUriLocationDataset(String ldwProjectName) {
+		Location location = new Location();
+		String uriLocation = ldwProjectService.createUri(ldwProjectName, location.toString().concat("_").concat(Dataset.class.toString()));
+		location.setUri(uriLocation);
+		location.setValue(ldwpoService.getProjectsPath(StringUtils.formatName(ldwProjectName)));
+		return location;
+	}
 	
 	
 

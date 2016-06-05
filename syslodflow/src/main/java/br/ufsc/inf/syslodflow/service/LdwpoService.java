@@ -142,10 +142,10 @@ public class LdwpoService {
 		}
 	}
 	
-	public String getProjectsPath(String ldwProjectName) {
+	public String getProjectsPath(String formattedName) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		String filePath = fc.getExternalContext().getInitParameter("projectsPath").toString();
-		filePath = filePath + "\\" + ldwProjectName;
+		filePath = filePath + "\\" + formattedName;
 		return filePath;
 		
 	}

@@ -7,7 +7,9 @@ public enum IndividualEnum {
 	TASK_CONVERTING_DATA("http://ldwpo.aksw.org/terms/1.0/task_extracting_converting_data"),
 	TASK_STORAGE_GRAPH("http://ldwpo.aksw.org/terms/1.0/task_storage_graph"),
 	TASK_INTERLINKING("http://ldwpo.aksw.org/terms/1.0/task_interlinking_test"),
-	FORMAT_CSV("http://ldwpo.aksw.org/terms/1.0/format_csv");
+	FORMAT_CSV("http://ldwpo.aksw.org/terms/1.0/format_csv"),
+	NO_LICENSE("http://ldwpo.aksw.org/terms/1.0/license_no_license");
+	
 	
 	private String uri;
 	

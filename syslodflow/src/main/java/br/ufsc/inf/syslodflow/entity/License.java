@@ -9,6 +9,10 @@ public class License extends BaseModel {
 		this.name = name;
 		this.uri = uri;
 	}
+	
+	public License(String uri) {
+		this.uri = uri;
+	}
 
 	public String getName() {
 		return name;
