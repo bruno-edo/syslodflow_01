@@ -3,8 +3,10 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
+import br.ufsc.inf.syslodflow.dto.LDWProjectDTO;
 import br.ufsc.inf.syslodflow.entity.Condition;
 import br.ufsc.inf.syslodflow.entity.Dataset;
 import br.ufsc.inf.syslodflow.entity.Format;
@@ -33,8 +35,6 @@ public class LdWorkflowService extends BaseService {
 	private LdwStepService ldwStepService;
 	@Inject
 	private LdWorkflowExecutionService ldWorkflowExecutionService;
-	@Inject
-	private LdwProjectService ldwProjectService;
 	@Inject 
 	private LdwpoService ldwpoService;
 	
@@ -120,44 +120,88 @@ public class LdWorkflowService extends BaseService {
 	}
 	
 	
-	public OntModel writeLdwWorkflow(OntModel model, LDWorkflow workflow, String ldwProjectName, Individual ldwproject) {
+	public OntModel writeLdwWorkflow(OntModel model, LDWorkflow workflow, LDWProjectDTO ldwProjectDTO) {
 		
-		if(workflow.getUri() != null) {
+		Individual ldwprojectIndividual = model.getIndividual(ldwProjectDTO.getUri());
+		
+				
+		if(workflow.getUri() == null) {
 			// Create Uris
 			
 			// Pre condition
-			String uriPreCondition = ldwProjectService.createUri(ldwProjectName, workflow.getPreCondition().toString().concat("_preCondition_").concat(workflow.toString()));
+			String uriPreCondition = StringUtils.createUri(ldwProjectDTO.getName(), workflow.getPreCondition().toString().concat("_preCondition_").concat(workflow.toString()));
 			workflow.getPreCondition().setUri(uriPreCondition);
 			
 			// Post condition
-			String uriPostCondition = ldwProjectService.createUri(ldwProjectName, workflow.getPostCondition().toString().concat("_postCondition_").concat(workflow.toString()));
+			String uriPostCondition = StringUtils.createUri(ldwProjectDTO.getName(), workflow.getPostCondition().toString().concat("_postCondition_").concat(workflow.toString()));
 			workflow.getPostCondition().setUri(uriPostCondition);
+			Location locationDataset = getUriLocationDataset(ldwProjectDTO.getName());
 			
 			// Step 01
-			String uriStep01 =  ldwProjectService.createUri(ldwProjectName, workflow.getLdwSteps().get(0).toString().concat("01"));
+			String uriStep01 =  StringUtils.createUri(ldwProjectDTO.getName(), workflow.getLdwSteps().get(0).toString().concat("01"));
 			workflow.getLdwSteps().get(0).setUri(uriStep01);
-			Location locationDatasetCsv = getUriLocationDataset(ldwProjectName);
-			String uriDatasetCsv = ldwProjectService.createUri(ldwProjectName, Dataset.class.toString().concat("_").concat("csv"));
-			workflow.getLdwSteps().get(0).setOutputDataset(new Dataset("dataset.csv", new Format(IndividualEnum.FORMAT_CSV.getUri()), 
-					new License(IndividualEnum.NO_LICENSE.getUri()), locationDatasetCsv, uriDatasetCsv));
 			
+			Dataset datasetCsv = new Dataset();
+			String uriDatasetCsv = StringUtils.createUri(ldwProjectDTO.getName(), Dataset.class.toString().concat("_").concat("csv"));
+			datasetCsv = new Dataset("dataset.csv", new Format(IndividualEnum.FORMAT_CSV.getUri()), new License(IndividualEnum.NO_LICENSE.getUri()), locationDataset, uriDatasetCsv);
+			workflow.getLdwSteps().get(0).setOutputDataset(datasetCsv);
 			workflow.setFirstLdwStep(workflow.getLdwSteps().get(0));
 			
 			//Step 02
-			String uriStep02 = ldwProjectService.createUri(ldwProjectName, workflow.getLdwSteps().get(1).toString().concat("02"));
+			String uriStep02 = StringUtils.createUri(ldwProjectDTO.getName(), workflow.getLdwSteps().get(1).toString().concat("02"));
+			workflow.getLdwSteps().get(1).setUri(uriStep02);
 			
-		
+			Dataset datasetNt = new Dataset();
+			String uriDatasetNt = StringUtils.createUri(ldwProjectDTO.getName(), datasetNt.toString().concat("_").concat("nt"));
+			datasetNt = new Dataset("dataset.nt", new Format(IndividualEnum.FORMAT_NT.getUri()), new License(IndividualEnum.NO_LICENSE.getUri()), locationDataset, uriDatasetNt);
+			workflow.getLdwSteps().get(1).setOutputDataset(datasetNt);
+			List<Dataset> inputDatasets02 = new ArrayList<>();
+			inputDatasets02.add(datasetCsv);
+			
+			//Step 03
+			String uriStep03 = StringUtils.createUri(ldwProjectDTO.getName(), workflow.getLdwSteps().get(1).toString().concat("03"));
+			workflow.getLdwSteps().get(2).setUri(uriStep03);
+			
+			Dataset inputDataset03 = new Dataset();
+			String uriDatasetForSavingVirtuoso = StringUtils.createUri(ldwProjectDTO.getName(), inputDataset03.toString().concat("_forSavingVirtuoso_").concat("nt"));
+			inputDataset03 = new Dataset("dataset_forsaving_virtuoso.nt", new Format(IndividualEnum.FORMAT_NT.getUri()), new License(IndividualEnum.NO_LICENSE.getUri()), locationDataset, uriDatasetForSavingVirtuoso);
+			List<Dataset> inputDatasets03 = new ArrayList<>();
+			workflow.getLdwSteps().get(2).setInputDataset(inputDatasets03);
+			
+			Dataset outputDataset03 = new Dataset();
+			Location locationGraph = getLocationEndpoint(ldwProjectDTO.getName());
+			String uriDatasetGraph = StringUtils.createUri(ldwProjectDTO.getName(), outputDataset03.toString().concat("_").concat("graph"));
+			outputDataset03 = new Dataset(ldwProjectDTO.getName().concat(" Graph"), new Format(IndividualEnum.FORMAT_RDF_XML.getUri()), new License(IndividualEnum.CC0_LICENSE.getUri()), locationGraph, uriDatasetGraph);
+			workflow.getLdwSteps().get(2).setOutputDataset(outputDataset03);
+			
+	
+			//Step 04
+			String uriStep04 = StringUtils.createUri(ldwProjectDTO.getName(), workflow.getLdwSteps().get(1).toString().concat("04"));
+			workflow.getLdwSteps().get(3).setUri(uriStep04);
+			
+			Dataset dbPediaDataset = new Dataset(IndividualEnum.DBPEDIA_GRAPH.getUri());
+			List<Dataset> inputDatasets04 = new ArrayList<Dataset>();
+			inputDatasets04.add(outputDataset03);
+			inputDatasets04.add(dbPediaDataset);
+			workflow.getLdwSteps().get(3).setInputDataset(inputDatasets04);
+			workflow.getLdwSteps().get(3).setOutputDataset(inputDataset03);
+			
+			
+			//Step 05
+			String uriStep05 = StringUtils.createUri(ldwProjectDTO.getName(), workflow.getLdwSteps().get(1).toString().concat("05"));
+			workflow.getLdwSteps().get(4).setUri(uriStep05);
+			List<Dataset> inputDatasets05 = new ArrayList<Dataset>();
+			inputDatasets05.add(inputDataset03);
+			workflow.getLdwSteps().get(4).setInputDataset(inputDatasets05);
+			workflow.getLdwSteps().get(4).setOutputDataset(outputDataset03);
+
 		}
 
-		
-		
-		
-		
 		
 		if (URIalreadyExists(model, workflow.getUri()))
 			return editLdWorkflow(model, workflow);
 		else 
-			return insertLdWorkflow(model, workflow, ldwproject);
+			return insertLdWorkflow(model, workflow, ldwprojectIndividual);
 	}
 	
 	
@@ -237,10 +281,20 @@ public class LdWorkflowService extends BaseService {
 
 	public Location getUriLocationDataset(String ldwProjectName) {
 		Location location = new Location();
-		String uriLocation = ldwProjectService.createUri(ldwProjectName, location.toString().concat("_").concat(Dataset.class.toString()));
+		Dataset dstemp = new Dataset();
+		String uriLocation = StringUtils.createUri(ldwProjectName, location.toString().concat("_").concat(dstemp.toString()));
 		location.setUri(uriLocation);
 		location.setValue(ldwpoService.getProjectsPath(StringUtils.formatName(ldwProjectName)));
 		return location;
+	}
+	
+	public Location getLocationEndpoint(String ldwProjectName) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		String value = fc.getExternalContext().getInitParameter("endpoint").toString();
+		Location location = new Location();
+		location.setValue(value);
+		String uri = StringUtils.createUri(ldwProjectName, location.toString().concat("_").concat("graph"));
+		return new Location(value, uri);
 	}
 	
 	

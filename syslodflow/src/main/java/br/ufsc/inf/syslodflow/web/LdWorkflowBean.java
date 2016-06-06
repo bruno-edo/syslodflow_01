@@ -90,7 +90,7 @@ public class LdWorkflowBean {
 	}
 	public void doSave() {
 		if(validaUpload()) {	
-			//ldWorkflowService.writeLdwWorkflow(model, ldWorkflow);
+			ldWorkflowService.writeLdwWorkflow(model, ldWorkflow, ldwProjectSelected);
 			ldwpoService.saveFile(smlUploaded, ldwProjectSelected.getName(), "mapping");
 		}
 	}
@@ -128,11 +128,15 @@ public class LdWorkflowBean {
 	}
 	
 	public boolean validaUpload() {
-		String extensao = FilenameUtils.getExtension(smlUploaded.getFileName());
-		if (smlUploaded.getSize() <= 0) {
+		if(smlUploaded == null) {
 			MessageUtil.showError("crud.file.notfound");
 			return false;
 		}
+		if (smlUploaded.getSize() <= 0) {
+			MessageUtil.showError("crud.file.notfound");
+			
+		}
+		String extensao = FilenameUtils.getExtension(smlUploaded.getFileName());
 		if(!extensao.equalsIgnoreCase("sml")) {
 			MessageUtil.showError("crud.file.invalidformat");
 			return false;

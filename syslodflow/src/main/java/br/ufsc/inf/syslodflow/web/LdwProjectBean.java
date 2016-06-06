@@ -116,7 +116,7 @@ public class LdwProjectBean {
 	public void doSavePerson() {
 		if(person.getName() != null || person.getName().isEmpty()) {
 			if(StringUtils.isValidName(person.getName())) {
-				String uri = ldwProjectService.createUri(person.getName(), person.toString());
+				String uri = StringUtils.createUri(person.getName(), person.toString());
 				person.setUri(uri);
 				this.ontModel = personService.writePerson(ontModel, person); 
 				this.ldwpoService.doSaveModel(ontModel, ldwProject.getFileName());

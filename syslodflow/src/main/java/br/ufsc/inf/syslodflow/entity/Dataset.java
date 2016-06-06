@@ -17,6 +17,14 @@ public class Dataset extends BaseModel {
 		this.license = license;
 		this.uri = uri;
 	}
+	
+	public Dataset() {
+		
+	}
+	
+	public Dataset(String uri) {
+		this.uri = uri;
+	}
 
 	public Format getFormat() {
 		return format;

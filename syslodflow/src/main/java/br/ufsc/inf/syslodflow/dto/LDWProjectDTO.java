@@ -8,14 +8,16 @@ public class LDWProjectDTO {
 	private String creator;
 	private String fileName;
 	private Path path;
+	private String uri;
 	
 	public LDWProjectDTO() {
 		
 	}
 
-	public LDWProjectDTO(String name, String creator) {
+	public LDWProjectDTO(String name, String creator, String uri) {
 		this.name = name;
 		this.creator = creator;
+		this.uri = uri;
 	}
 
 	public String getName() {
@@ -49,9 +51,17 @@ public class LDWProjectDTO {
 	public void setPath(Path path) {
 		this.path = path;
 	}
-	
-	
 
+	public String getUri() {
+		return uri;
+	}
+
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
+	
+	
+	
 	
 
 }

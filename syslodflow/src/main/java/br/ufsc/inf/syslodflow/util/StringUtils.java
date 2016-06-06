@@ -4,6 +4,8 @@ import java.text.Normalizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import br.ufsc.inf.syslodflow.enumerator.NSURIEnum;
+
 
 public class StringUtils {
 	public static String tirarAcentuacao(String str){
@@ -30,5 +32,10 @@ public class StringUtils {
 		tmp = tmp.trim();
 		tmp = tmp.replaceAll(" ", "_").toLowerCase();
 		return tmp;
+	}
+	
+	public static String createUri(String name, String nameClass) {
+		String tmp = StringUtils.formatName(name);
+		return NSURIEnum.NS.getUri().concat(nameClass + "_").concat(tmp);
 	}
 }

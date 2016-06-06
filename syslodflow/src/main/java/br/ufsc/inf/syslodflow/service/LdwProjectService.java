@@ -14,7 +14,6 @@ import br.ufsc.inf.syslodflow.entity.Location;
 import br.ufsc.inf.syslodflow.entity.Person;
 import br.ufsc.inf.syslodflow.entity.Report;
 import br.ufsc.inf.syslodflow.enumerator.ClassURIEnum;
-import br.ufsc.inf.syslodflow.enumerator.NSURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
 import br.ufsc.inf.syslodflow.util.StringUtils;
 
@@ -37,7 +36,7 @@ public class LdwProjectService extends BaseService {
 		Individual creator = model.getIndividual(ontProject.getPropertyResourceValue(model.getProperty(PropertyURIEnum.CREATOR.getUri())).getURI());
 		String creatorName = getPropertyStringValue(creator, model, PropertyURIEnum.NAME.getUri());
 				
-		return new LDWProjectDTO(projectName, creatorName);
+		return new LDWProjectDTO(projectName, creatorName, ontProject.getURI());
 		
 	}
 	
@@ -100,21 +99,21 @@ public class LdwProjectService extends BaseService {
 	public OntModel writeLdwProject(OntModel model, LDWProject project) {
 		if(project.getUri() == null) {
 			//LDWProject Uri
-			String uriProject = createUri(project.getName(), project.toString());
+			String uriProject = StringUtils.createUri(project.getName(), project.toString());
 			project.setUri(uriProject);
 			// Homepage Uri
-			String uriHomepage = createUri(project.getName(), project.getHomePage().toString());
+			String uriHomepage = StringUtils.createUri(project.getName(), project.getHomePage().toString());
 			project.getHomePage().setUri(uriHomepage);
-			String uriLocationHomepage = createUri(project.getName(), project.getHomePage().getLocation().toString().concat("_").concat(project.getHomePage().toString()));
+			String uriLocationHomepage = StringUtils.createUri(project.getName(), project.getHomePage().getLocation().toString().concat("_").concat(project.getHomePage().toString()));
 			project.getHomePage().getLocation().setUri(uriLocationHomepage);
 			String nameHomepage = project.getHomePage().toString().concat("_").concat(StringUtils.formatName(project.getName()));
 			project.getHomePage().setName(nameHomepage);
 			// Report Uri
-			String uriReport = createUri(project.getName(), project.getReport().toString());
+			String uriReport = StringUtils.createUri(project.getName(), project.getReport().toString());
 			project.getReport().setUri(uriReport);
 			String nameReport = project.getReport().toString().concat("_").concat(StringUtils.formatName(project.getName()).concat(".html"));
 			project.getReport().setName(nameReport);
-			String uriLocationReport = createUri(project.getName(), project.getReport().getLocation().toString().concat("_").concat(project.getReport().toString()));
+			String uriLocationReport = StringUtils.createUri(project.getName(), project.getReport().getLocation().toString().concat("_").concat(project.getReport().toString()));
 			project.getReport().getLocation().setUri(uriLocationReport);
 			project.getReport().getLocation().setValue(ldwpoService.getProjectsPath(StringUtils.formatName(project.getName())));
 		
@@ -222,10 +221,7 @@ public class LdwProjectService extends BaseService {
 		return model;
 	}
 	
-	public String createUri(String name, String nameClass) {
-		String tmp = StringUtils.formatName(name);
-		return NSURIEnum.NS.getUri().concat(nameClass + "_").concat(tmp);
-	}
+
 	
 	
 	

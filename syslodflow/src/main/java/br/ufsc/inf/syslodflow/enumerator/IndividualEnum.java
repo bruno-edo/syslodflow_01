@@ -8,7 +8,12 @@ public enum IndividualEnum {
 	TASK_STORAGE_GRAPH("http://ldwpo.aksw.org/terms/1.0/task_storage_graph"),
 	TASK_INTERLINKING("http://ldwpo.aksw.org/terms/1.0/task_interlinking_test"),
 	FORMAT_CSV("http://ldwpo.aksw.org/terms/1.0/format_csv"),
-	NO_LICENSE("http://ldwpo.aksw.org/terms/1.0/license_no_license");
+	FORMAT_NT("http://ldwpo.aksw.org/terms/1.0/format_nt"),
+	FORMAT_RDF_XML("http://ldwpo.aksw.org/terms/1.0/format_rdf_xml"),
+	CC0_LICENSE("http://ldwpo.aksw.org/terms/1.0/license_CC0"),
+	NO_LICENSE("http://ldwpo.aksw.org/terms/1.0/license_no_license"),
+	DBPEDIA_GRAPH("http://ldwpo.aksw.org/terms/1.0/dataset_dbpedia_graph");
+	
 	
 	
 	private String uri;

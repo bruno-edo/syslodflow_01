@@ -35,6 +35,7 @@ public class LDWStep extends BaseModel {
 	}
 	
 	public LDWStep() {
+		
 		 
 	}
 
@@ -127,5 +128,12 @@ public class LDWStep extends BaseModel {
 	public void setOrder(int order) {
 		this.order = order;
 	}
+
+	@Override
+	public String toString() {
+		return "ldwStep";
+	}
+	
+	
 
 }
