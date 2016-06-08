@@ -142,7 +142,7 @@ public class LdWorkflowService extends BaseService {
 			workflow.getLdwSteps().get(0).setUri(uriStep01);
 			
 			Dataset datasetCsv = new Dataset();
-			String uriDatasetCsv = StringUtils.createUri(ldwProjectDTO.getName(), Dataset.class.toString().concat("_").concat("csv"));
+			String uriDatasetCsv = StringUtils.createUri(ldwProjectDTO.getName(), datasetCsv.toString().concat("_").concat("csv"));
 			datasetCsv = new Dataset("dataset.csv", new Format(IndividualEnum.FORMAT_CSV.getUri()), new License(IndividualEnum.NO_LICENSE.getUri()), locationDataset, uriDatasetCsv);
 			workflow.getLdwSteps().get(0).setOutputDataset(datasetCsv);
 			workflow.setFirstLdwStep(workflow.getLdwSteps().get(0));

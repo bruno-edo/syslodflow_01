@@ -44,6 +44,9 @@
 							<p:tab title="#{msg['crud.ldworkflow.ldwstep05']}" id="tab5">
 								 <ui:include src="ldworkflow_step05.xhtml"/>
 							</p:tab>
+								<p:commandButton styleClass="btn btn-outline btn-success"
+		style="margin-right: 5px;" value="Avançar" immediate="false"
+		type="submit" action="#{ldWorkflowBean.doSave()}" partialSubmit="true" process=":form_workflow, :form_workflow_step01, :form_workflow_step02, :form_workflow_step03, :form_workflow_step04, :form_workflow_step05" ajax="false" />
 							
 						</p:tabView>				
 						</div>
