@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="conteudo">
-	
+	<h:form role="form" id="form_workflow_main" acceptcharset="ISO-8859-1" enctype="multipart/form-data">	
 		<h3 class="page-header">#{msg['crud.ldworkflow']}</h3>
 <!-- 		<div class="col-lg-12">
 			<ol class="breadcrumb">
@@ -44,14 +44,19 @@
 							<p:tab title="#{msg['crud.ldworkflow.ldwstep05']}" id="tab5">
 								 <ui:include src="ldworkflow_step05.xhtml"/>
 							</p:tab>
-								<p:commandButton styleClass="btn btn-outline btn-success"
-		style="margin-right: 5px;" value="Avançar" immediate="false"
-		type="submit" action="#{ldWorkflowBean.doSave()}" partialSubmit="true" process=":form_workflow, :form_workflow_step01, :form_workflow_step02, :form_workflow_step03, :form_workflow_step04, :form_workflow_step05" ajax="false" />
 							
-						</p:tabView>				
+						</p:tabView>	
+						
+							<h:commandButton id="submitWorkflow" styleClass="btn btn-outline btn-success"
+							style="margin-right: 5px;" value="Avançar" immediate="false"
+							type="submit" action="#{ldWorkflowBean.doSave()}" ajax="false" />	
+							
+						<h:commandButton styleClass="btn btn-outline btn-info" type="reset"
+							value="Limpar" />		
 						</div>
 					</div>
 				</div>
 			</div>
+		</h:form>
 	</ui:define>
 </ui:composition>

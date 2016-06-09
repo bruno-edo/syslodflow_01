@@ -197,11 +197,15 @@ public class LdWorkflowService extends BaseService {
 
 		}
 
-		
-		if (URIalreadyExists(model, workflow.getUri()))
-			return editLdWorkflow(model, workflow);
-		else 
+		if(workflow.getUri() != null) {
+			if (URIalreadyExists(model, workflow.getUri()))
+				return editLdWorkflow(model, workflow);
+			else 
+				return insertLdWorkflow(model, workflow, ldwprojectIndividual);
+		} else {
 			return insertLdWorkflow(model, workflow, ldwprojectIndividual);
+		}
+		
 	}
 	
 	
@@ -247,8 +251,8 @@ public class LdWorkflowService extends BaseService {
 		preCondition.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), workflow.getPostCondition().getDescription());
 		ldworkflow.addProperty(model.getProperty(PropertyURIEnum.POSTCONDITION.getUri()), postCondition);
 		
-		List<LDWStep> sortedLDWSteps = sortLDWSteps(workflow.getLdwSteps());
-		for(int i=0; i<sortedLDWSteps.size(); i++) {
+		List<LDWStep> sortedLDWSteps = workflow.getLdwSteps();
+		for(int i=0; i<workflow.getLdwSteps().size(); i++) {
 			ldwStepService.insertLdwStep(model, sortedLDWSteps.get(i));
 			ldworkflow.addProperty(model.getProperty(PropertyURIEnum.LDWSTEP.getUri()), model.getIndividual(sortedLDWSteps.get(i).getUri()));
 		}
