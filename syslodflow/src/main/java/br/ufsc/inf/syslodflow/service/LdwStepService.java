@@ -23,6 +23,7 @@ import br.ufsc.inf.syslodflow.entity.Task;
 import br.ufsc.inf.syslodflow.entity.Tool;
 import br.ufsc.inf.syslodflow.entity.ToolConfiguration;
 import br.ufsc.inf.syslodflow.enumerator.ClassURIEnum;
+import br.ufsc.inf.syslodflow.enumerator.IndividualEnum;
 import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.StepOrderEnum;
 import br.ufsc.inf.syslodflow.enumerator.ToolSupportedEnum;
@@ -280,14 +281,20 @@ public class LdwStepService extends BaseService {
 		ldwstep.addProperty(model.getProperty(PropertyURIEnum.TASK.getUri()), model.getIndividual(step.getTask().getUri()));
 		if(step.getInputDatasets() != null) {
 			for(Dataset ds : step.getInputDatasets()) {
-				model = this.insertDataset(model, ds);
-				ldwstep.addProperty(model.getProperty(PropertyURIEnum.INPUTDATASET.getUri()), model.getIndividual(ds.getUri()));
+				if(URIalreadyExists(model, ds.getUri())) {
+					ldwstep.addProperty(model.getProperty(ClassURIEnum.DATASET.getUri()), model.getIndividual(ds.getUri()));
+				} else {
+					model = this.insertDataset(model, ds);
+					ldwstep.addProperty(model.getProperty(PropertyURIEnum.INPUTDATASET.getUri()), model.getIndividual(ds.getUri()));
+				}
+
 			}
 		}
-
-		model = this.insertDataset(model, step.getOutputDataset());
-		ldwstep.addProperty(model.getProperty(PropertyURIEnum.OUTPUTDATASET.getUri()), model.getIndividual(step.getOutputDataset().getUri()));
-
+		
+		if(step.getOutputDataset() != null) {
+			model = this.insertDataset(model, step.getOutputDataset());
+			ldwstep.addProperty(model.getProperty(PropertyURIEnum.OUTPUTDATASET.getUri()), model.getIndividual(step.getOutputDataset().getUri()));
+		}
 		
 		if(step.getToolConfiguration() != null) {
 			model = this.insertToolConfiguration(model, step.getToolConfiguration());
@@ -314,6 +321,8 @@ public class LdwStepService extends BaseService {
 		model = this.editDataset(model, step.getOutputDataset());
 		model = this.editToolConfiguration(model, step.getToolConfiguration());
 	}
+	
+
 	
 	private OntModel insertDataset(OntModel model, Dataset d) {
 		Individual dataset = model.getOntClass(ClassURIEnum.DATASET.getUri()).createIndividual(d.getUri());

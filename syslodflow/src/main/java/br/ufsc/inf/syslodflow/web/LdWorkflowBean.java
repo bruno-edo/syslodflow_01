@@ -34,6 +34,7 @@ import com.hp.hpl.jena.ontology.OntModel;
 @SessionScoped
 public class LdWorkflowBean {
 
+	
 	@Inject 
 	private LdwpoService ldwpoService;
 	@Inject 
