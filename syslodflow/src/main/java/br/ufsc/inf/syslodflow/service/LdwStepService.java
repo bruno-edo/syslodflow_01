@@ -278,14 +278,22 @@ public class LdwStepService extends BaseService {
 		ldwstep.addLiteral(model.getProperty(PropertyURIEnum.COMMAND.getUri()), step.getCommand());
 		ldwstep.addProperty(model.getProperty(PropertyURIEnum.TOOL.getUri()), model.getIndividual(step.getTool().getUri()));
 		ldwstep.addProperty(model.getProperty(PropertyURIEnum.TASK.getUri()), model.getIndividual(step.getTask().getUri()));
-		for(int i=0; i<step.getInputDatasets().size(); i++) {
-			model = this.insertDataset(model, step.getInputDatasets().get(i));
-			ldwstep.addProperty(model.getProperty(PropertyURIEnum.INPUTDATASET.getUri()), model.getIndividual(step.getInputDatasets().get(i).getUri()));
+		if(step.getInputDatasets() != null) {
+			for(Dataset ds : step.getInputDatasets()) {
+				model = this.insertDataset(model, ds);
+				ldwstep.addProperty(model.getProperty(PropertyURIEnum.INPUTDATASET.getUri()), model.getIndividual(ds.getUri()));
+			}
 		}
+
 		model = this.insertDataset(model, step.getOutputDataset());
 		ldwstep.addProperty(model.getProperty(PropertyURIEnum.OUTPUTDATASET.getUri()), model.getIndividual(step.getOutputDataset().getUri()));
-		model = this.insertToolConfiguration(model, step.getToolConfiguration());
-		ldwstep.addProperty(model.getProperty(PropertyURIEnum.TOOLCONFIGURATION.getUri()), model.getIndividual(step.getToolConfiguration().getUri()));
+
+		
+		if(step.getToolConfiguration() != null) {
+			model = this.insertToolConfiguration(model, step.getToolConfiguration());
+			ldwstep.addProperty(model.getProperty(PropertyURIEnum.TOOLCONFIGURATION.getUri()), model.getIndividual(step.getToolConfiguration().getUri()));
+		}
+
 		return model;	
 	}
 
@@ -300,8 +308,8 @@ public class LdwStepService extends BaseService {
 		ldwstep.addLiteral(model.getProperty(PropertyURIEnum.COMMAND.getUri()), step.getCommand());
 		ldwstep.removeAll(model.getProperty(PropertyURIEnum.TOOL.getUri()));
 		ldwstep.addProperty(model.getProperty(PropertyURIEnum.TOOL.getUri()), model.getIndividual(step.getTool().getUri()));
-		for(int i=0; i<step.getInputDatasets().size(); i++) {
-			model = this.editDataset(model, step.getInputDatasets().get(i));
+		for(Dataset ds : step.getInputDatasets()){
+			model = this.editDataset(model, ds);
 		}
 		model = this.editDataset(model, step.getOutputDataset());
 		model = this.editToolConfiguration(model, step.getToolConfiguration());

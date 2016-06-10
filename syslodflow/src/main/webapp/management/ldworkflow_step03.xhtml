@@ -58,7 +58,7 @@
 	<div class="row">
 		<div class="col-lg-6">
 			<label>#{msg['crud.ldworkflow.ldwstep.tool']}</label><br />
-			<p:selectOneMenu id="step03_tool" value="#{ldWorkflowBean.step03.tool}" disabled="true">
+			<p:selectOneMenu id="step03_tool" value="#{ldWorkflowBean.step03.tool}">
 				<f:selectItems value="#{ldWorkflowBean.listToolsStep03}" var="tool" 
 					itemLabel="#{tool.name}" itemValue="#{tool}" />
 			</p:selectOneMenu>

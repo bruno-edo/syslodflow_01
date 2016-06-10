@@ -43,6 +43,17 @@
 		</div>
 	</div>
 	
+	
+	<div class="row">
+		<div class="col-lg-6">
+			<label>#{msg['crud.ldworkflow.ldwstep.tool']}</label><br />
+			<p:selectOneMenu id="step01_tool" value="#{ldWorkflowBean.step01.tool}">
+				<f:selectItems value="#{ldWorkflowBean.listToolsStep01}" var="tool" 
+					itemLabel="#{tool.name}" itemValue="#{tool}" />
+			</p:selectOneMenu>
+		</div>
+	</div><br/>
+	
 
 <!-- 	<div class="form-group">
 		<div class="row">

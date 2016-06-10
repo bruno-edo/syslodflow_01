@@ -96,7 +96,7 @@ public class LdWorkflowBean {
 	}
 	
 	public void doLoadTools() {
-		this.listToolsStep01 = this.ldwStepService.getListToolsStep02(model);
+		this.listToolsStep01 = this.ldwStepService.getListToolsStep01(model);
 		this.listToolsStep02 = this.ldwStepService.getListToolsStep02(model);
 		this.listToolsStep03 = this.ldwStepService.getListToolsStep03(model);
 		this.listToolsStep04 = this.ldwStepService.getListToolsStep04(model);
