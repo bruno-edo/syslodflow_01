@@ -3,11 +3,7 @@ package br.ufsc.inf.syslodflow.util;
 import java.util.Comparator;
 
 import javax.faces.model.SelectItem;
-/**
- * Implementa&ccedil;&atilde;o de <code>Comparator</code> para ordena&ccedil;&atilde;o de <code>SelectItem</code>.
- * @author silvachp
- *
- */
+
 public class SelectItemComparator implements Comparator<SelectItem> {
 
 	@Override

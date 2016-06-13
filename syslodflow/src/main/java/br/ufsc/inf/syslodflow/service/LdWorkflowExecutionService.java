@@ -6,9 +6,11 @@ import java.util.List;
 import javax.inject.Inject;
 
 import br.ufsc.inf.syslodflow.entity.LDWStepExecution;
+import br.ufsc.inf.syslodflow.entity.LDWorkflow;
 import br.ufsc.inf.syslodflow.entity.LDWorkflowExecution;
 import br.ufsc.inf.syslodflow.enumerator.ClassURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
+import br.ufsc.inf.syslodflow.util.StringUtils;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntModel;
@@ -37,15 +39,56 @@ public class LdWorkflowExecutionService extends BaseService {
 				firstLdwStepExecution = l;
 		}
 		
+		ldwStepExecutions = sortLDWStepExecutions(ldwStepExecutions);
+		
 		return new LDWorkflowExecution(firstLdwStepExecution, ldwStepExecutions, description, name, startedDate, endedDate, ontLdwWorkFlowExecution.getURI());
 	}
 	
+	public LDWorkflowExecution doNewWorkflowExecution() {
+		LDWorkflowExecution workFlowExecution = new LDWorkflowExecution();
+		List<LDWStepExecution> stepsExecutions = new ArrayList<LDWStepExecution>();
+		workFlowExecution.setLdwStepExecutions(stepsExecutions);
+		return workFlowExecution;
+	}
 	
-	public OntModel writeLDWorkflowExecution(OntModel model, LDWorkflowExecution l, Individual ldworkflow) {
-		if(URIalreadyExists(model, l.getUri())) 
-			return editLDWorkflowExecution(model, l);
+	public OntModel writeLDWorkflowExecution(OntModel model, LDWorkflowExecution workFlowExec, Individual ldworkflow) {
+		
+		if(workFlowExec.getUri() == null) {
+			// Create Uris
+			String uriWorkflowExec = StringUtils.createUri(workFlowExec.getName(), workFlowExec.toString());
+			workFlowExec.setUri(uriWorkflowExec);
+			
+			//Step 01
+			String uriStepExec01 =  StringUtils.createUri(workFlowExec.getName(), workFlowExec.getLdwStepExecutions().get(0).toString().concat("01"));
+			workFlowExec.getLdwStepExecutions().get(0).setUri(uriStepExec01);
+			
+			//Step 02
+			String uriStepExec02 =  StringUtils.createUri(workFlowExec.getName(), workFlowExec.getLdwStepExecutions().get(0).toString().concat("02"));
+			workFlowExec.getLdwStepExecutions().get(1).setUri(uriStepExec01);
+			
+			
+			//Step 03
+			String uriStepExec03 =  StringUtils.createUri(workFlowExec.getName(), workFlowExec.getLdwStepExecutions().get(0).toString().concat("03"));
+			workFlowExec.getLdwStepExecutions().get(2).setUri(uriStepExec01);
+			
+			//Step 04
+			String uriStepExec04 =  StringUtils.createUri(workFlowExec.getName(), workFlowExec.getLdwStepExecutions().get(0).toString().concat("04"));
+			workFlowExec.getLdwStepExecutions().get(3).setUri(uriStepExec01);
+			
+			//Step 05
+			String uriStepExec05 =  StringUtils.createUri(workFlowExec.getName(), workFlowExec.getLdwStepExecutions().get(0).toString().concat("05"));
+			workFlowExec.getLdwStepExecutions().get(4).setUri(uriStepExec01);
+			
+		}
+		
+		
+		
+		
+		
+		if(URIalreadyExists(model, workFlowExec.getUri())) 
+			return editLDWorkflowExecution(model, workFlowExec);
 		else 
-			return insertLDWorkflowExecution(model, l, ldworkflow);
+			return insertLDWorkflowExecution(model, workFlowExec, ldworkflow);
 	}
 	public OntModel insertLDWorkflowExecution(OntModel model, LDWorkflowExecution l, Individual ldworkflow) {
 		
@@ -84,6 +127,37 @@ public class LdWorkflowExecutionService extends BaseService {
 		return model;
 	}
 		
+	public LDWorkflowExecution doNewWorkflowExecutionService(LDWorkflow workflow) {
+		LDWorkflowExecution workflowExecution =  new LDWorkflowExecution();
+		
+		//Step Execution 01
+		LDWStepExecution stepExecution01 = new LDWStepExecution();
+		
+		//Step Execution 02
+		LDWStepExecution stepExecution02 = new LDWStepExecution();
+		
+		//Step Execution 03
+		LDWStepExecution stepExecution03 = new LDWStepExecution();
+		
+		//Step Execution 04
+		LDWStepExecution stepExecution04 = new LDWStepExecution();
+		
+		//Step Execution 05
+		LDWStepExecution stepExecution05 = new LDWStepExecution();
+		
+		//Steps
+		List<LDWStepExecution> stepsExecution = new ArrayList<LDWStepExecution>();
+		stepsExecution.add(stepExecution01);
+		stepsExecution.add(stepExecution02);
+		stepsExecution.add(stepExecution03);
+		stepsExecution.add(stepExecution04);
+		stepsExecution.add(stepExecution05);
+		
+		workflowExecution.setLdwStepExecutions(stepsExecution);
+		return workflowExecution;
+	}
+
+	
 	private List<LDWStepExecution> sortLDWStepExecutions(List<LDWStepExecution> ldwstepexecutions) {
 		List<LDWStepExecution> sortedList = new ArrayList<LDWStepExecution>();
 		for(LDWStepExecution s: ldwstepexecutions){

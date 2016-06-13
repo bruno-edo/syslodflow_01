@@ -27,6 +27,10 @@ public class LDWorkflowExecution extends BaseModel {
 		this.endedDate = endedDate;
 		this.uri = uri;
 	}
+	
+	public LDWorkflowExecution() {
+		
+	}
 
 	public LDWStepExecution getFirstLdwStepExecution() {
 		return firstLdwStepExecution;
@@ -85,5 +89,13 @@ public class LDWorkflowExecution extends BaseModel {
 	public void setUri(String uri) {
 		this.uri = uri;
 	}
+
+	@Override
+	public String toString() {
+		return "ldWorkflowExecution";
+	}
+	
+	
+	
 }
 

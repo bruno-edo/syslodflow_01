@@ -127,6 +127,8 @@ public class LdWorkflowService extends BaseService {
 				
 		if(workflow.getUri() == null) {
 			// Create Uris
+			String uriWorkflow = StringUtils.createUri(ldwProjectDTO.getName(), workflow.toString());
+			workflow.setUri(uriWorkflow);
 			
 			// Pre condition
 			String uriPreCondition = StringUtils.createUri(ldwProjectDTO.getName(), workflow.getPreCondition().toString().concat("_preCondition_").concat(workflow.toString()));
@@ -246,7 +248,7 @@ public class LdWorkflowService extends BaseService {
 		Individual ldworkflow = model.getOntClass(ClassURIEnum.LDWORKFLOW.getUri()).createIndividual(workflow.getUri());
 		
 		ldworkflow.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), workflow.getName());
-		ldworkflow.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), workflow.getName());
+		ldworkflow.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), workflow.getDescription());
 		
 		Individual preCondition = model.getOntClass(ClassURIEnum.CONDITION.getUri()).createIndividual(workflow.getPreCondition().getUri());
 		preCondition.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), workflow.getPreCondition().getDescription());

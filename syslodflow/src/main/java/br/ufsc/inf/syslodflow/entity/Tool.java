@@ -1,7 +1,6 @@
 package br.ufsc.inf.syslodflow.entity;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class Tool extends BaseModel implements Serializable {
 	

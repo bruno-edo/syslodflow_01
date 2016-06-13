@@ -15,7 +15,6 @@ import org.primefaces.event.TabChangeEvent;
 import br.ufsc.inf.syslodflow.dto.LDWProjectDTO;
 import br.ufsc.inf.syslodflow.entity.LDWProject;
 import br.ufsc.inf.syslodflow.entity.Person;
-import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
 import br.ufsc.inf.syslodflow.service.LdwProjectService;
 import br.ufsc.inf.syslodflow.service.LdwpoService;
 import br.ufsc.inf.syslodflow.service.PersonService;

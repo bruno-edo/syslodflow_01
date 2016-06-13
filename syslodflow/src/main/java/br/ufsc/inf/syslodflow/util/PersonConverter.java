@@ -6,7 +6,6 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 import br.ufsc.inf.syslodflow.entity.Person;
-import br.ufsc.inf.syslodflow.entity.Tool;
 
 @FacesConverter(forClass = Person.class)
 public class PersonConverter implements Converter {

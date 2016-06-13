@@ -91,6 +91,11 @@ public class LDWStepExecution extends BaseModel {
 	public void setUri(String uri) {
 		this.uri = uri;
 	}
+
+	@Override
+	public String toString() {
+		return "ldwStepExecution";
+	}
 	
 	
 	
