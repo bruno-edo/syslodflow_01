@@ -10,7 +10,7 @@ import java.nio.file.Path;
  */
 public class LDWProjectDTO implements Serializable {
 	
-	final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private String creator;
 	private String fileName;

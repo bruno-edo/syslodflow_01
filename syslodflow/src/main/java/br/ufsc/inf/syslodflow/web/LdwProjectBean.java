@@ -81,7 +81,7 @@ public class LdwProjectBean {
 //			ontModel.getIndividual(ldwProject.getUri()).getPropertyValue(ontModel.getProperty(PropertyURIEnum.DESCRIPTION.getUri())).asLiteral().getString();
 //			ontModel.getIndividual(ldwProject.getUri()).getPropertyResourceValue(ontModel.getProperty(PropertyURIEnum.CREATOR.getUri())).getURI();
 			this.ldwpoService.doSaveModel(ontModel, ldwProject.getFileName());
-			
+			listLdwProjects = new ListDataModel<LDWProjectDTO>(ldwProjectService.getListLdwProjectDTO());
 			return Navegacao.LDWPROJECT_LIST;
 		} else {
 			MessageUtil.showError("crud.invalid.name");

@@ -255,7 +255,7 @@ public class LdWorkflowService extends BaseService {
 		ldworkflow.addProperty(model.getProperty(PropertyURIEnum.PRECONDITION.getUri()), preCondition);
 		
 		Individual postCondition = model.getOntClass(ClassURIEnum.CONDITION.getUri()).createIndividual(workflow.getPostCondition().getUri());
-		preCondition.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), workflow.getPostCondition().getDescription());
+		postCondition.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), workflow.getPostCondition().getDescription());
 		ldworkflow.addProperty(model.getProperty(PropertyURIEnum.POSTCONDITION.getUri()), postCondition);
 		
 		List<LDWStep> sortedLDWSteps = workflow.getLdwSteps();

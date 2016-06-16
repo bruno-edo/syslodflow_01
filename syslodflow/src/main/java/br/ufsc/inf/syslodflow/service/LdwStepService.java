@@ -23,7 +23,6 @@ import br.ufsc.inf.syslodflow.entity.Task;
 import br.ufsc.inf.syslodflow.entity.Tool;
 import br.ufsc.inf.syslodflow.entity.ToolConfiguration;
 import br.ufsc.inf.syslodflow.enumerator.ClassURIEnum;
-import br.ufsc.inf.syslodflow.enumerator.IndividualEnum;
 import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.StepOrderEnum;
 import br.ufsc.inf.syslodflow.enumerator.ToolSupportedEnum;

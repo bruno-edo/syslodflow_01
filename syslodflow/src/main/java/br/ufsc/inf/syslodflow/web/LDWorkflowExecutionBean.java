@@ -66,6 +66,11 @@ public class LDWorkflowExecutionBean {
 		
 	}
 	
+	public void doBack() {
+		setShowView(true);
+		RequestContext.getCurrentInstance().update("panel_list, panel_reg");
+		
+	}
 	public void doChangeProject() {
 		this.model = ldwpoService.doLoadModel(ldwProjectSelected.getPath());
 		LDWProject ldwProject = ldwProjectService.getLDWProject(model);

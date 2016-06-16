@@ -51,9 +51,16 @@ public class LdWorkflowExecutionService extends BaseService {
 		return workFlowExecution;
 	}
 	
-	public OntModel writeLDWorkflowExecution(OntModel model, LDWorkflowExecution workFlowExec, Individual ldworkflow) {
+	public OntModel writeLDWorkflowExecution(OntModel model, LDWorkflowExecution workFlowExec, LDWorkflow workflow) {
 		
 		if(workFlowExec.getUri() == null) {
+			/**
+			 * Novo LDWorkflowExecution
+			 * - Setar URI
+			 * - Setar URI's LDWStepExecution
+			 * - Atrelar aos LDWStep os LDWStepExecution
+			 */
+			
 			// Create Uris
 			String uriWorkflowExec = StringUtils.createUri(workFlowExec.getName(), workFlowExec.toString());
 			workFlowExec.setUri(uriWorkflowExec);
@@ -64,8 +71,7 @@ public class LdWorkflowExecutionService extends BaseService {
 			
 			//Step 02
 			String uriStepExec02 =  StringUtils.createUri(workFlowExec.getName(), workFlowExec.getLdwStepExecutions().get(0).toString().concat("02"));
-			workFlowExec.getLdwStepExecutions().get(1).setUri(uriStepExec01);
-			
+			workFlowExec.getLdwStepExecutions().get(1).setUri(uriStepExec01);		
 			
 			//Step 03
 			String uriStepExec03 =  StringUtils.createUri(workFlowExec.getName(), workFlowExec.getLdwStepExecutions().get(0).toString().concat("03"));
@@ -78,27 +84,30 @@ public class LdWorkflowExecutionService extends BaseService {
 			//Step 05
 			String uriStepExec05 =  StringUtils.createUri(workFlowExec.getName(), workFlowExec.getLdwStepExecutions().get(0).toString().concat("05"));
 			workFlowExec.getLdwStepExecutions().get(4).setUri(uriStepExec01);
-			
+
 		}
-		
-		
-		
-		
 		
 		if(URIalreadyExists(model, workFlowExec.getUri())) 
 			return editLDWorkflowExecution(model, workFlowExec);
 		else 
-			return insertLDWorkflowExecution(model, workFlowExec, ldworkflow);
+			return insertLDWorkflowExecution(model, workFlowExec, workflow);
 	}
-	public OntModel insertLDWorkflowExecution(OntModel model, LDWorkflowExecution l, Individual ldworkflow) {
+	
+	
+	public OntModel insertLDWorkflowExecution(OntModel model, LDWorkflowExecution l, LDWorkflow w) {
 		
+		Individual ldworkflow = model.getIndividual(w.getUri());
 		Individual ldworkflowexecution = model.getOntClass(ClassURIEnum.LDWORKFLOWEXECUTION.getUri()).createIndividual(l.getUri());
 		ldworkflowexecution.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), l.getName());
 		ldworkflowexecution.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), l.getDescription());
 		List<LDWStepExecution> sortedLDWStepExecutions = sortLDWStepExecutions(l.getLdwStepExecutions());
 		for(int i=0; i<l.getLdwStepExecutions().size(); i++) {
 			ldwStepExecutionService.insertLdwStepExecution(model, l.getLdwStepExecutions().get(i));
+			//Adiciona StepExecution como propriedade LDWorkflowExecution
 			ldworkflowexecution.addProperty(model.getProperty(PropertyURIEnum.LDWSTEPEXECUTION.getUri()), model.getIndividual(sortedLDWStepExecutions.get(i).getUri()));
+			//Adiciona StepExecution como propriedade do Step
+			Individual step = model.getIndividual(w.getLdwSteps().get(i).getUri());
+			step.addProperty(model.getProperty(PropertyURIEnum.LDWSTEPEXECUTION.getUri()), model.getIndividual(sortedLDWStepExecutions.get(i).getUri()));
 		}
 		ldworkflowexecution.addProperty(model.getProperty(PropertyURIEnum.FIRSTLDWSTEPEXECUTION.getUri()), model.getIndividual(sortedLDWStepExecutions.get(0).getUri()));
 		model.getIndividual(sortedLDWStepExecutions.get(0).getUri()).addProperty(model.getProperty(PropertyURIEnum.NEXTSTEP.getUri()), model.getIndividual(sortedLDWStepExecutions.get(1).getUri()));
@@ -109,7 +118,7 @@ public class LdWorkflowExecutionService extends BaseService {
 		model.getIndividual(sortedLDWStepExecutions.get(3).getUri()).addProperty(model.getProperty(PropertyURIEnum.NEXTSTEP.getUri()), model.getIndividual(sortedLDWStepExecutions.get(4).getUri()));
 		model.getIndividual(sortedLDWStepExecutions.get(3).getUri()).addProperty(model.getProperty(PropertyURIEnum.PREVIOUSSTEP.getUri()), model.getIndividual(sortedLDWStepExecutions.get(2).getUri()));
 		model.getIndividual(sortedLDWStepExecutions.get(4).getUri()).addProperty(model.getProperty(PropertyURIEnum.PREVIOUSSTEP.getUri()), model.getIndividual(sortedLDWStepExecutions.get(3).getUri()));
-		ldworkflowexecution.addProperty(model.getProperty(PropertyURIEnum.LDWORKFLOWEXECUTION.getUri()), ldworkflow);
+		ldworkflow.addProperty(model.getProperty(PropertyURIEnum.LDWORKFLOWEXECUTION.getUri()), ldworkflowexecution);
 		return model;
 	}
 	

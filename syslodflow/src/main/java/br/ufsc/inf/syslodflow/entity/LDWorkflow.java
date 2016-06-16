@@ -99,6 +99,11 @@ public class LDWorkflow extends BaseModel {
 	public void setUri(String uri) {
 		this.uri = uri;
 	}
+
+	@Override
+	public String toString() {
+		return "ldWorkflow";
+	}
 	
 	
 }

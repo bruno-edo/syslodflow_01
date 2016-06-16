@@ -6,13 +6,14 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="conteudo">
-	<h:form role="form" id="form_workflowexecution_main" acceptcharset="ISO-8859-1" enctype="multipart/form-data">	
+	<h:form role="form" id="form_workflowexecution_main" acceptcharset="ISO-8859-1" enctype="multipart/form-data">
+	
 		<h3 class="page-header">#{msg['crud.ldworkflowexecution']}</h3>
 			<div class="col-lg-12">
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<h3 class="panel-title">
-							<i class="fa fa-bar-chart-o"></i>#{msg['crud.ldworkflow.title']}
+							<i class="fa fa-cogs"></i>#{msg['crud.ldworkflowexecution.title']}
 						</h3>
 					</div>
 					<div class="panel-body">
@@ -80,6 +81,11 @@
 					</h:panelGroup>
 					
 					<h:panelGroup id="panel_reg" rendered="#{!ldWorkflowExecutionBean.showView}">
+					
+						<h:commandButton action="#{ldWorkflowExecutionBean.doBack()}" id="btBack" styleClass="btn btn-xs btn-warning"
+								value="#{msg['crud.back']}" /><br/>
+					
+					
 						<p:tabView id="tab" styleClass="col-lg-12">
 							<p:tab title="#{msg['crud.ldworkflowexecution.general']}" id="tab0">
 								<ui:include src="ldworkflowexecution_config.xhtml"/> 
@@ -106,8 +112,8 @@
 							style="margin-right: 5px;" value="Salvar" immediate="false"
 							type="submit" action="#{ldWorkflowExecutionBean.doSave()}" ajax="false" />	
 							
-						<h:commandButton styleClass="btn btn-outline btn-info" type="reset"
-							value="Limpar" />	
+						<h:commandButton styleClass="btn btn-outline btn-primary" type="reset"
+							value="Executar" />	
 					</h:panelGroup>
 					</div>
 				</div>

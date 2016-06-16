@@ -11,7 +11,7 @@ public enum PropertyURIEnum {
 	CONTRIBUTOR("http://ldwpo.aksw.org/terms/1.0/contributor"),
 	REPORT("http://ldwpo.aksw.org/terms/1.0/report"),
 	PRECONDITION("http://ldwpo.aksw.org/terms/1.0/precondition"),
-	POSTCONDITION("http://ldwpo.aksw.org/terms/1.0/precondition"),
+	POSTCONDITION("http://ldwpo.aksw.org/terms/1.0/postcondition"),
 	LDWORKFLOW("http://ldwpo.aksw.org/terms/1.0/ldWorkflow"),
 	LDWSTEP("http://ldwpo.aksw.org/terms/1.0/ldwStep"),
 	LDWSTEPEXECUTION("http://ldwpo.aksw.org/terms/1.0/ldwStepExecution"),
