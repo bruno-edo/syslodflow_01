@@ -89,10 +89,11 @@ public class LdWorkflowBean {
 		ldWorkflow = ldWorkflowService.doNewWorkflow(model);
 	}
 	public void doSave() {
-		model = ldWorkflowService.writeLdwWorkflow(model, ldWorkflow, ldwProjectSelected);
-		ldwpoService.saveFile(smlUploaded, ldwProjectSelected.getName(), "mapping");
-		this.ldwpoService.doSaveModel(model, ldwProjectSelected.getFileName());
-		MessageUtil.show("message.save.sucess");
+	
+			model = ldWorkflowService.writeLdwWorkflow(model, ldWorkflow, ldwProjectSelected);
+			ldwpoService.saveFile(smlUploaded, ldwProjectSelected.getName(), "mapping");
+			this.ldwpoService.doSaveModel(model, ldwProjectSelected.getFileName());
+		
 	}
 	
 	public void doLoadTools() {

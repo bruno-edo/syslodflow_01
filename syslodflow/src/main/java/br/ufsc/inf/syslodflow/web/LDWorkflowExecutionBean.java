@@ -18,6 +18,7 @@ import br.ufsc.inf.syslodflow.entity.LDWProject;
 import br.ufsc.inf.syslodflow.entity.LDWStepExecution;
 import br.ufsc.inf.syslodflow.entity.LDWorkflow;
 import br.ufsc.inf.syslodflow.entity.LDWorkflowExecution;
+import br.ufsc.inf.syslodflow.service.LdWorkflowExecutionService;
 import br.ufsc.inf.syslodflow.service.LdWorkflowService;
 import br.ufsc.inf.syslodflow.service.LdwProjectService;
 import br.ufsc.inf.syslodflow.service.LdwpoService;
@@ -36,6 +37,8 @@ public class LDWorkflowExecutionBean {
 	private LdwProjectService ldwProjectService;
 	@Inject
 	private LdWorkflowService ldWorkflowService;
+	@Inject
+	private LdWorkflowExecutionService ldwWorkflowExecutionService;
 	
 	private boolean showView = true;
 	private OntModel model;
@@ -44,6 +47,10 @@ public class LDWorkflowExecutionBean {
 	private LDWorkflow workflow;
 	private LDWProjectDTO ldwProjectSelected;
 	private List<LDWProjectDTO> listLdwProjects;
+	
+	/**
+	 * Steps
+	 */
 	private LDWStepExecution stepExecution01;
 	private LDWStepExecution stepExecution02;
 	private LDWStepExecution stepExecution03;
@@ -58,13 +65,32 @@ public class LDWorkflowExecutionBean {
 	
 	
 	public void doNew() {
-		
+		ldWorkflowExecution = ldwWorkflowExecutionService.doNewWorkflowExecution();
+		stepExecution01 = ldWorkflowExecution.getLdwStepExecutions().get(0);
+		stepExecution02 = ldWorkflowExecution.getLdwStepExecutions().get(1);
+		stepExecution03 = ldWorkflowExecution.getLdwStepExecutions().get(2);
+		stepExecution04 = ldWorkflowExecution.getLdwStepExecutions().get(3);
+		stepExecution05 = ldWorkflowExecution.getLdwStepExecutions().get(4);
+		insereTeste();
+		setShowView(false);
 		
 	}
 	
-	public void doSave() {
+	private void insereTeste() {
+		for(int i = 0; i < ldWorkflowExecution.getLdwStepExecutions().size(); i++) {
+			ldWorkflowExecution.getLdwStepExecutions().get(i).setOrder(i+1);
+			ldWorkflowExecution.getLdwStepExecutions().get(i).setName("Step Execution " + i+1);
+			ldWorkflowExecution.getLdwStepExecutions().get(i).setDescription("Description " + i+1);
+		}
 		
 	}
+
+
+	public void doSave() {
+		model = ldwWorkflowExecutionService.writeLDWorkflowExecution(model, ldWorkflowExecution, workflow);
+		this.ldwpoService.doSaveModel(model, ldwProjectSelected.getFileName());
+	}
+	
 	
 	public void doBack() {
 		setShowView(true);

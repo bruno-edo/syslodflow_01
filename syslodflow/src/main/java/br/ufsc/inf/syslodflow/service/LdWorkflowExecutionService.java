@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import br.ufsc.inf.syslodflow.entity.LDWStepExecution;
 import br.ufsc.inf.syslodflow.entity.LDWorkflow;
 import br.ufsc.inf.syslodflow.entity.LDWorkflowExecution;
+import br.ufsc.inf.syslodflow.entity.Message;
+import br.ufsc.inf.syslodflow.entity.Person;
 import br.ufsc.inf.syslodflow.enumerator.ClassURIEnum;
 import br.ufsc.inf.syslodflow.enumerator.PropertyURIEnum;
 import br.ufsc.inf.syslodflow.util.StringUtils;
@@ -46,7 +48,21 @@ public class LdWorkflowExecutionService extends BaseService {
 	
 	public LDWorkflowExecution doNewWorkflowExecution() {
 		LDWorkflowExecution workFlowExecution = new LDWorkflowExecution();
+		
+		LDWStepExecution stepExecution01 = new LDWStepExecution();
+		LDWStepExecution stepExecution02 =  new LDWStepExecution();
+		LDWStepExecution stepExecution03 =  new LDWStepExecution();
+		LDWStepExecution stepExecution04 =  new LDWStepExecution();
+		LDWStepExecution stepExecution05 =  new LDWStepExecution();
+		
 		List<LDWStepExecution> stepsExecutions = new ArrayList<LDWStepExecution>();
+		
+		stepsExecutions.add(stepExecution01);
+		stepsExecutions.add(stepExecution02);
+		stepsExecutions.add(stepExecution03);
+		stepsExecutions.add(stepExecution04);
+		stepsExecutions.add(stepExecution05);
+		
 		workFlowExecution.setLdwStepExecutions(stepsExecutions);
 		return workFlowExecution;
 	}
@@ -61,6 +77,10 @@ public class LdWorkflowExecutionService extends BaseService {
 			 * - Atrelar aos LDWStep os LDWStepExecution
 			 */
 			
+			//PESSOA CRIADA PARA TESTES
+			Person contributor = new Person();
+			contributor.setUri("http://ldwpo.aksw.org/terms/1.0/person_ivan_ermilov");
+			
 			// Create Uris
 			String uriWorkflowExec = StringUtils.createUri(workFlowExec.getName(), workFlowExec.toString());
 			workFlowExec.setUri(uriWorkflowExec);
@@ -69,22 +89,50 @@ public class LdWorkflowExecutionService extends BaseService {
 			String uriStepExec01 =  StringUtils.createUri(workFlowExec.getName(), workFlowExec.getLdwStepExecutions().get(0).toString().concat("01"));
 			workFlowExec.getLdwStepExecutions().get(0).setUri(uriStepExec01);
 			
+			Message message01 = new Message("");
+			message01.setUri(StringUtils.createUri(workFlowExec.getName(), message01.toString().concat("_").concat(workFlowExec.getLdwStepExecutions().get(0).toString().concat("01"))));
+			workFlowExec.getLdwStepExecutions().get(0).setMessage(message01);
+			workFlowExec.setFirstLdwStepExecution(workFlowExec.getLdwStepExecutions().get(0));
+			
+			
 			//Step 02
-			String uriStepExec02 =  StringUtils.createUri(workFlowExec.getName(), workFlowExec.getLdwStepExecutions().get(0).toString().concat("02"));
-			workFlowExec.getLdwStepExecutions().get(1).setUri(uriStepExec01);		
+			String uriStepExec02 =  StringUtils.createUri(workFlowExec.getName(), workFlowExec.getLdwStepExecutions().get(1).toString().concat("02"));
+			workFlowExec.getLdwStepExecutions().get(1).setUri(uriStepExec02);		
+			
+			Message message02 = new Message("");
+			message02.setUri(StringUtils.createUri(workFlowExec.getName(), message02.toString().concat("_").concat(workFlowExec.getLdwStepExecutions().get(1).toString().concat("01"))));
+			workFlowExec.getLdwStepExecutions().get(1).setMessage(message02);
 			
 			//Step 03
-			String uriStepExec03 =  StringUtils.createUri(workFlowExec.getName(), workFlowExec.getLdwStepExecutions().get(0).toString().concat("03"));
-			workFlowExec.getLdwStepExecutions().get(2).setUri(uriStepExec01);
+			String uriStepExec03 =  StringUtils.createUri(workFlowExec.getName(), workFlowExec.getLdwStepExecutions().get(2).toString().concat("03"));
+			workFlowExec.getLdwStepExecutions().get(2).setUri(uriStepExec03);
+			
+			Message message03 = new Message("");
+			message03.setUri(StringUtils.createUri(workFlowExec.getName(), message03.toString().concat("_").concat(workFlowExec.getLdwStepExecutions().get(2).toString().concat("01"))));
+			workFlowExec.getLdwStepExecutions().get(2).setMessage(message03);
 			
 			//Step 04
-			String uriStepExec04 =  StringUtils.createUri(workFlowExec.getName(), workFlowExec.getLdwStepExecutions().get(0).toString().concat("04"));
-			workFlowExec.getLdwStepExecutions().get(3).setUri(uriStepExec01);
+			String uriStepExec04 =  StringUtils.createUri(workFlowExec.getName(), workFlowExec.getLdwStepExecutions().get(3).toString().concat("04"));
+			workFlowExec.getLdwStepExecutions().get(3).setUri(uriStepExec04);
+			
+			Message message04 = new Message("");
+			message04.setUri(StringUtils.createUri(workFlowExec.getName(), message04.toString().concat("_").concat(workFlowExec.getLdwStepExecutions().get(3).toString().concat("01"))));
+			workFlowExec.getLdwStepExecutions().get(3).setMessage(message04);
+			
 			
 			//Step 05
-			String uriStepExec05 =  StringUtils.createUri(workFlowExec.getName(), workFlowExec.getLdwStepExecutions().get(0).toString().concat("05"));
-			workFlowExec.getLdwStepExecutions().get(4).setUri(uriStepExec01);
+			String uriStepExec05 =  StringUtils.createUri(workFlowExec.getName(), workFlowExec.getLdwStepExecutions().get(4).toString().concat("05"));
+			workFlowExec.getLdwStepExecutions().get(4).setUri(uriStepExec05);
+			
+			Message message05 = new Message("");
+			message05.setUri(StringUtils.createUri(workFlowExec.getName(), message04.toString().concat("_").concat(workFlowExec.getLdwStepExecutions().get(4).toString().concat("01"))));
+			workFlowExec.getLdwStepExecutions().get(4).setMessage(message05);
 
+			// TESTE
+			for(LDWStepExecution s : workFlowExec.getLdwStepExecutions()) {
+				s.setContributor(contributor);
+			}
+			
 		}
 		
 		if(URIalreadyExists(model, workFlowExec.getUri())) 

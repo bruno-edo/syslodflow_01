@@ -51,7 +51,9 @@ public class LdwStepExecutionService extends BaseService {
 		ldwstepexecution.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), l.getName());
 		ldwstepexecution.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), l.getDescription());
 		ldwstepexecution.addProperty(model.getProperty(PropertyURIEnum.CONTRIBUTOR.getUri()), model.getIndividual(l.getContributor().getUri()));
-		Individual message = model.getIndividual(l.getMessage().getUri());
+		
+		Individual message = model.getOntClass(PropertyURIEnum.MESSAGE.getUri()).createIndividual(l.getMessage().getUri());
+		message.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), l.getMessage().getValue());
 		ldwstepexecution.addProperty(model.getProperty(PropertyURIEnum.MESSAGE.getUri()), message);
 		return model;
 	}

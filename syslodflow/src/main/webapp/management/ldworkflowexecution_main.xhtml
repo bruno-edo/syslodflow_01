@@ -49,7 +49,7 @@
                         	</h:panelGroup><br/>
 							
 							<h3>#{msg['crud.ldworkflowexecution.storedlist']}</h3>
-							<h:commandButton action="#"
+							<h:commandButton action="#{ldWorkflowExecutionBean.doNew()}"
 								id="btNeworkflowExec" styleClass="btn btn-success btn-xs"
 								value="#{msg['crud.new']}" />
 							<br />
@@ -65,14 +65,12 @@
 								<h:column headerClass="headeracoes">
 									<f:facet name="header">#{msg['app.actions']}</f:facet>
 									<center>
-										<h:form id="form-acoes">
 											<h:commandButton action="#{ldWorkflowExecutionBean.doEdit}" id="editWorkflowExec"
 												 styleClass="btn btn-primary btn-xs" value="#{msg['crud.edit']}" />
 											<h:commandButton  action="#" id="deleteWorkflowExec"
 												styleClass="btn btn-danger btn-xs" style="margin-left: 5px;"
 												value="#{msg['crud.delete']}"
 												onclick="if(!confirm('#{msg['list.confirm.delete']}: #{workflowexec.name} ?'))return false;" />
-										</h:form>
 									</center>
 								</h:column>
 							</h:dataTable>
