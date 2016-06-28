@@ -64,10 +64,11 @@ public class CommandService {
 		String ntPath = filePath + "/nt/";
 		String ntDataset = filePath + "/nt/dataset.nt";
 		String ntProjectLinks = filePath + ldwProjectName + "_links.nt";
-		String csvDataset = filePath + "/csv/dataset.csv";
-		String mappingSml = filePath + "/mappings/mapping.sml";
 		String binPath = filePath + "/bin/";
-		String interlinkingDbPedia = "";
+		String scriptsPath = filePath + "/scripts/";
+		String interlinkingDbPedia = "interLinkingToDbPedia.sh";
+		String linkingMapping = scriptsPath + "linkingMapping.xml";
+		
 		/**
 		 * Comando que será escrito no disco
 		 */
@@ -78,7 +79,7 @@ public class CommandService {
 		sb.append("if [ -f " + ntDataset + " ]; then rm " + ntDataset + "; fi \n");
 		sb.append("if [ -f " + ntProjectLinks + " ]; then rm " + ntProjectLinks + "; fi \n");
 		sb.append("echo calling LIMES \n");
-		sb.append("java -jar tools/LIMES-DIST/LIMES.jar real/QualisBrasil_to_DBpedia_InterlinkingProject/Scripts/linkingQualisToDbpedia.xml");
+		sb.append("java -jar tools/LIMES-DIST/LIMES.jar" + linkingMapping);
 	
 		
 		try {
@@ -86,7 +87,7 @@ public class CommandService {
 			if (!targetFolder.exists()) {
 				targetFolder.mkdirs();
 			} 
-			FileWriter arq = new FileWriter(binPath + applyingSparqlify);
+			FileWriter arq = new FileWriter(binPath + interlinkingDbPedia);
 		    PrintWriter gravarArq = new PrintWriter(arq);
 		    gravarArq.printf(sb.toString());
 		    gravarArq.close();
@@ -98,6 +99,8 @@ public class CommandService {
 		
 		return "";
 	}
+	
+	
 	
 	
 	
