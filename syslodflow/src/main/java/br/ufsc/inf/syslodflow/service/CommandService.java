@@ -8,11 +8,14 @@ import java.io.PrintWriter;
 import javax.faces.context.FacesContext;
 
 import br.ufsc.inf.syslodflow.util.MessageUtil;
+import br.ufsc.inf.syslodflow.util.StringUtils;
 
 public class CommandService {
 	
 	
 	public String createScriptStep02(String ldwProjectName) {
+		ldwProjectName = StringUtils.formatName(ldwProjectName);
+		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		String filePath = fc.getExternalContext().getInitParameter("projectsPath").toString();
 		filePath = filePath + ldwProjectName;
@@ -57,6 +60,8 @@ public class CommandService {
 	}
 	
 	public String createScriptStep04(String ldwProjectName) {
+		ldwProjectName = StringUtils.formatName(ldwProjectName);
+		
 		FacesContext fc = FacesContext.getCurrentInstance();
 		String filePath = fc.getExternalContext().getInitParameter("projectsPath").toString();
 		filePath = filePath + ldwProjectName;

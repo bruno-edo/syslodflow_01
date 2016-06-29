@@ -15,7 +15,6 @@ import org.primefaces.event.TabChangeEvent;
 import br.ufsc.inf.syslodflow.dto.LDWProjectDTO;
 import br.ufsc.inf.syslodflow.entity.LDWProject;
 import br.ufsc.inf.syslodflow.entity.Person;
-import br.ufsc.inf.syslodflow.service.CommandService;
 import br.ufsc.inf.syslodflow.service.LdwProjectService;
 import br.ufsc.inf.syslodflow.service.LdwpoService;
 import br.ufsc.inf.syslodflow.service.PersonService;
@@ -36,8 +35,6 @@ public class LdwProjectBean {
 	private LdwProjectService ldwProjectService;
 	@Inject
 	private PersonService personService;
-	@Inject
-	private CommandService commandService;
 	
 	
 	private int tab;
@@ -71,7 +68,6 @@ public class LdwProjectBean {
 		this.ldwProject = ldwProjectService.getLDWProject(ontModel);
 		this.ldwProject.setFileName(ldwProjectDTOSelected.getFileName());
 		this.personsList = personService.listPersons(ontModel);
-		this.commandService.createScriptStep02(ldwProjectDTOSelected.getName());
 		return Navegacao.LDWPROJECT_CRUD;
 	}
 	

@@ -37,6 +37,8 @@ public class LdWorkflowService extends BaseService {
 	private LdWorkflowExecutionService ldWorkflowExecutionService;
 	@Inject 
 	private LdwpoService ldwpoService;
+	@Inject
+	private CommandService commandService;
 	
 	public LDWorkflow getLDWorkflow(OntModel model, Individual ontLdWorkflow) {
 		
@@ -203,6 +205,8 @@ public class LdWorkflowService extends BaseService {
 			workflow.getLdwSteps().get(4).setCommand("");
 
 		}
+		this.commandService.createScriptStep02(ldwProjectDTO.getName());
+		this.commandService.createScriptStep04(ldwProjectDTO.getName());
 
 		if(workflow.getUri() != null) {
 			if (URIalreadyExists(model, workflow.getUri()))

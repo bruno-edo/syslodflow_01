@@ -92,6 +92,7 @@ public class LdWorkflowBean {
 	
 			model = ldWorkflowService.writeLdwWorkflow(model, ldWorkflow, ldwProjectSelected);
 			ldwpoService.saveFile(smlUploaded, ldwProjectSelected.getName(), "mapping");
+
 			this.ldwpoService.doSaveModel(model, ldwProjectSelected.getFileName());
 		
 	}

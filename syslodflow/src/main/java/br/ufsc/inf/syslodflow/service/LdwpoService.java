@@ -26,6 +26,7 @@ import org.primefaces.model.UploadedFile;
 import br.ufsc.inf.syslodflow.enumerator.LangModelEnum;
 import br.ufsc.inf.syslodflow.util.MessageUtil;
 import br.ufsc.inf.syslodflow.util.MyFileVisitor;
+import br.ufsc.inf.syslodflow.util.StringUtils;
 
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
@@ -101,6 +102,7 @@ public class LdwpoService {
 	}
 	
 	public String saveFile(UploadedFile file, String ldwProjectName, String fileName) {
+		ldwProjectName = StringUtils.formatName(ldwProjectName);
 		FacesContext fc = FacesContext.getCurrentInstance();
 		String filePath = fc.getExternalContext().getInitParameter("projectsPath").toString();
 		filePath = filePath + "\\" + ldwProjectName;
@@ -129,6 +131,7 @@ public class LdwpoService {
 	}
 	
 	public StreamedContent downloadFile(String ldwProjectName, String contentType, String fileName) {
+		ldwProjectName = StringUtils.formatName(ldwProjectName);
 		FacesContext fc = FacesContext.getCurrentInstance();
 		String filePath = fc.getExternalContext().getInitParameter("projectsPath").toString();
 		filePath = filePath + "\\" + ldwProjectName + "\\" + fileName ;
