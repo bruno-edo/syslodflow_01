@@ -38,7 +38,7 @@ public class CommandService {
 		sb.append("if [ -f " + ntDataset + " ]; then rm " + ntDataset + "; fi \n");
 		sb.append("if [ -f " + ntProject + " ]; then rm " + ntProject + "; fi \n");
 		sb.append("echo generating dataset.nt file by sparqlify \n");
-		sb.append("sparqlify-csv -f " + csvDataset +  " -c" + mappingSml + " > " + ntDataset);
+		sb.append("sparqlify-csv -f " + csvDataset +  " -c " + mappingSml + " > " + ntDataset);
 	
 		
 		try {
@@ -56,7 +56,7 @@ public class CommandService {
 			return MessageUtil.getMessageBundle("crud.file.saveerror");
 		}
 		
-		return "";
+		return binPath+applyingSparqlify ;
 	}
 	
 	public String createScriptStep04(String ldwProjectName) {
@@ -102,7 +102,23 @@ public class CommandService {
 			return MessageUtil.getMessageBundle("crud.file.saveerror");
 		}
 		
+		return binPath+interlinkingDbPedia;
+	}
+	
+	public String createScriptSavingIntoVirtuoso(String ldwProjectName) {
+		
+		ldwProjectName = StringUtils.formatName(ldwProjectName);
+		
+		FacesContext fc = FacesContext.getCurrentInstance();
+		String filePath = fc.getExternalContext().getInitParameter("projectsPath").toString();
+		filePath = filePath + ldwProjectName;
+		
+		String ntPath = filePath + "/nt/";
+		String ntDataset = filePath + "/nt/dataset.nt";
+		String ntProject = filePath + ldwProjectName + ".nt";
+		
 		return "";
+		
 	}
 	
 	

@@ -150,7 +150,7 @@ public class LdWorkflowService extends BaseService {
 			datasetCsv = new Dataset("dataset.csv", new Format(IndividualEnum.FORMAT_CSV.getUri()), new License(IndividualEnum.NO_LICENSE.getUri()), locationDataset, uriDatasetCsv);
 			workflow.getLdwSteps().get(0).setOutputDataset(datasetCsv);
 			workflow.setFirstLdwStep(workflow.getLdwSteps().get(0));
-			workflow.getLdwSteps().get(0).setCommand("");
+			
 			
 			//Step 02
 			String uriStep02 = StringUtils.createUri(ldwProjectDTO.getName(), workflow.getLdwSteps().get(1).toString().concat("02"));
@@ -162,7 +162,7 @@ public class LdWorkflowService extends BaseService {
 			workflow.getLdwSteps().get(1).setOutputDataset(datasetNt);
 			List<Dataset> inputDatasets02 = new ArrayList<>();
 			inputDatasets02.add(datasetCsv);
-			workflow.getLdwSteps().get(1).setCommand("");
+			
 			
 			//Step 03
 			String uriStep03 = StringUtils.createUri(ldwProjectDTO.getName(), workflow.getLdwSteps().get(1).toString().concat("03"));
@@ -179,7 +179,7 @@ public class LdWorkflowService extends BaseService {
 			String uriDatasetGraph = StringUtils.createUri(ldwProjectDTO.getName(), outputDataset03.toString().concat("_").concat("graph"));
 			outputDataset03 = new Dataset(ldwProjectDTO.getName().concat(" Graph"), new Format(IndividualEnum.FORMAT_RDF_XML.getUri()), new License(IndividualEnum.CC0_LICENSE.getUri()), locationGraph, uriDatasetGraph);
 			workflow.getLdwSteps().get(2).setOutputDataset(outputDataset03);
-			workflow.getLdwSteps().get(2).setCommand("");
+			
 			
 	
 			//Step 04
@@ -192,7 +192,7 @@ public class LdWorkflowService extends BaseService {
 			inputDatasets04.add(dbPediaDataset);
 			workflow.getLdwSteps().get(3).setInputDataset(inputDatasets04);
 			workflow.getLdwSteps().get(3).setOutputDataset(inputDataset03);
-			workflow.getLdwSteps().get(3).setCommand("");
+			
 			
 			
 			//Step 05
@@ -202,12 +202,23 @@ public class LdWorkflowService extends BaseService {
 			inputDatasets05.add(inputDataset03);
 			workflow.getLdwSteps().get(4).setInputDataset(inputDatasets05);
 			workflow.getLdwSteps().get(4).setOutputDataset(outputDataset03);
-			workflow.getLdwSteps().get(4).setCommand("");
+			
 
 		}
-		this.commandService.createScriptStep02(ldwProjectDTO.getName());
-		this.commandService.createScriptStep04(ldwProjectDTO.getName());
+		
+		/**
+		 * Commands
+		 */
+		
+		String commandStep01 = this.commandService.createScriptStep02(ldwProjectDTO.getName());
+		workflow.getLdwSteps().get(0).setCommand(commandStep01);
+		
+		String commandStep04 = this.commandService.createScriptStep04(ldwProjectDTO.getName());
+		workflow.getLdwSteps().get(3).setCommand(commandStep04);
 
+		
+		
+		
 		if(workflow.getUri() != null) {
 			if (URIalreadyExists(model, workflow.getUri()))
 				return editLdWorkflow(model, workflow);

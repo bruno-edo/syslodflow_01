@@ -318,7 +318,11 @@ public class LdwStepService extends BaseService {
 			model = this.editDataset(model, ds);
 		}
 		model = this.editDataset(model, step.getOutputDataset());
-		model = this.editToolConfiguration(model, step.getToolConfiguration());
+		
+		if(step.getToolConfiguration() != null) {
+			model = this.editToolConfiguration(model, step.getToolConfiguration());
+		}
+
 	}
 	
 
