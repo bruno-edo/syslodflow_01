@@ -52,6 +52,19 @@
 			</p:selectOneMenu>
 		</div>
 	</div><br/>
+	
+		<div class="row">
+		<div class="col-lg-6">
+		<label>#{msg['crud.ldworkflow.ldwstep04.linkingMapping']}</label>
+		<h:commandLink id="downloadXml" rendered="#{ldWorkflowBean.xmlDownload != null}" styleClass="btn btn-default btn-xs" value="#{msg['crud.file.download']}">	
+		<i class="fa fa-download" />
+			<p:fileDownload value="#{ldWorkflowBean.xmlDownload}"  />
+		</h:commandLink>
+			<p:fileUpload value="#{ldWorkflowBean.xmlUploaded}"
+				label="#{msg['crud.search']}" mode="simple" />
+			<p class="help-block">#{msg['crud.ldworkflow.ldwstep04.xml']}</p>
+		</div>
+	</div>
 
 <!-- </h:form> -->
 </html>

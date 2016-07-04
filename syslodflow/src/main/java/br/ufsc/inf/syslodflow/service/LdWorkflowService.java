@@ -215,8 +215,8 @@ public class LdWorkflowService extends BaseService {
 		
 		String commandStep04 = this.commandService.createScriptStep04(ldwProjectDTO.getName());
 		workflow.getLdwSteps().get(3).setCommand(commandStep04);
-
 		
+		String commandStep03 = this.commandService.createScriptSavingIntoVirtuoso(ldwProjectDTO.getName());
 		
 		
 		if(workflow.getUri() != null) {

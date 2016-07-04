@@ -56,6 +56,8 @@ public class LdWorkflowBean {
 	private LDWStep step05;
 	private StreamedContent smlDownload;
 	private UploadedFile smlUploaded;
+	private StreamedContent xmlDownload;
+	private UploadedFile xmlUploaded;
 	
 	
 	/**
@@ -89,12 +91,15 @@ public class LdWorkflowBean {
 		ldWorkflow = ldWorkflowService.doNewWorkflow(model);
 	}
 	public void doSave() {
-	
-			model = ldWorkflowService.writeLdwWorkflow(model, ldWorkflow, ldwProjectSelected);
+		model = ldWorkflowService.writeLdwWorkflow(model, ldWorkflow, ldwProjectSelected);
+		if(smlUploaded != null) {
 			ldwpoService.saveFile(smlUploaded, ldwProjectSelected.getName(), "mapping");
+		}
+		if(xmlUploaded != null) {
+			ldwpoService.saveFile(xmlUploaded, ldwProjectSelected.getName(), "linkingMapping");
+		}
+		this.ldwpoService.doSaveModel(model, ldwProjectSelected.getFileName());
 
-			this.ldwpoService.doSaveModel(model, ldwProjectSelected.getFileName());
-		
 	}
 	
 	public void doLoadTools() {
@@ -208,6 +213,22 @@ public class LdWorkflowBean {
 		this.smlUploaded = smlUploaded;
 	}
 	
+	public StreamedContent getXmlDownload() {
+		return xmlDownload;
+	}
+
+	public void setXmlDownload(StreamedContent xmlDownload) {
+		this.xmlDownload = xmlDownload;
+	}
+
+	public UploadedFile getXmlUploaded() {
+		return xmlUploaded;
+	}
+
+	public void setXmlUploaded(UploadedFile xmlUploaded) {
+		this.xmlUploaded = xmlUploaded;
+	}
+
 	public List<Tool> getListToolsStep01() {
 		return listToolsStep01;
 	}
