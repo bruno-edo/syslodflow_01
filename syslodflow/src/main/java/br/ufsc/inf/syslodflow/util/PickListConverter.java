@@ -12,11 +12,6 @@ import org.primefaces.model.DualListModel;
 
 import br.ufsc.inf.syslodflow.entity.AbstractEntity;
 
-/**
- * <code>Converter</code> para listboxes e semelhantes.
- * @author carloshp
- * (c)2014-2015 COMDAT Ltda. Todos os direitos reservados.
- */
 @FacesConverter(value = "pickListConverter") 
 public class PickListConverter implements Converter { 
 

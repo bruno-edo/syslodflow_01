@@ -15,11 +15,6 @@ import javax.servlet.http.HttpSession;
 import br.ufsc.inf.syslodflow.entity.Usuario;
 import br.ufsc.inf.syslodflow.web.ControleAcessoBean;
 
-/**
- * Classe utilit&aacute;ria com m&eacute;todos para redirecionamento, exibi&ccedil;&atilde;o de mensagens, etc.
- * @author carloshp
- * (c)2014-2015 COMDAT Ltda. Todos os direitos reservados.
- */
 public class JSFUtil {
 	// FIXME 
 	private static final String MSGBUNDLEPATH = "br.com.connectionltda.messages";
