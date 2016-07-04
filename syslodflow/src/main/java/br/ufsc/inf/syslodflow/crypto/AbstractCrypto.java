@@ -17,15 +17,6 @@ import javax.crypto.spec.SecretKeySpec;
 
 import br.ufsc.inf.syslodflow.SysLodFlowException;
 
-
-
-
-/**
- * Classe utilit&aacute;ria de criptografia n&atilde;o revers&iacute;vel para senhas.
- * @author silvachp
- * (c)2014-2015 COMDAT ltda. Todos os direitos reservados.
- *
- */
 public abstract class AbstractCrypto {
 	/**
 	 * Retorna o <em>"sal"</em> que é concatenado com o valor a criptografar, tornando a quebra mais dif&iacute;cil.<br>

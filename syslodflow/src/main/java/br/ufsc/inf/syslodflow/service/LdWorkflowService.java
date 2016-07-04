@@ -1,5 +1,6 @@
 	package br.ufsc.inf.syslodflow.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -216,7 +217,13 @@ public class LdWorkflowService extends BaseService {
 		String commandStep04 = this.commandService.createScriptStep04(ldwProjectDTO.getName());
 		workflow.getLdwSteps().get(3).setCommand(commandStep04);
 		
-		String commandStep03 = this.commandService.createScriptSavingIntoVirtuoso(ldwProjectDTO.getName());
+		try {
+			String commandStep03 = this.commandService.createScriptSavingIntoVirtuoso(ldwProjectDTO.getName(), "http://lod.ufsc.br/teste");
+			workflow.getLdwSteps().get(2).setCommand(commandStep03);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		if(workflow.getUri() != null) {
