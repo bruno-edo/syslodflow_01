@@ -1,5 +1,6 @@
 package br.ufsc.inf.syslodflow.web;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -96,6 +97,15 @@ public class LDWorkflowExecutionBean {
 		setShowView(true);
 		RequestContext.getCurrentInstance().update("panel_list, panel_reg");
 		
+	}
+	
+	public void doExecute() {
+		try {
+			Runtime.getRuntime().exec("java -jar C:\\Users\\Jhonatan\\Downloads\\BancoDeClubes\\BancoDeClubes\\BancoDeClubes\\dist\\BancoDeClubes.jar");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public void doChangeProject() {
 		this.model = ldwpoService.doLoadModel(ldwProjectSelected.getPath());

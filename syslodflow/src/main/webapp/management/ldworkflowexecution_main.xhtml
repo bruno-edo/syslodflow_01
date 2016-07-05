@@ -111,7 +111,7 @@
 							type="submit" action="#{ldWorkflowExecutionBean.doSave()}" ajax="false" />	
 							
 						<h:commandButton styleClass="btn btn-outline btn-primary" type="reset"
-							value="Executar" />	
+							immediate="false" value="Executar" onclick="#{ldWorkflowExecutionBean.doExecute()}" ajax="false"  />	
 					</h:panelGroup>
 					</div>
 				</div>
