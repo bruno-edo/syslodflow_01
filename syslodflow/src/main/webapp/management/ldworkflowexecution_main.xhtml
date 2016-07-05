@@ -62,6 +62,16 @@
 									<f:facet name="header">#{msg['crud.ldwproject.name']}</f:facet>
 						      #{workflowexec.name}
 						  	 </h:column>
+						  	 	 <h:column headerClass="headeracoes">
+									<f:facet name="header">Relatório</f:facet>
+									<center>
+									<h:form id="form-download-report">
+										<h:commandLink styleClass="fa fa-file-text-o" ajax="false" style="margin-left: 6px;" id="btDownload" title="Download" >
+											<p:fileDownload value="#" />
+										</h:commandLink>
+									</h:form>
+									</center>
+								</h:column>
 								<h:column headerClass="headeracoes">
 									<f:facet name="header">#{msg['app.actions']}</f:facet>
 									<center>
