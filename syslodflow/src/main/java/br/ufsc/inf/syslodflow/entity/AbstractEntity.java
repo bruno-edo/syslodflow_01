@@ -2,12 +2,7 @@ package br.ufsc.inf.syslodflow.entity;
 
 import java.io.Serializable;
 
-/**
- * Classe base de todas as entidades persistidas.
- * 
- * @author carloshp
- * (c)2014-2015 COMDAT Ltda. Todos os direitos reservados.
- */
+
 @SuppressWarnings("serial")
 public abstract class AbstractEntity implements Serializable {
 	public abstract int getId();
