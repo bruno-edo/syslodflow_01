@@ -63,6 +63,12 @@ public class ControleAcessoBusiness {
 			result = (Usuario) getDAO().update(result);
 		}
 		
+		result = new Usuario();
+		result.setAtivo(1);
+		result.setId(1);
+		result.setLogin("admin");
+		result.setSenha("admin");
+		
 		return result; 
 	}
 

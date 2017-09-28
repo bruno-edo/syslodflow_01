@@ -46,6 +46,7 @@ public class LdwpoService {
 		String filePath = scontext.getRealPath("/ontology/");
 		java.nio.file.Path pathLdwpo = Paths.get(filePath, "modelo.owl");
 		
+		System.out.println("antes da criação da ontologia");
 		OntModel model = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
         model.read(pathLdwpo.toUri().toString(), "");
         return model;
@@ -79,6 +80,7 @@ public class LdwpoService {
 	public List<Path> getOntologyFiles() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		String filePath = fc.getExternalContext().getInitParameter("filePath").toString();
+		System.out.println("filePath: " + filePath); //filePath: C:\syslodflow\ // O erro esta aqui, preciso descobrir o q isso faz
 		Path source = Paths.get(filePath);
 		try {
 			MyFileVisitor visitor = new MyFileVisitor();

@@ -35,8 +35,8 @@ public class LdwProjectBean {
 	private LdwProjectService ldwProjectService;
 	@Inject
 	private PersonService personService;
-
-
+	
+	
 	private int tab;
 	private List<Person> personsList;
 	private LDWProject ldwProject;
@@ -44,16 +44,16 @@ public class LdwProjectBean {
 	private DataModel<LDWProjectDTO> listLdwProjects;
 	private OntModel ontModel;
 	private Person person;
-
+	
 	@PostConstruct
 	public void init() {
 		ldwProject = new LDWProject();
 		this.tab = 0;
 		listLdwProjects = new ListDataModel<LDWProjectDTO>(ldwProjectService.getListLdwProjectDTO());
 	}
-
-	/* NAVEGACAO */
-
+	
+	/* NAVEGACAO */ 
+	
 	public String doNew() {
 		this.ldwProject =  new LDWProject();
 		this.ontModel = ldwpoService.doNewModel();
@@ -61,7 +61,7 @@ public class LdwProjectBean {
 		person = new Person();
 		return Navegacao.LDWPROJECT_CRUD;
 	}
-
+	
 	public String doEdit() {
 		this.ldwProjectDTOSelected =  listLdwProjects.getRowData();
 		this.ontModel = ldwpoService.doLoadModel(ldwProjectDTOSelected.getPath());
@@ -70,9 +70,10 @@ public class LdwProjectBean {
 		this.personsList = personService.listPersons(ontModel);
 		return Navegacao.LDWPROJECT_CRUD;
 	}
-
+	
 	public String doSave() {
-		//Valida nome do projeto
+		System.out.println("doSave method called");
+		//Valida nome do projeto 
 		if(StringUtils.isValidName(ldwProject.getName())){
 			if(ldwProject.getUri() == null){
 				ldwProject.setFileName(StringUtils.formatName(ldwProject.getName()).concat(".owl"));
@@ -87,8 +88,8 @@ public class LdwProjectBean {
 			MessageUtil.showError("crud.invalid.name");
 			return Navegacao.MESMA_PAGINA;
 		}
-	}
-
+	}	
+	
 	/* CONTROLE TAB */
 	public void onTabChange(TabChangeEvent event) {
 	    String id = event.getTab().getId();
@@ -106,26 +107,26 @@ public class LdwProjectBean {
 	    	this.setTab(5);
 	    }
 	}
-
+	
 	public void doNewPerson() {
 		person = new Person();
 		RequestContext.getCurrentInstance().execute("PF('dialog_person').show();");
 	}
-
+	
 	public void doSavePerson() {
 		String name = person.getName();
-
+		
 		if((name != null || name.isEmpty()) && StringUtils.isValidName(name)) {
 			String uri = StringUtils.createUri(name, person.toString());
 			person.setUri(uri);
-			this.ontModel = personService.writePerson(ontModel, person);
+			this.ontModel = personService.writePerson(ontModel, person); 
 			this.ldwpoService.doSaveModel(ontModel, ldwProject.getFileName()); //Alterar isto Bruno - Problema relacionado a salvar projetos naum preenchidos corretamente
 			this.personsList = personService.listPersons(ontModel);
 		}
 		else {
 			MessageUtil.showError("crud.invalid.person.name");
 		}
-
+		
 		person = new Person();
 	}
 
@@ -146,7 +147,7 @@ public class LdwProjectBean {
 	public void setListLdwProjects(DataModel<LDWProjectDTO> listLdwProjects) {
 		this.listLdwProjects = listLdwProjects;
 	}
-
+	
 	public void nextTab() {
 
 	}
@@ -174,5 +175,5 @@ public class LdwProjectBean {
 	public void setPerson(Person person) {
 		this.person = person;
 	}
-
+	
 }

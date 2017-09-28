@@ -48,7 +48,9 @@ public class LdwProjectService extends BaseService {
 		List<Path> listFiles = this.ldwpoService.getOntologyFiles();
 		List<LDWProjectDTO> listProjects = new ArrayList<LDWProjectDTO>();
 		
+		System.out.println("no metodo  getListLdwProjectDTO ");
 		for(Path p : listFiles) {
+			System.out.println("p: " + p.getFileName());
 			OntModel model = ldwpoService.doLoadModel(p);
 			LDWProjectDTO dto = getLDWProjectDTO(model);
 			dto.setPath(p);
