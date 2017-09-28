@@ -27,7 +27,7 @@ O SysLODFlow faz uso das funcionalidades do [LODFlow](https://github.com/AKSW/LO
 
 O aplicativo web utiliza o Java EE 7 como principal linguagem de desenvolvimento, além de alguns frameworks e bibliotecas, que podem ser vistos, bem como em quais camadas são aplicados, na imagem a seguir.
 
-![Stack de tecnologias do SysLODFlow](https://github.com/bruno-edo/syslodflow_01/blob/master/images/syslodflow-layers.png?raw=true)
+![Stack de tecnologias do SysLODFlow](https://github.com/bruno-edo/syslodflow_01/blob/master/images/syslodflow-layers.png "Stack de tecnologias do SysLODFlow")
 
 #### Trabalhos referência
 
