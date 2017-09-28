@@ -1,4 +1,4 @@
-SysLODFlow
+![SysLODFlow](https://github.com/bruno-edo/syslodflow_01/blob/master/syslodflow/src/main/webapp/imagens/syslodflow.png "SysLODFlow")
 ===================
 Uma ferramenta para automação da publicação de dados conectados utilizando o LodFlow.
 
@@ -37,20 +37,18 @@ O SysLODFlow começou a ser desenvolvido através de Trabalhos de Conclusão de 
 - [SysLODFlow – Uma ferramenta de apoio a automação da publicação e manutenção de Linked Data utilizando o LODFlow - Jean Carlos De Morais e Jhonatan Carlos De Morais - UFSC]()
 - [SysLODFlow: Ampliando as funcionalidades na automação da publicação e manutenção de dados abertos conectados usando o LodFlow - Bruno Eduardo D'Angelo de Oliveira - UFSC]()
 
-TODO: colocar links quando eles estiverem disponíveis (colocar trabalhos no repositório do github é uma idéia possível, perguntar ao tite)
-
 ---
 
 ## Dependências
 
-Para rodar o SysLODFlow são necessárias algumas ferramentas de apoio, bem como algumas tecnologias Java, as quais são listadas abaixo:
+Para rodar o SysLODFlow são necessárias algumas ferramentas de apoio, bem como algumas tecnologias Java:
 
 1. Java EE 7
 2. JBOSS 7.1 (Thunder)
 3. [LIMES](http://aksw.org/Projects/LIMES.html)
 4. [Sparqlify](http://aksw.org/Projects/Sparqlify.html)
 5. [Virtuoso](https://virtuoso.openlinksw.com/)
-6. MySQL (ou outro banco de dados SQL)
+6. [MySQL](https://www.mysql.com/) (ou outro banco de dados SQL)
 
 ---
 
@@ -74,7 +72,7 @@ No BD relacional escolhido, crie um esquema relacional chamado **syslodflowds** 
 
 É necessário fazer o download do driver JDBC que se pretende utilizar (o conector MySQL pode ser baixado neste [link](https://www.mysql.com/products/connector/). Há também uma cópia do conector na pasta **syslodflow/src/main/resources/META-INF** deste projeto) e disponbilizá-lo para o JBOSS. Para isso siga estes passos:
 
-1. Copie o driver do MySQL para a pasta **/modules/com/mysql/main**, do local onde o JBOSS foi instalado. Provávelmente não existirá a pasta **/mysql/main**, portanto você deverá criá-la e efetuar a cópia.
+1. Copie o driver do MySQL para a pasta **/modules/com/mysql/main**, do local onde o JBOSS foi instalado. Provavelmente não existirá a pasta **/mysql/main**, portanto você deverá criá-la e efetuar a cópia.
 2. Na mesma pasta crie o documento module.xml contendo o código abaixo:
 
 ```xml
@@ -95,7 +93,7 @@ A pasta main deverá conter os seguintes arquivos:
 - module.xml
 - mysql-connector-java-5.1.44.jar
 
-Para que seja possível que o SysLODFlow se comunique com a instância do banco de dados relacional instalada, se faz necessário criar um **Data Source** no arquivo **standalone.xml** do JBOSS. Dessa maneira, procure em seu sistema pelo arquivo **standalone.xml** e navegue para a seção de datasources, após localizá-la inclua os trechos de código abaixo.
+Para que seja possível que o SysLODFlow se comunique com a instância do banco de dados relacional instalada, se faz necessário criar um **Data Source** no arquivo **standalone.xml** do JBOSS. Dessa maneira, procure em seu sistema pelo arquivo **standalone.xml** e navegue para a seção de datasources, após localizá-la inclua o trecho de código abaixo:
 
 ```xml
 <datasource jta="true" jndi-name="java:jboss/datasources/syslodflowDS" pool-name="syslodflowDS" enabled="true" use-java-context="true" use-ccm="true">
