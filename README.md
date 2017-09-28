@@ -5,11 +5,15 @@ Uma ferramenta para automação da publicação de dados conectados utilizando o
 ## Sumário
 
 - [Visão geral da aplicação](#visão-geral-da-aplicação)
-    - [Trabalhos referência](#trabalhos-referência)
+  - [Trabalhos referência](#trabalhos-referência)
 - [Dependências](#dependências)
-- [Instalação](#instalação)
-    - [Setup banco de dados relacional](#setup-banco-de-dados-relacional)
-    - [Comunicação do JBOSS com o BD](#comunicação-do-jboss-com-o-bd)
+- [Rodando o Projeto no Eclipse JEE IDE](#rodando-o-projeto-no-eclipse-jee-ide)
+  - [Setup banco de dados relacional](#setup-banco-de-dados-relacional)
+  - [Comunicação do JBOSS com o BD](#comunicação-do-jboss-com-o-bd)
+- [Funcionalidades](#funcionalidades)
+  - [Criando e executando um projeto](#criando-e-executando-um-projeto)
+  - [Visualizando arquivos gerados](#visualizando-arquivos-gerados)
+
 
 ---
 
@@ -21,7 +25,7 @@ Para tentar abrandar a dificuldade encontrada no processo foi criada a ferrament
 
 O SysLODFlow faz uso das funcionalidades do [LODFlow](https://github.com/AKSW/LODFlow), mas fornece opções mais “user friendly” (e automatizadas) para se realizar o ciclo de publicação e manutenção de dados conectados. A ferramenta também foi desenvolvida de maneira a ser um aplicativo web, o que soluciona algumas restrições iniciais do LODFlow, e abrem as portas para funcionalidades que antes não eram possíveis em aplicações standalone, mas que trazem consigo algumas necessidades pontuais de design para web.
 
-O aplicativo web utiliza o Java EE como principal linguagem de desenvolvimento, além de alguns frameworks e bibliotecas, que podem ser vistos, bem como em quais camadas são aplicados, na imagem a seguir.
+O aplicativo web utiliza o Java EE 7 como principal linguagem de desenvolvimento, além de alguns frameworks e bibliotecas, que podem ser vistos, bem como em quais camadas são aplicados, na imagem a seguir.
 
 ![Stack de tecnologias do SysLODFlow](https://lh6.googleusercontent.com/JLsc8wZQgT_URKZOftFF_NAIeAFYC3magjLRiNvFa2yyh9OjHo12mZ7xYRcjfmmr8oQrCbfkwrkFPQ=w1920-h944)
 
@@ -50,9 +54,11 @@ Para rodar o SysLODFlow são necessárias algumas ferramentas de apoio, bem como
 
 ---
 
-## Instalação
+## Rodando o Projeto no Eclipse JEE IDE
 
-TODO: falar sobre a geração do arquivo WAR e de como lançar a execução do mesmo pelo JBOSS
+TODO: falar sobre a necessidade de se importar o projeto como projeto do Maven e sobre usar o JDK 7 e não um JRE.
+
+Mostrar como criar a instância do JBOSS com o JBOSS tools.
 
 [Maven](https://maven.apache.org/)
 
@@ -64,9 +70,32 @@ No BD relacional escolhido, crie um esquema relacional chamado **syslodflowds** 
 >
 > **Senha:** admin
 
-#### Comunicação do JBOSS com o BD
+#### Comunicação do JBOSS com o MySQL
 
-Para que seja possível que o SysLODFlow se comunique com a instância do banco de dados relacional instalada, se faz necessário criar um **Data Source** no arquivo **standalone.xml** do JBOSS. Dessa maneira, procure em seu sistema pelo arquivo **standalone.xml** e navegue para a seção de datasources, após localizá-la inclua o código abaixo para criar o **Data Source**.
+É necessário fazer o download do driver JDBC que se pretende utilizar (o conector MySQL pode ser baixado neste [link](https://www.mysql.com/products/connector/). Há também uma cópia do conector na pasta **syslodflow/src/main/resources/META-INF** deste projeto) e disponbilizá-lo para o JBOSS. Para isso siga estes passos:
+
+1. Copie o driver do MySQL para a pasta **/modules/com/mysql/main**, do local onde o JBOSS foi instalado. Provávelmente não existirá a pasta **/mysql/main**, portanto você deverá criá-la e efetuar a cópia.
+2. Na mesma pasta crie o documento module.xml contendo o código abaixo:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<module xmlns="urn:jboss:module:1.0" name="com.mysql">
+  <resources>
+    <resource-root path="mysql-connector-java-5.1.44.jar"/>
+  </resources>
+  <dependencies>
+    <module name="javax.api"/>
+  </dependencies>
+</module>
+```
+
+A pasta main deverá conter os seguintes arquivos:
+
+- module.xml
+- mysql-connector-java-5.1.44.jar
+
+Para que seja possível que o SysLODFlow se comunique com a instância do banco de dados relacional instalada, se faz necessário criar um **Data Source** no arquivo **standalone.xml** do JBOSS. Dessa maneira, procure em seu sistema pelo arquivo **standalone.xml** e navegue para a seção de datasources, após localizá-la inclua os trechos de código abaixo.
 
 ```xml
 <datasource jta="true" jndi-name="java:jboss/datasources/syslodflowDS" pool-name="syslodflowDS" enabled="true" use-java-context="true" use-ccm="true">
@@ -90,9 +119,7 @@ Para que seja possível que o SysLODFlow se comunique com a instância do banco 
 </datasource>
 ```
 
-Também é necessário fazer o download do driver JDBC que se pretende utilizar (o conector MySQL pode ser baixado neste [link](https://www.mysql.com/products/connector/)) e incluí-lo no arquivo standalone.xml.
-
-Após o download e instalação do conector, navegue até a seção de drivers e insira o código abaixo.
+Navegue até a seção de drivers e insira o trecho abaixo.
 
 ```xml
 <driver name="com.mysql" module="com.mysql">
@@ -105,4 +132,10 @@ Após o download e instalação do conector, navegue até a seção de drivers e
 >
 > O driver de comunicação também deve ser configurado de acordo com o sistema de banco de dados que se deseja utilizar. Neste caso estamos usando o MySQL como exemplo.
 
-Após realizar essas etapas o projeto está pronto para ser lançado, para isso basta inciar o servidor JBOSS e o projeto será iniciado juntamente, no endereço IP e porta configurados.
+Após realizar essas etapas o projeto está pronto para ser lançado. Para isso, basta ativar o servidor JBOSS e o projeto será iniciado juntamente, no endereço IP e porta configurados.
+
+## Funcionalidades
+
+### Criando e executando um projeto
+
+### Visualizando arquivos gerados
