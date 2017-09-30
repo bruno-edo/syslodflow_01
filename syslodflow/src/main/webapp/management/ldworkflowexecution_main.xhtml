@@ -89,39 +89,49 @@
 					</h:panelGroup>
 					
 					<h:panelGroup id="panel_reg" rendered="#{!ldWorkflowExecutionBean.showView}">
-					
-						<h:commandButton action="#{ldWorkflowExecutionBean.doBack()}" id="btBack" styleClass="btn btn-xs btn-warning"
-								value="#{msg['crud.back']}" /><br/>
-					
-					
-						<p:tabView id="tab" styleClass="col-lg-12">
-							<p:tab title="#{msg['crud.ldworkflowexecution.general']}" id="tab0">
-								<ui:include src="ldworkflowexecution_config.xhtml"/> 
-							</p:tab>
-							<p:tab title="#{msg['crud.ldwstepExecution.01']}" id="tab1">
-								<ui:include src="ldworkflowexecution_step01.xhtml"/> 
-							</p:tab>
-							<p:tab title="#{msg['crud.ldwstepExecution.02']}" id="tab2">
-								<ui:include src="ldworkflowexecution_step02.xhtml"/> 
-							</p:tab>
-							<p:tab title="#{msg['crud.ldwstepExecution.03']}" id="tab3">
-								<ui:include src="ldworkflowexecution_step03.xhtml"/> 
-							</p:tab>
-							<p:tab title="#{msg['crud.ldwstepExecution.04']}" id="tab4">
-								 <ui:include src="ldworkflowexecution_step04.xhtml"/> 
-							</p:tab>
-							<p:tab title="#{msg['crud.ldwstepExecution.05']}" id="tab5">
-							<ui:include src="ldworkflowexecution_step05.xhtml"/> 
-							</p:tab>
-							
-						</p:tabView><br/><br/>
 						
-						<h:commandButton id="submitWorkflowExecution" styleClass="btn btn-outline btn-success"
-							style="margin-right: 5px;" value="Salvar" immediate="false"
-							type="submit" action="#{ldWorkflowExecutionBean.doSave()}" ajax="false" />	
-							
-						<h:commandButton styleClass="btn btn-outline btn-primary" type="reset"
-							immediate="false" value="Executar" onclick="#{ldWorkflowExecutionBean.doExecute()}" ajax="false"  />	
+						<div class="row col-lg-12">
+							<div class="col-md-3">
+								<h:link action="#{ldWorkflowExecutionBean.doBack()}" id="btBack" styleClass="btn btn-xs btn-warning"
+										value="#{msg['crud.back']}" />
+							</div>
+						</div>
+					
+						<div class="row col-lg-12">
+							<p:tabView id="tab" styleClass="col-lg-12">
+								<p:tab title="#{msg['crud.ldworkflowexecution.general']}" id="tab0">
+									<ui:include src="ldworkflowexecution_config.xhtml"/> 
+								</p:tab>
+								<p:tab title="#{msg['crud.ldwstepExecution.01']}" id="tab1">
+									<ui:include src="ldworkflowexecution_step01.xhtml"/> 
+								</p:tab>
+								<p:tab title="#{msg['crud.ldwstepExecution.02']}" id="tab2">
+									<ui:include src="ldworkflowexecution_step02.xhtml"/> 
+								</p:tab>
+								<p:tab title="#{msg['crud.ldwstepExecution.03']}" id="tab3">
+									<ui:include src="ldworkflowexecution_step03.xhtml"/> 
+								</p:tab>
+								<p:tab title="#{msg['crud.ldwstepExecution.04']}" id="tab4">
+									 <ui:include src="ldworkflowexecution_step04.xhtml"/> 
+								</p:tab>
+								<p:tab title="#{msg['crud.ldwstepExecution.05']}" id="tab5">
+								<ui:include src="ldworkflowexecution_step05.xhtml"/> 
+								</p:tab>
+								
+							</p:tabView>
+						</div>
+						
+						<div class="row col-lg-12" style="margin-top: 10px;">
+							<div class="col-md-4">
+								<h:commandButton id="submitWorkflowExecution" styleClass="btn btn-outline btn-success"
+								style="margin-right: 5px;" value="Salvar" immediate="false"
+								type="submit" action="#{ldWorkflowExecutionBean.doSave()}" ajax="false" />	
+								
+								<h:commandButton styleClass="btn btn-outline btn-primary" type="reset"
+									immediate="false" value="Executar" onclick="#{ldWorkflowExecutionBean.doExecute()}" ajax="false"  />
+							</div>
+						</div>
+						
 					</h:panelGroup>
 					</div>
 				</div>

@@ -1,15 +1,12 @@
 /*
 Navicat MySQL Data Transfer
-
 Source Server         : wamp local
 Source Server Version : 50520
 Source Host           : localhost:3306
 Source Database       : syslodflow
-
 Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
-
 Date: 2016-03-30 15:25:23
 */
 

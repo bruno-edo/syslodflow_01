@@ -20,19 +20,21 @@
 					</div>
 					<div class="panel-body">
 						<div class="col-lg-12 text-left">
-							
-						<p:messages id="message" autoUpdate="true" closable="true" />
-						<p:tabView id="tab" styleClass="col-lg-12" widgetVar="tab" activeIndex="#{ldwProjectBean.tab}">
-						<p:ajax event="tabChange" listener="#{ldwProjectBean.onTabChange}" />
-							<p:tab title="#{msg['crud.ldwproject.general']}" id="tab0">
-								<ui:include src="ldwproject_config.xhtml"/> 
-							</p:tab>
-<!-- 							<p:tab title="#{msg['crud.ldwproject.tab1']}" id="tab1">
-								<ui:include src="ldworkflow_main.xhtml"/> 
-							</p:tab> -->
-						</p:tabView>			
-
-									 
+							<div class="row col-lg-12">
+								<div class="">
+									<h:link outcome="ldwproject_list.xhtml" id="btBack" styleClass="btn btn-xs btn-warning"
+									value="#{msg['crud.back']}" />
+								</div>
+							</div>
+							<div class="row col-lg-12">
+								<p:messages id="message" autoUpdate="true" closable="true" />
+								<p:tabView id="tab" styleClass="col-lg-12" widgetVar="tab" activeIndex="#{ldwProjectBean.tab}">
+									<p:ajax event="tabChange" listener="#{ldwProjectBean.onTabChange}" />
+									<p:tab title="#{msg['crud.ldwproject.general']}" id="tab0">
+										<ui:include src="ldwproject_config.xhtml"/> 
+									</p:tab>
+								</p:tabView>
+							</div>		 
 						</div>
 					</div>
 				</div>

@@ -23,6 +23,7 @@ import br.ufsc.inf.syslodflow.service.LdWorkflowExecutionService;
 import br.ufsc.inf.syslodflow.service.LdWorkflowService;
 import br.ufsc.inf.syslodflow.service.LdwProjectService;
 import br.ufsc.inf.syslodflow.service.LdwpoService;
+import br.ufsc.inf.syslodflow.util.MessageUtil;
 
 /**
  * @author jeanmorais
@@ -96,22 +97,27 @@ public class LDWorkflowExecutionBean {
 	public void doBack() {
 		setShowView(true);
 		RequestContext.getCurrentInstance().update("panel_list, panel_reg");
-		
 	}
 	
 	public void doExecute() {
 		try {
-			Runtime.getRuntime().exec("java -jar C:\\Users\\Jhonatan\\Downloads\\BancoDeClubes\\BancoDeClubes\\BancoDeClubes\\dist\\BancoDeClubes.jar");
+			Runtime.getRuntime().exec("java -jar C:\\Users\\Jhonatan\\Downloads\\BancoDeClubes\\BancoDeClubes\\BancoDeClubes\\dist\\BancoDeClubes.jar"); //Verificar isso Bruno
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	public void doChangeProject() {
-		this.model = ldwpoService.doLoadModel(ldwProjectSelected.getPath());
-		LDWProject ldwProject = ldwProjectService.getLDWProject(model);
-		this.workflow = ldwProject.getLdWorkFlow();
-		this.listWorkflowExecutions = new ListDataModel<LDWorkflowExecution>(ldwProject.getLdWorkFlow().getLdWorkFlowExecutions());
+		try {
+			this.model = ldwpoService.doLoadModel(ldwProjectSelected.getPath());
+			LDWProject ldwProject = ldwProjectService.getLDWProject(model);
+			this.workflow = ldwProject.getLdWorkFlow();
+			this.listWorkflowExecutions = new ListDataModel<LDWorkflowExecution>(ldwProject.getLdWorkFlow().getLdWorkFlowExecutions());
+		} catch(Exception e) {
+			e.printStackTrace();
+			MessageUtil.showError("crud.ldworkflowexecution.notfound");
+		}
+		
 	}
 	
 	public void doLoadStepsExecution() {

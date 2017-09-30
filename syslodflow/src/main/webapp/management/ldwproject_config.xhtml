@@ -72,29 +72,37 @@
 					value="#{ldwProjectBean.ldwProject.homePage.location.value}" />
 			</div>
 
+		</div>
 	</div>
-	</div>
-
-	<h:commandButton styleClass="btn btn-outline btn-success"
+	
+	<div class="row col-lg-12">
+		<h:commandButton styleClass="btn btn-outline btn-success"
 		style="margin-right: 5px;" value="Salvar" immediate="false" type="submit"
 		action="#{ldwProjectBean.doSave}" />
-	<h:commandButton styleClass="btn btn-outline btn-info" type="reset"
-		value="Limpar" />
+		<h:commandButton styleClass="btn btn-outline btn-info" type="reset"
+			style="margin-right: 5px;" value="Limpar" />
+	</div>
 
 </h:form>
 
 	<p:dialog header="Adicionar Pessoa" widgetVar="dialog_person" modal="true" resizable="false"  height="180" width="400">
 		<h:form>
-			<h5><span class="label label-warning">Atenção</span> O Nome deve conter apenas letras.</h5>
-	
-			<label>#{msg['crud.ldwproject.name']}</label>
+			<div class="row col-lg-12">
+				<h5>
+					<span class="label label-warning">Atenção</span> O Nome deve conter apenas letras.
+				</h5>
+			</div>
+			<div class="row col-lg-12">
+				<label>#{msg['crud.ldwproject.name']}</label>
 				<p:inputText styleClass="form-control" value="#{ldwProjectBean.person.name}"
 					required="true"
-					requiredMessage="#{msg['crud.ldwproject.name']} : #{msg['error.required']}"/><br/>
-		
-			<h:commandButton styleClass="btn btn-outline btn-success"
+					requiredMessage="#{msg['crud.ldwproject.name']} : #{msg['error.required']}"/>
+			</div>
+			<div class="row col-lg-12" style="margin-top: 10px;">
+				<h:commandButton styleClass="btn btn-outline btn-success"
 				value="Salvar" immediate="false"
 				action="#{ldwProjectBean.doSavePerson()}" />
+			</div>
 		</h:form>
 	</p:dialog>
 

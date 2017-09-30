@@ -16,40 +16,51 @@
 							<i class="fa fa-bar-chart-o"></i>#{msg['crud.ldworkflow.title']}
 						</h3>
 					</div>
-					<div class="panel-body">
-					<p:messages id="message" autoUpdate="true" closable="true" />
-						<p:tabView id="tab" styleClass="col-lg-12" widgetVar="tab" activeIndex="#{ldWorkflowBean.tab}">
-						<p:ajax event="tabChange" listener="#{ldWorkflowBean.onTabChange}" />
-							<p:tab title="#{msg['crud.ldworkflow.title']}" id="tab0">
-								<ui:include src="ldworkflow_config.xhtml"/> 
-							</p:tab>
-							<p:tab title="#{msg['crud.ldworkflow.ldwstep01']}" id="tab1">
-								<ui:include src="ldworkflow_step01.xhtml"/> 
-							</p:tab>
-							<p:tab title="#{msg['crud.ldworkflow.ldwstep02']}" id="tab2">
-								 <ui:include src="ldworkflow_step02.xhtml"/>
-							</p:tab>
-							<p:tab title="#{msg['crud.ldworkflow.ldwstep03']}" id="tab3">
-								 <ui:include src="ldworkflow_step03.xhtml"/>
-							</p:tab>
-							<p:tab title="#{msg['crud.ldworkflow.ldwstep04']}" id="tab4">
-								 <ui:include src="ldworkflow_step04.xhtml"/>
-							</p:tab>
-							<p:tab title="#{msg['crud.ldworkflow.ldwstep05']}" id="tab5">
-								 <ui:include src="ldworkflow_step05.xhtml"/>
-							</p:tab>
-							
-						</p:tabView><br/>	
-						
-							<h:commandButton id="submitWorkflow" styleClass="btn btn-outline btn-success"
-							style="margin-right: 5px;" value="Salvar" immediate="false"
-							type="submit" action="#{ldWorkflowBean.doSave()}" ajax="false" />	
-							
-						<h:commandButton styleClass="btn btn-outline btn-info" type="reset"
-							value="Limpar" />		
+					<div class="row col-lg-12" style="margin-top: 10px;">
+						<div class="col-md-3">
+							<h:link outcome="ldwproject_list.xhtml" id="btBack" styleClass="btn btn-xs btn-warning"
+							value="#{msg['crud.back']}" />
 						</div>
 					</div>
+					<div class="row col-lg-12">
+						<div class="panel-body">
+							<p:messages id="message" autoUpdate="true" closable="true" />
+							<p:tabView id="tab" styleClass="col-lg-12" widgetVar="tab" activeIndex="#{ldWorkflowBean.tab}">
+							<p:ajax event="tabChange" listener="#{ldWorkflowBean.onTabChange}" />
+								<p:tab title="#{msg['crud.ldworkflow.title']}" id="tab0">
+									<ui:include src="ldworkflow_config.xhtml"/> 
+								</p:tab>
+								<p:tab title="#{msg['crud.ldworkflow.ldwstep01']}" id="tab1">
+									<ui:include src="ldworkflow_step01.xhtml"/> 
+								</p:tab>
+								<p:tab title="#{msg['crud.ldworkflow.ldwstep02']}" id="tab2">
+									 <ui:include src="ldworkflow_step02.xhtml"/>
+								</p:tab>
+								<p:tab title="#{msg['crud.ldworkflow.ldwstep03']}" id="tab3">
+									 <ui:include src="ldworkflow_step03.xhtml"/>
+								</p:tab>
+								<p:tab title="#{msg['crud.ldworkflow.ldwstep04']}" id="tab4">
+									 <ui:include src="ldworkflow_step04.xhtml"/>
+								</p:tab>
+								<p:tab title="#{msg['crud.ldworkflow.ldwstep05']}" id="tab5">
+									 <ui:include src="ldworkflow_step05.xhtml"/>
+								</p:tab>
+								
+							</p:tabView>						
+							
+						</div>
+							
+						</div>						
+					</div>
 				</div>
+			</div>
+			<div class="row col-lg-12" style="margin-left: 1px;">
+				<h:commandButton id="submitWorkflow" styleClass="btn btn-outline btn-success"
+				style="margin-right: 5px;" value="Salvar" immediate="false"
+				type="submit" action="#{ldWorkflowBean.doSave()}" ajax="false" />	
+				
+				<h:commandButton styleClass="btn btn-outline btn-info" type="reset"
+					value="Limpar" />
 			</div>
 		</h:form>
 	</ui:define>
