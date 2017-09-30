@@ -43,7 +43,9 @@
 									<f:facet name="header">#{msg['crud.file.owl']}</f:facet>
 									<center>
 										<h:form id="form-download-owl">
-											<h:commandButton id="downloadOwl" action="#" styleClass="btn btn-success btn-xs" value="#{msg['crud.file.download']}" />
+											<h:commandButton id="downloadOwl"
+											action="#{ldwProjectBean.downloadOwl}" styleClass="btn btn-success btn-xs"
+											value="#{msg['crud.file.download']}" />
 										</h:form>
 									</center>
 								</h:column>

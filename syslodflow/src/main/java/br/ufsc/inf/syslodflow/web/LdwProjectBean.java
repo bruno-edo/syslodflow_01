@@ -1,14 +1,25 @@
 package br.ufsc.inf.syslodflow.web;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.Serializable;
+import java.nio.file.Path;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 
+import org.apache.commons.fileupload.util.Streams;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.TabChangeEvent;
 
@@ -27,7 +38,7 @@ import com.hp.hpl.jena.ontology.OntModel;
 
 @ManagedBean(name="ldwProjectBean")
 @SessionScoped
-public class LdwProjectBean {
+public class LdwProjectBean implements Serializable {
 
 	@Inject
 	private LdwpoService ldwpoService;
@@ -129,6 +140,37 @@ public class LdwProjectBean {
 		
 		person = new Person();
 	}
+	
+	public void downloadOwl() {
+		LDWProjectDTO ldwProjectDTOSelected =  listLdwProjects.getRowData();
+		File file = new File(ldwProjectDTOSelected.getPath().toString());
+		String fileName = file.getName();
+		
+		FacesContext fc = FacesContext.getCurrentInstance();
+	    ExternalContext ec = fc.getExternalContext();
+
+	    ec.responseReset();
+	    String contentType = ec.getMimeType(fileName);
+	    ec.setResponseContentLength((int) file.length());
+	    ec.setResponseContentType(contentType);
+	    ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+	    
+	    try {
+	    	FileInputStream input = new FileInputStream(file);
+	    	OutputStream output = ec.getResponseOutputStream();
+	    	
+	    	byte[] buffer = new byte[1024];
+	    	int len;
+	    	while((len=input.read(buffer)) >  0) {
+	    		output.write(buffer, 0, len);
+	    	}
+	    	
+	    	input.close();
+	    	fc.responseComplete();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+	}
 
 	public LDWProject getLdwProject() {
 		return ldwProject;
@@ -149,7 +191,7 @@ public class LdwProjectBean {
 	}
 	
 	public void nextTab() {
-
+		
 	}
 
 	public int getTab() {
