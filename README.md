@@ -139,17 +139,17 @@ Após realizar essas etapas o projeto está pronto para ser lançado. Para isso,
 
 ### Criando e executando um projeto
 
-![Lista de Projetos](https://github.com/bruno-edo/syslodflow_01/blob/master/images/ldwproject section.png)
+![Lista de Projetos](https://github.com/bruno-edo/syslodflow_01/blob/master/images/ldwproject%20section.png)
 
-![Criando um Novo Projeto](https://github.com/bruno-edo/syslodflow_01/blob/master/images/ldwproject new.png)
+![Criando um Novo Projeto](https://github.com/bruno-edo/syslodflow_01/blob/master/images/ldwproject%20new.png)
 
-![Criando um Novo LDWorkflow](https://github.com/bruno-edo/syslodflow_01/blob/master/images/planejamento workflow.png)
+![Criando um Novo LDWorkflow](https://github.com/bruno-edo/syslodflow_01/blob/master/images/planejamento%20workflow.png)
 
 ### Visualizando arquivos gerados
 
 ![Lista de Arquivos Gerados](https://github.com/bruno-edo/syslodflow_01/blob/master/images/ldwexecution.png)
 
-![Criando Novos Arquivos de Execução](https://github.com/bruno-edo/syslodflow_01/blob/master/images/ldwexecution new.png)
+![Criando Novos Arquivos de Execução](https://github.com/bruno-edo/syslodflow_01/blob/master/images/ldwexecution%20new.png)
 
 ## Créditos
 
