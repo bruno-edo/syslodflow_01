@@ -171,6 +171,21 @@ public class LdwProjectBean implements Serializable {
             ex.printStackTrace();
         }
 	}
+	
+	public void deleteOwl(){
+		try {
+			LDWProjectDTO ldwProjectDTOSelected =  listLdwProjects.getRowData();
+			File file = new File(ldwProjectDTOSelected.getPath().toString());
+			
+			file.delete();
+			this.init();  // Reloads DataTable
+			
+		} catch(Exception e){
+    		e.printStackTrace();
+    	}
+		
+		
+	}
 
 	public LDWProject getLdwProject() {
 		return ldwProject;
