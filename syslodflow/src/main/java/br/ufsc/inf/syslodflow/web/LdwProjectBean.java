@@ -60,7 +60,7 @@ public class LdwProjectBean implements Serializable {
 	public void init() {
 		ldwProject = new LDWProject();
 		this.tab = 0;
-		listLdwProjects = new ListDataModel<LDWProjectDTO>(ldwProjectService.getListLdwProjectDTO());
+		listLdwProjects = new ListDataModel<LDWProjectDTO>(ldwProjectService.getListLdwProjectDTO()); // Verificar isso para corrigir DataTables iniciando errado Bruno
 	}
 	
 	/* NAVEGACAO */ 

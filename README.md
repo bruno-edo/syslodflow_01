@@ -10,9 +10,10 @@ Uma ferramenta para automação da publicação de dados conectados utilizando o
 - [Rodando o Projeto no Eclipse JEE IDE](#rodando-o-projeto-no-eclipse-jee-ide)
   - [Setup banco de dados relacional](#setup-banco-de-dados-relacional)
   - [Comunicação do JBOSS com o BD](#comunicação-do-jboss-com-o-bd)
-- [Funcionalidades](#funcionalidades)
+- [Funcionalidades](#utilizacao)
   - [Criando e executando um projeto](#criando-e-executando-um-projeto)
   - [Visualizando arquivos gerados](#visualizando-arquivos-gerados)
+- [Créditos](#creditos)
 
 
 ---
@@ -33,7 +34,7 @@ O aplicativo web utiliza o Java EE 7 como principal linguagem de desenvolvimento
 
 O SysLODFlow começou a ser desenvolvido através de Trabalhos de Conclusão de Curso (TCCs) da Universidade Federal de Santa Catarina. Abaixo estão listados os trabalhos relacionados a este projeto:
 
-- [LDWPO - Linked Data Workflow Project ontology - Sandro Rautenberg](https://github.com/AKSW/ldwpo/blob/master/misc/technicalReport/LDWPO_technicalReport.pdf)
+- [LDWPO - Linked Data Workflow Project Ontology - Sandro Rautenberg](https://github.com/AKSW/ldwpo/blob/master/misc/technicalReport/LDWPO_technicalReport.pdf)
 - [SysLODFlow – Uma ferramenta de apoio a automação da publicação e manutenção de Linked Data utilizando o LODFlow - Jean Carlos De Morais e Jhonatan Carlos De Morais - UFSC]()
 - [SysLODFlow: Ampliando as funcionalidades na automação da publicação e manutenção de dados abertos conectados usando o LodFlow - Bruno Eduardo D'Angelo de Oliveira - UFSC]()
 
@@ -43,8 +44,8 @@ O SysLODFlow começou a ser desenvolvido através de Trabalhos de Conclusão de 
 
 Para rodar o SysLODFlow são necessárias algumas ferramentas de apoio, bem como algumas tecnologias Java:
 
-1. Java EE 7
-2. JBOSS 7.1 (Thunder)
+1. [Java EE 7](https://www.java.com/en/)
+2. [JBOSS 7.1.0 (Thunder)](http://www.jboss.org/)
 3. [LIMES](http://aksw.org/Projects/LIMES.html)
 4. [Sparqlify](http://aksw.org/Projects/Sparqlify.html)
 5. [Virtuoso](https://virtuoso.openlinksw.com/)
@@ -54,11 +55,13 @@ Para rodar o SysLODFlow são necessárias algumas ferramentas de apoio, bem como
 
 ## Rodando o Projeto no Eclipse JEE IDE
 
-TODO: falar sobre a necessidade de se importar o projeto como projeto do Maven e sobre usar o JDK 7 e não um JRE.
+Após clonar o repositório do projeto, importe-o como um projeto [Maven](https://maven.apache.org/). Dessa maneira o Eclipse se encarregará de criar o arquivo **.war** automáticamente. Este arquivo será deployado para o JBOSS, para que a aplicação seja rodada por ele.
 
-Mostrar como criar a instância do JBOSS com o JBOSS tools.
+Para criar uma instância do JBOSS pelo Eclipse é necessário baixar o plugin JBOSS Tools, para isso acesse este [link](https://marketplace.eclipse.org/content/jboss-tools), ou (ainda dentro do Eclipse) abra o Eclipse Marketplace e procure por JBOSS Tools.
 
-[Maven](https://maven.apache.org/)
+Após a instalação do plugin, acesse **New -> Other -> Server** e selecione o **JBOSS AS 7.1.0**. Depois deste passo, uma aba de servidores poderá ser observada na barra inferior da IDE, selecione-a e clique com o botão direito do mouse na instância do JBOSS e selecione a opção **Add and Remove...**, em seguida adicione o arquivo **.war**, do SysLODFlow, aos projetos que devem ser publicados pelo servidor e clique em Finish.
+
+Após os outros passos do setup serem completos, basta rodar o servidor e o SysLODFlow deve ser publicado automáticamente por ele.
 
 #### Setup banco de dados relacional
 
@@ -132,8 +135,24 @@ Navegue até a seção de drivers e insira o trecho abaixo.
 
 Após realizar essas etapas o projeto está pronto para ser lançado. Para isso, basta ativar o servidor JBOSS e o projeto será iniciado juntamente, no endereço IP e porta configurados.
 
-## Funcionalidades
+## Utilização
 
 ### Criando e executando um projeto
 
+![Lista de Projetos](https://github.com/bruno-edo/syslodflow_01/blob/master/images/ldwproject section.png)
+
+![Criando um Novo Projeto](https://github.com/bruno-edo/syslodflow_01/blob/master/images/ldwproject new.png)
+
+![Criando um Novo LDWorkflow](https://github.com/bruno-edo/syslodflow_01/blob/master/images/planejamento workflow.png)
+
 ### Visualizando arquivos gerados
+
+![Lista de Arquivos Gerados](https://github.com/bruno-edo/syslodflow_01/blob/master/images/ldwexecution.png)
+
+![Criando Novos Arquivos de Execução](https://github.com/bruno-edo/syslodflow_01/blob/master/images/ldwexecution new.png)
+
+## Créditos
+
+[Bruno Eduardo D'Angelo de Oliveira](https://github.com/bruno-edo)
+[Jean Carlos de Morais](https://github.com/jeanmorais/)
+[Jhonatan Carlos de Morais]()
