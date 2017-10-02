@@ -58,6 +58,7 @@ Para rodar o SysLODFlow são necessárias algumas ferramentas de apoio, bem como
 
 ```
 syslodflow
+└── scripts
 └── src
     └── main
         └── java.br.ufsc.inf.syslodflow
