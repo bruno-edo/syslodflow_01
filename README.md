@@ -7,12 +7,13 @@ Uma ferramenta para automação da publicação de dados conectados utilizando o
 - [Visão geral da aplicação](#visão-geral-da-aplicação)
   - [Trabalhos referência](#trabalhos-referência)
 - [Dependências](#dependências)
+- [Árvore de diretórios](#arvore-de-diretorios)
 - [Rodando o Projeto no Eclipse JEE IDE](#rodando-o-projeto-no-eclipse-jee-ide)
   - [Setup banco de dados relacional](#setup-banco-de-dados-relacional)
   - [Comunicação do JBOSS com o BD](#comunicação-do-jboss-com-o-bd)
 - [Funcionalidades](#utilizacao)
   - [Criando e executando um projeto](#criando-e-executando-um-projeto)
-  - [Visualizando arquivos gerados](#visualizando-arquivos-gerados)
+  - [Criando execuções de fluxos e visualizando arquivos gerados](#criando-execucoes-de-fluxos-e-visualizando-arquivos-gerados)
 - [Créditos](#creditos)
 
 
@@ -52,6 +53,39 @@ Para rodar o SysLODFlow são necessárias algumas ferramentas de apoio, bem como
 6. [MySQL](https://www.mysql.com/) (ou outro banco de dados SQL)
 
 ---
+
+## Árvore de diretórios
+
+```
+syslodflow
+└── src
+    └── main
+        └── java.br.ufsc.inf.syslodflow
+        |   └── business
+        |   └── crypto
+        |   └── dao
+        |   └── dto
+        |   └── entity
+        |   └── service
+        |   └── util
+        |   └── web
+        |
+        └── resources
+        |   └── br.com.connectionltda
+        |   └── configuration
+        |   └── META-INF
+        |
+        └── webapp
+            └── cadastros
+            └── css
+            └── estrutura
+            └── font-awesome
+            └── imagens
+            └── js
+            └── management
+            └── ontology
+            └── WEB-INF
+```
 
 ## Rodando o Projeto no Eclipse JEE IDE
 
@@ -157,11 +191,15 @@ Para criar um workflow novo, clique no botão "Abrir" da coluna de LDWOrkflows d
 
 ![Criando um Novo LDWorkflow](https://github.com/bruno-edo/syslodflow_01/blob/master/images/planejamento%20workflow.png "Criando um Novo LDWorkflow")
 
-### Visualizando arquivos gerados
+### Criando execuções de fluxos e visualizando arquivos gerados
 
-![Lista de Arquivos Gerados](https://github.com/bruno-edo/syslodflow_01/blob/master/images/ldwexecution.png "Lista de Arquivos Gerados")
+Para criar novos arquivos de execução de fluxo, acesse a parte de LDWorkflowExecutions e clique no botão Novo. Insira as informaçãoes necessárias e clique em "Salvar" para armazenar os dados em disco.
 
 ![Criando Novos Arquivos de Execução](https://github.com/bruno-edo/syslodflow_01/blob/master/images/ldwexecution%20new.png "Criando Novos Arquivos de Execução")
+
+Caso se deseje executar um fluxo, basta clicar no botão "Executar", e o fluxo deverá ser enviado ao LODFlow engine. Após o processo ser finalizado, os arquivos gerados poderão ser visualizados na página principal de LDWorkflowExecution, como mostrado abaixo.
+
+![Lista de Arquivos Gerados](https://github.com/bruno-edo/syslodflow_01/blob/master/images/ldwexecution.png "Lista de Arquivos Gerados")
 
 ## Créditos
 
