@@ -139,20 +139,30 @@ Após realizar essas etapas o projeto está pronto para ser lançado. Para isso,
 
 ### Criando e executando um projeto
 
-![Lista de Projetos](https://github.com/bruno-edo/syslodflow_01/blob/master/images/ldwproject%20section.png)
+Para visualizar os LDWProjects já cadastrados, acesse a seção LDWProject. Os projetos já cadastrados serão exibidos em uma lista.
 
-![Criando um Novo Projeto](https://github.com/bruno-edo/syslodflow_01/blob/master/images/ldwproject%20new.png)
+![Lista de Projetos](https://github.com/bruno-edo/syslodflow_01/blob/master/images/ldwproject%20section.png "Lista de Projetos")
 
-![Criando um Novo LDWorkflow](https://github.com/bruno-edo/syslodflow_01/blob/master/images/planejamento%20workflow.png)
+Para criar um novo projeto, clique no botão "Novo" e preencha os campos de informação. Após o preenchimento, clique em "Salvar" e o projeto deverá ser exibido na lista da figura anterior.
+
+Para editar ou excluir um projeto, clique nos botões "Editar" e  "Excluir", respectivamente.
+
+![Criando um Novo Projeto](https://github.com/bruno-edo/syslodflow_01/blob/master/images/ldwproject%20new.png "Criando um Novo Projeto")
+
+Para criar um workflow novo, clique no botão "Abrir" da coluna de LDWOrkflows da lista de projetos. Após o carregamento da página, preencha os campos com as informações relacionadas ao workflow que se deseja criar (como base de dados a ser acessada, arquivos de configuração do LIMES e do Sparqlify, entre outros).
+
+![Criando um Novo LDWorkflow](https://github.com/bruno-edo/syslodflow_01/blob/master/images/planejamento%20workflow.png "Criando um Novo LDWorkflow")
 
 ### Visualizando arquivos gerados
 
-![Lista de Arquivos Gerados](https://github.com/bruno-edo/syslodflow_01/blob/master/images/ldwexecution.png)
+![Lista de Arquivos Gerados](https://github.com/bruno-edo/syslodflow_01/blob/master/images/ldwexecution.png "Lista de Arquivos Gerados")
 
-![Criando Novos Arquivos de Execução](https://github.com/bruno-edo/syslodflow_01/blob/master/images/ldwexecution%20new.png)
+![Criando Novos Arquivos de Execução](https://github.com/bruno-edo/syslodflow_01/blob/master/images/ldwexecution%20new.png "Criando Novos Arquivos de Execução")
 
 ## Créditos
 
 [Bruno Eduardo D'Angelo de Oliveira](https://github.com/bruno-edo)
+
 [Jean Carlos de Morais](https://github.com/jeanmorais/)
+
 [Jhonatan Carlos de Morais]()
