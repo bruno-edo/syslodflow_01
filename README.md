@@ -137,6 +137,10 @@ Após realizar essas etapas o projeto está pronto para ser lançado. Para isso,
 
 ## Utilização
 
+O fluxo geral de operações do SysLODFlow pode ser visualizado no seguinte diagrama:
+
+![Diagrama de Fluxo do SysLODFlow](https://github.com/bruno-edo/syslodflow_01/blob/master/images/syslodflow%20execution%20flow.png "Diagrama de Fluxo do SysLODFlow")
+
 ### Criando e executando um projeto
 
 Para visualizar os LDWProjects já cadastrados, acesse a seção LDWProject. Os projetos já cadastrados serão exibidos em uma lista.
