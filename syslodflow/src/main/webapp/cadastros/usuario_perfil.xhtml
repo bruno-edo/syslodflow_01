@@ -26,13 +26,6 @@
 						<h:form role="form" id="form" acceptcharset="ISO-8859-1">
 							<h:inputHidden value="#{usuarioBean.usuario.id}" />
 							<h:inputHidden  value="#{usuarioBean.usuario.ativo}" />
-								<!-- p:messages id="messages" autoUpdate="true" closable="true" / -->
-<!-- 								<div class="form-group col-lg-12">
-									<label>#{msg['crud.user.email']}</label>
-									<p:inputText styleClass="form-control" value="#{controleAcessoBean.usuario.email}" required="true" requiredMessage="#{msg['crud.user.email']} : #{msg['error.required']}" validatorMessage="${msg['error.invalid.email']}" >
-										<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-									</p:inputText>
-								</div> -->
 								<div class="form-group col-lg-12">
 									<label>#{msg['crud.user.login']}</label>
 									<p:inputText styleClass="form-control" value="#{controleAcessoBean.usuario.login}" required="true" readonly="true" />

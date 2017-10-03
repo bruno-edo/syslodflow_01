@@ -44,18 +44,11 @@
 									<label>#{msg['crud.user.pswd.confirm']}</label>
 									<p:password styleClass="form-control" value="#{usuarioBean.confirmarSenha}" required="#{empty usuarioBean.usuario.senha}" requiredMessage="#{msg['crud.user.pswd.confirm']} : #{msg['error.required']}" />
 								</div>
-								</h:panelGroup>
-																								
-	 							<!--<div class="form-group col-lg-12">
-									<label>#{msg['crud.user.email']}</label>
-									<p:inputText styleClass="form-control" value="#{usuarioBean.usuario.email}" required="true" requiredMessage="#{msg['crud.user.email']} : #{msg['error.required']}" validatorMessage="${msg['error.invalid.email']}" >
-										<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-									</p:inputText>
-								</div> -->						
+								</h:panelGroup>					
 	
 								<div class="form-group col-lg-12">
+									<h:commandButton styleClass="btn btn-outline btn-success" style="margin-right: 5px;" value="#{msg['crud.save']}" action="#{usuarioBean.salvarAD}" />
 									<h:commandButton styleClass="btn btn-outline btn-info" type="reset" value="#{msg['crud.clear']}" />
-									<h:commandButton styleClass="btn btn-outline btn-success" style="margin-right: 5px;" value="#{msg['crud.submit']}" action="#{usuarioBean.salvarAD}" />
 								</div>								
 						</h:form>
 					</div>

@@ -22,7 +22,6 @@ public class Usuario extends AbstractEntity {
 	private String login; 
 	private String senha; 
 	private int ativo;
-	private String email;
 
 	public Usuario() {
 	}
@@ -58,14 +57,4 @@ public class Usuario extends AbstractEntity {
 	public void setAtivo(int ativo) {
 		this.ativo = ativo;
 	}
-	
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	public String getEmail() {
-		return email;
-	}
-
-
 }
