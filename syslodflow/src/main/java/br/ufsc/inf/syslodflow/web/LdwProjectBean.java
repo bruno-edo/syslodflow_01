@@ -131,7 +131,6 @@ public class LdwProjectBean implements Serializable {
 			String uri = StringUtils.createUri(name, person.toString());
 			person.setUri(uri);
 			this.ontModel = personService.writePerson(ontModel, person); 
-			this.ldwpoService.doSaveModel(ontModel, ldwProject.getFileName()); //Alterar isto Bruno - Problema relacionado a salvar projetos naum preenchidos corretamente
 			this.personsList = personService.listPersons(ontModel);
 		}
 		else {
