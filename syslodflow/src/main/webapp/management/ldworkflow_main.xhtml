@@ -7,23 +7,23 @@
 
 	<ui:define name="conteudo">
 	<h:form role="form" id="form_workflow_main" acceptcharset="ISO-8859-1" enctype="multipart/form-data">	
-		<h3 class="page-header">#{msg['crud.ldworkflow']}</h3>
 		<div class="row">
 			<div class="col-lg-12">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">
+				<div class="card card-primary">
+					<div class="card-header">
+						<h3 class="card-title">
 							<i class="fa fa-bar-chart-o"></i>#{msg['crud.ldworkflow.title']}
 						</h3>
 					</div>
-					<div class="row col-lg-12" style="margin-top: 10px;">
-						<div class="col-md-3">
-							<h:link outcome="ldwproject_list.xhtml" id="btBack" styleClass="btn btn-xs btn-warning"
-							value="#{msg['crud.back']}" />
-						</div>
-					</div>
-					<div class="row col-lg-12">
-						<div class="panel-body">
+					
+					<div class="row col-lg-12 text-left">
+						<div class="card-block">
+						
+							<div class="row col-md-3 my-sm-3 mx-sm-2">
+								<h:link outcome="ldwproject_list.xhtml" id="btBack" styleClass="btn btn-xs btn-warning"
+								value="#{msg['crud.back']}" />
+							</div>
+						
 							<p:messages id="message" autoUpdate="true" closable="true" />
 							<p:tabView id="tab" styleClass="col-lg-12" widgetVar="tab" activeIndex="#{ldWorkflowBean.tab}">
 							<p:ajax event="tabChange" listener="#{ldWorkflowBean.onTabChange}" />
@@ -54,7 +54,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row col-lg-12" style="margin-left: 1px;">
+			<div class="row col-lg-12 my-sm-3">
 				<h:commandButton id="submitWorkflow" styleClass="btn btn-outline btn-success"
 				style="margin-right: 5px;" value="Salvar" immediate="false"
 				type="submit" action="#{ldWorkflowBean.doSave()}" ajax="false" />	

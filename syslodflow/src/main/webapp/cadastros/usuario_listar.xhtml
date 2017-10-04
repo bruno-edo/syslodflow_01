@@ -7,29 +7,22 @@
 
 	<ui:define name="conteudo">
 	
-		<h3 class="page-header">#{msg['list.user']}</h3>
-		<div class="col-lg-12">
-			<ol class="breadcrumb">
-				<li><i class="fa fa-home"></i><a href="#{request.contextPath}/index.xhtml">#{msg['menu.start']}</a></li>
-				<li class="active"><i class="fa fa-edit"></i>#{msg['list.user']}</li>
-			</ol>
-		</div>
 		<div class="row">
 			<div class="col-lg-12">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">
-							<i class="fa fa-bar-chart-o"></i>#{msg['menu.users']}
+				<div class="card card-primary">
+					<div class="card-header">
+						<h3 class="card-title">
+							<i class="fa fa-bar-chart-o"></i>#{msg['list.user']}
 						</h3>
 					</div>
-					<div class="panel-body">
-						<h:form id="form">
-							<h:commandButton action="#{usuarioBean.cadastrar}"
+					<div class="card-block">
+						<div class="my-sm-3 mx-sm-3">
+							<h:form id="form">
+								<h:commandButton action="#{usuarioBean.cadastrar}"
 								id="botaoCadastrar" styleClass="btn btn-success btn-xs"
 								value="#{msg['crud.new']}" />
-							<br />
-							<br />
-						</h:form>
+							</h:form>
+						</div>
 						<div onload="#{usuarioBean.carregarUsuarios()}"
 							class="table-responsive">
 							<h:dataTable value="#{usuarioBean.usuarios}" var="user"

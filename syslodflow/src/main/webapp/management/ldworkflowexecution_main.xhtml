@@ -10,13 +10,13 @@
 	
 		<h3 class="page-header">#{msg['crud.ldworkflowexecution']}</h3>
 			<div class="col-lg-12">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">
+				<div class="card card-primary">
+					<div class="card-header">
+						<h3 class="card-title">
 							<i class="fa fa-cogs"></i>#{msg['crud.ldworkflowexecution.title']}
 						</h3>
 					</div>
-					<div class="panel-body">
+					<div class="card-block">
 					<p:messages id="message" autoUpdate="true" closable="true" />
 					<!-- Inicio Listagem -->
 					<h:panelGroup id="panel_list" rendered="#{ldWorkflowExecutionBean.showView}" >
@@ -34,11 +34,11 @@
 							
 							<!-- Informações do Workflow -->
 							<h:panelGroup id="workflow_panel">
-							<div class="panel panel-default" >
-	                            <div class="panel-heading">
-	                                <h3 class="panel-title">#{msg['crud.ldworkflow']}: #{msg['crud.ldworkflow.general']}</h3>
+							<div class="card card-default" >
+	                            <div class="card-header">
+	                                <h3 class="card-title">#{msg['crud.ldworkflow']}: #{msg['crud.ldworkflow.general']}</h3>
 	                            </div>
-	                            <div class="panel-body">
+	                            <div class="card-block">
 	                            <div class="col-lg-12">
 	                                <div class="row"><h:outputLabel value="Nome: "/> #{ldWorkflowExecutionBean.workflow.name}</div>
 	                                <div class="row"><h:outputLabel value="URI: "/> #{ldWorkflowExecutionBean.workflow.uri}</div>

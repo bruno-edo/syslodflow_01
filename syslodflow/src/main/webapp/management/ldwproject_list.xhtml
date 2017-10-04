@@ -7,37 +7,37 @@
 
 	<ui:define name="conteudo">
 	
-		<h3 class="page-header">#{msg['crud.ldwproject']}</h3>
 		<div class="col-lg-12">
 		</div>
 		<div class="row">
 			<div class="col-lg-12">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">
+				<div class="card card-primary">
+					<div class="card-header">
+						<h3 class="card-title">
 							<i class="fa fa-bar-chart-o"></i>#{msg['crud.ldwproject']}
 						</h3>
 					</div>
-					<div class="panel-body">
-						<h:form id="form">
-							<h:commandButton action="#{ldwProjectBean.doNew()}"
+					<div class="card-block">
+					
+						<div class="my-sm-3 mx-sm-3">
+							<h:form id="form">
+								<h:commandButton action="#{ldwProjectBean.doNew()}"
 								id="botaoCadastrar" styleClass="btn btn-success btn-xs"
-								value="#{msg['crud.new']}" />
-							<br />
-							<br />
-						</h:form>
-						<div onload="#"
-							class="table-responsive">
+								value="#{msg['crud.new']}" />			
+							</h:form>
+						</div>
+						
+						<div onload="#" class="table-responsive">
 							<h:dataTable value="#{ldwProjectBean.listLdwProjects}" var="project"
 								styleClass="table table-striped table-bordered table-hover"
 								id="tabela">
-								<h:column>
-									<f:facet name="header">#{msg['crud.ldwproject.name']}</f:facet>
-						      #{project.name}
+							<h:column>
+								<f:facet name="header">#{msg['crud.ldwproject.name']}</f:facet>
+						      	#{project.name}
 						  	 </h:column>
 						  	 <h:column>
-									<f:facet name="header">#{msg['crud.ldwproject.creator']}</f:facet>
-						      #{project.creator}
+								<f:facet name="header">#{msg['crud.ldwproject.creator']}</f:facet>
+						      	#{project.creator}
 						  	 </h:column>
 						  	 <h:column headerClass="headeracoes">
 									<f:facet name="header">#{msg['crud.file.owl']}</f:facet>
