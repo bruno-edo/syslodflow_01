@@ -13,20 +13,21 @@
 		<!-- CSS -->
 		<style type="text/css" media="screen">
 			@import url('#{request.contextPath}/css/bootstrap.css');
-			@import url('#{request.contextPath}/css/sb-admin.css');
 			@import url('#{request.contextPath}/font-awesome/css/font-awesome.min.css');
-			@import url('#{request.contextPath}/css/dataTable.bootstrap4.css');
+			@import url('#{request.contextPath}/css/dataTables.bootstrap4.css');
+			@import url('#{request.contextPath}/css/sb-admin.css');
 		</style>
 		<!-- JAVASCRIPT -->
 		<h:outputScript library="primefaces" name="jquery/jquery.js" />
+		<script src="#{request.contextPath}/js/jquery.js"></script>
 		<script src="https://unpkg.com/popper.js"></script>
 		<script src="#{request.contextPath}/js/bootstrap.js"></script>
-		<script src="#{request.contextPath}/js/sb-admin.js"></script>
-		<script src="#{request.contextPath}/js/jquery.js"></script>
 		<script src="#{request.contextPath}/js/jquery.easing.js"></script>
 		<script src="#{request.contextPath}/js/popper.js"></script>
 		<script src="#{request.contextPath}/js/datatables.js"></script>
 		<script src="#{request.contextPath}/js/dataTables.bootstrap4.js"></script>
+		<script src="#{request.contextPath}/js/sb-admin.js"></script>
+		<script src="#{request.contextPath}/js/sb-admin-datatables.js"></script>
 		<script>
 			function destroy() {
 				$('#tabela').DataTable().destroy();
@@ -103,6 +104,7 @@
 
 	<h:body styleClass="fixed-nav bg-dark" id="page-top">
 		<f:view>
+		
 			<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
 				<a class="navbar-brand" href="#{request.contextPath}/index.xhtml" style="height: 40px;">SYSLODFLOW</a>
 				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -170,16 +172,17 @@
 								</p:commandLink>
 							</div>
 						</li>
-					</ul>			
+					</ul>
+								
 				</div>
 			</nav>
-			
 			<!-- Sidebar -->
-			<div id="content-wrapper">
+			
+			
+			<div class="content-wrapper">
 				<div class="container-fluid">
-					<div class="row">
-						<ui:insert name="conteudo">
-						</ui:insert>
+					<div class="">
+						<ui:insert name="conteudo"></ui:insert>
 					</div> <!-- /.row -->
 				</div> <!-- /.container-fluid -->
 			</div> <!-- /#content-wrapper -->
