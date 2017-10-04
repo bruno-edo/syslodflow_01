@@ -19,86 +19,86 @@
 		</style>
 		<!-- JAVASCRIPT -->
 		<h:outputScript library="primefaces" name="jquery/jquery.js" />
-			<script src="https://unpkg.com/popper.js"></script>
-			<script src="#{request.contextPath}/js/bootstrap.js"></script>
-			<script src="#{request.contextPath}/js/sb-admin.js"></script>
-			<script src="#{request.contextPath}/js/jquery.js"></script>
-			<script src="#{request.contextPath}/js/jquery.easing.js"></script>
-			<script src="#{request.contextPath}/js/popper.js"></script>
-			<script src="#{request.contextPath}/js/datatables.js"></script>
-			<script src="#{request.contextPath}/js/dataTables.bootstrap4.js"></script>
-			<script>
-				function destroy() {
-					$('#tabela').DataTable().destroy();
-					
-				};
+		<script src="https://unpkg.com/popper.js"></script>
+		<script src="#{request.contextPath}/js/bootstrap.js"></script>
+		<script src="#{request.contextPath}/js/sb-admin.js"></script>
+		<script src="#{request.contextPath}/js/jquery.js"></script>
+		<script src="#{request.contextPath}/js/jquery.easing.js"></script>
+		<script src="#{request.contextPath}/js/popper.js"></script>
+		<script src="#{request.contextPath}/js/datatables.js"></script>
+		<script src="#{request.contextPath}/js/dataTables.bootstrap4.js"></script>
+		<script>
+			function destroy() {
+				$('#tabela').DataTable().destroy();
 				
-				function create() {
-					$('#tabela').DataTable({
-						"language": {
-								"sEmptyTable":			"#{msg['datatable.sEmptyTable']}",
-								"sInfo":				"#{msg['datatable.sInfo']}",
-								"sInfoEmpty":			"#{msg['datatable.sInfoEmpty']}",
-								"sInfoFiltered":		"#{msg['datatable.sInfoFiltered']}",
-								"sInfoPostFix":			"#{msg['datatable.sInfoPostFix']}",
-								"sInfoThousands":		"#{msg['datatable.sInfoThousands']}",
-								"sLengthMenu":			"#{msg['datatable.sLengthMenu']}",
-								"sLoadingRecords":		"#{msg['datatable.sLoadingRecords']}",
-								"sProcessing":			"#{msg['datatable.sProcessing']}",
-								"sZeroRecords":			"#{msg['datatable.sZeroRecords']}",
-								"sSearch":				"#{msg['datatable.sSearch']}",
-								"oPaginate": {
-									"sNext":			"#{msg['datatable.oPaginate.sNext']}",
-									"sPrevious":		"#{msg['datatable.oPaginate.sPrevious']}",
-									"sFirst":			"#{msg['datatable.oPaginate.sFirst']}",
-									"sLast":			"#{msg['datatable.oPaginate.sLast']}"
-								},
-								"oAria": {
-									"sSortAscending":  	"#{msg['datatable.oAria.sSortAscending']}",
-									"sSortDescending": 	"#{msg['datatable.oAria.sSortDescending']}"
-								}
+			};
+			
+			function create() {
+				$('#tabela').DataTable({
+					"language": {
+							"sEmptyTable":			"#{msg['datatable.sEmptyTable']}",
+							"sInfo":				"#{msg['datatable.sInfo']}",
+							"sInfoEmpty":			"#{msg['datatable.sInfoEmpty']}",
+							"sInfoFiltered":		"#{msg['datatable.sInfoFiltered']}",
+							"sInfoPostFix":			"#{msg['datatable.sInfoPostFix']}",
+							"sInfoThousands":		"#{msg['datatable.sInfoThousands']}",
+							"sLengthMenu":			"#{msg['datatable.sLengthMenu']}",
+							"sLoadingRecords":		"#{msg['datatable.sLoadingRecords']}",
+							"sProcessing":			"#{msg['datatable.sProcessing']}",
+							"sZeroRecords":			"#{msg['datatable.sZeroRecords']}",
+							"sSearch":				"#{msg['datatable.sSearch']}",
+							"oPaginate": {
+								"sNext":			"#{msg['datatable.oPaginate.sNext']}",
+								"sPrevious":		"#{msg['datatable.oPaginate.sPrevious']}",
+								"sFirst":			"#{msg['datatable.oPaginate.sFirst']}",
+								"sLast":			"#{msg['datatable.oPaginate.sLast']}"
 							},
-							"aaSorting": [[0, 'desc']]
-						
-					});		
-				};
-				var _oTable;
-				$(document).ready(function() {
-					create();
-				} );
+							"oAria": {
+								"sSortAscending":  	"#{msg['datatable.oAria.sSortAscending']}",
+								"sSortDescending": 	"#{msg['datatable.oAria.sSortDescending']}"
+							}
+						},
+						"aaSorting": [[0, 'desc']]
+					
+				});		
+			};
+			var _oTable;
+			$(document).ready(function() {
+				create();
+			} );
 
-				PrimeFaces.locales["#{msg['app.locale']}"] = {  
-						"closeText": 			"#{msg['app.close']}",  
-						"prevText": 			"#{msg['app.prev']}",  
-						"nextText" : 			"#{msg['app.next']}",  
-						"currentText" : 		"#{msg['app.current']}",  
-						"monthNames" : 			["#{msg['app.month.jan']}","#{msg['app.month.feb']}","#{msg['app.month.mar']}","#{msg['app.month.apr']}","#{msg['app.month.may']}","#{msg['app.month.jun']}","#{msg['app.month.jul']}","#{msg['app.month.aug']}","#{msg['app.month.sep']}","#{msg['app.month.oct']}","#{msg['app.month.nov']}","#{msg['app.month.dec']}"],
-						"monthNamesShort" : 	["#{msg['app.month.jan.short']}","#{msg['app.month.feb.short']}","#{msg['app.month.mar.short']}","#{msg['app.month.apr.short']}","#{msg['app.month.may.short']}","#{msg['app.month.jun.short']}","#{msg['app.month.jul.short']}","#{msg['app.month.aug.short']}","#{msg['app.month.sep.short']}","#{msg['app.month.oct.short']}","#{msg['app.month.nov.short']}","#{msg['app.month.dec.short']}"],  
-						"dayNames" : 			["#{msg['app.week.sun']}","#{msg['app.week.mon']}","#{msg['app.week.tue']}","#{msg['app.week.wed']}","#{msg['app.week.thu']}","#{msg['app.week.fri']}","#{msg['app.week.sat']}"],
-						"dayNamesShort" : 		["#{msg['app.week.sun.short']}","#{msg['app.week.mon.short']}","#{msg['app.week.tue.short']}","#{msg['app.week.wed.short']}","#{msg['app.week.thu.short']}","#{msg['app.week.fri.short']}","#{msg['app.week.sat.short']}"],  
-						"dayNamesMin" : 		["#{msg['app.week.sun.min']}","#{msg['app.week.mon.min']}","#{msg['app.week.tue.min']}","#{msg['app.week.wed.min']}","#{msg['app.week.thu.min']}","#{msg['app.week.fri.min']}","#{msg['app.week.sat.min']}"],  
-						"weekHeader" : 			"#{msg['app.week']}",  
-						"firstDay" : 			1,  
-						"isRTL" : 				false,  
-						"showMonthAfterYear" : 	false,  
-						"yearSuffix" : 			"#{msg['app.yearSufix']}",  
-						"timeOnlyTitle" : 		"#{msg['app.timeOnly']}",  
-						"timeText" : 			"#{msg['app.time']}",  
-						"hourText" : 			"#{msg['app.hour']}",  
-						"minuteText" : 			"#{msg['app.minute']}",  
-						"secondText" : 			"#{msg['app.second']}",  
-						"currentText" : 		"#{msg['app.curDate']}",  
-						"ampm" : 				false,  
-						"month" : 				"#{msg['app.month']}",  
-						"week" : 				"#{msg['app.week']}",  
-						"day" : 				"#{msg['app.day']}",  
-						"allDayText" : 			"#{msg['app.allDay']}"  
-					};	
+			PrimeFaces.locales["#{msg['app.locale']}"] = {  
+					"closeText": 			"#{msg['app.close']}",  
+					"prevText": 			"#{msg['app.prev']}",  
+					"nextText" : 			"#{msg['app.next']}",  
+					"currentText" : 		"#{msg['app.current']}",  
+					"monthNames" : 			["#{msg['app.month.jan']}","#{msg['app.month.feb']}","#{msg['app.month.mar']}","#{msg['app.month.apr']}","#{msg['app.month.may']}","#{msg['app.month.jun']}","#{msg['app.month.jul']}","#{msg['app.month.aug']}","#{msg['app.month.sep']}","#{msg['app.month.oct']}","#{msg['app.month.nov']}","#{msg['app.month.dec']}"],
+					"monthNamesShort" : 	["#{msg['app.month.jan.short']}","#{msg['app.month.feb.short']}","#{msg['app.month.mar.short']}","#{msg['app.month.apr.short']}","#{msg['app.month.may.short']}","#{msg['app.month.jun.short']}","#{msg['app.month.jul.short']}","#{msg['app.month.aug.short']}","#{msg['app.month.sep.short']}","#{msg['app.month.oct.short']}","#{msg['app.month.nov.short']}","#{msg['app.month.dec.short']}"],  
+					"dayNames" : 			["#{msg['app.week.sun']}","#{msg['app.week.mon']}","#{msg['app.week.tue']}","#{msg['app.week.wed']}","#{msg['app.week.thu']}","#{msg['app.week.fri']}","#{msg['app.week.sat']}"],
+					"dayNamesShort" : 		["#{msg['app.week.sun.short']}","#{msg['app.week.mon.short']}","#{msg['app.week.tue.short']}","#{msg['app.week.wed.short']}","#{msg['app.week.thu.short']}","#{msg['app.week.fri.short']}","#{msg['app.week.sat.short']}"],  
+					"dayNamesMin" : 		["#{msg['app.week.sun.min']}","#{msg['app.week.mon.min']}","#{msg['app.week.tue.min']}","#{msg['app.week.wed.min']}","#{msg['app.week.thu.min']}","#{msg['app.week.fri.min']}","#{msg['app.week.sat.min']}"],  
+					"weekHeader" : 			"#{msg['app.week']}",  
+					"firstDay" : 			1,  
+					"isRTL" : 				false,  
+					"showMonthAfterYear" : 	false,  
+					"yearSuffix" : 			"#{msg['app.yearSufix']}",  
+					"timeOnlyTitle" : 		"#{msg['app.timeOnly']}",  
+					"timeText" : 			"#{msg['app.time']}",  
+					"hourText" : 			"#{msg['app.hour']}",  
+					"minuteText" : 			"#{msg['app.minute']}",  
+					"secondText" : 			"#{msg['app.second']}",  
+					"currentText" : 		"#{msg['app.curDate']}",  
+					"ampm" : 				false,  
+					"month" : 				"#{msg['app.month']}",  
+					"week" : 				"#{msg['app.week']}",  
+					"day" : 				"#{msg['app.day']}",  
+					"allDayText" : 			"#{msg['app.allDay']}"  
+				};	
 
-				$(document).ready(function() {
-					$(":input:visible:enabled:first").focus();
-				});	
-			</script>	
+			$(document).ready(function() {
+				$(":input:visible:enabled:first").focus();
+			});	
+		</script>	
 	</h:head>
 
 	<h:body styleClass="fixed-nav bg-dark" id="page-top">
