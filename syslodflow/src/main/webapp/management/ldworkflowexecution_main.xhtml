@@ -33,7 +33,7 @@
 				<h:panelGroup id="panel_list" rendered="#{ldWorkflowExecutionBean.showView}">
 					
 					<div class="card card-default" >
-						<div class="card-block mx-sm-3">
+						<div class="card-block mx-sm-3 my-sm-3">
 							<div class="card-title">
 								<h5>#{msg['crud.ldwproject']}</h5>
 							</div>
@@ -52,38 +52,36 @@
                             <div class="card-header">
                                 <h3 class="card-title">#{msg['crud.ldworkflow']}: #{msg['crud.ldworkflow.general']}</h3>
                             </div>
-                            <div class="card-block">
-	                            <div class="my-xs-3">
+                            <div class="card-block my-sm-3">
 	                            
-	                            	<div class="row">
-	                            		<div class="col-lg-1">
-		                            		<strong>
-		                            			<h:outputLabel styleClass="pull-right" value="Nome:"/>
-		                            		</strong>
-		                            	</div>
-		                            		#{ldWorkflowExecutionBean.workflow.name}
+                            	<div class="row">
+                            		<div class="col-lg-1">
+	                            		<strong>
+	                            			<h:outputLabel styleClass="pull-right" value="Nome:"/>
+	                            		</strong>
 	                            	</div>
-	                            	
-	                             	<div class="row">
-		                             	<div class="col-lg-1">
-		                             		<strong>
-		                             			<h:outputLabel styleClass="pull-right" value="URI:"/>
-		                             		</strong>
-		                             	</div>
-	                             		#{ldWorkflowExecutionBean.workflow.uri}
+	                            		#{ldWorkflowExecutionBean.workflow.name}
+                            	</div>
+                            	
+                             	<div class="row">
+	                             	<div class="col-lg-1">
+	                             		<strong>
+	                             			<h:outputLabel styleClass="pull-right" value="URI:"/>
+	                             		</strong>
 	                             	</div>
-	                             		
-	                             	<div class="row">
-		                             	<div class="col-lg-1">
-		                             		<strong>
-	                             				<h:outputLabel styleClass="pull-right" value="Descrição:"/>
-	                             			</strong>
-		                             	</div>
-	                             		
-	                             		#{ldWorkflowExecutionBean.workflow.description}
+                             		#{ldWorkflowExecutionBean.workflow.uri}
+                             	</div>
+                             		
+                             	<div class="row">
+	                             	<div class="col-lg-1">
+	                             		<strong>
+                             				<h:outputLabel styleClass="pull-right" value="Descrição:"/>
+                             			</strong>
 	                             	</div>
+                             		
+                             		#{ldWorkflowExecutionBean.workflow.description}
+                             	</div>
 	                             
-	                        	</div>
                             </div>
 						</div>
 					</h:panelGroup>
@@ -93,28 +91,31 @@
 						<div class="card card-default">
 		                    <div class="card-header">
 		                        <h3>#{msg['crud.ldworkflowexecution.storedlist']}</h3>
-		                        <h:commandButton action="#{ldWorkflowExecutionBean.doNew()}"
-								id="btNeworkflowExec" styleClass="btn btn-success btn-xs"
-								value="#{msg['crud.new']}" />
 		                	</div>
 		                	<div class="card-block">
+		                	
 		                		<div class="table-responsive">
+		                		
+		                			<h:commandButton action="#{ldWorkflowExecutionBean.doNew()}"
+									id="btNeworkflowExec" styleClass="btn btn-success btn-xs my-sm-3 mx-sm-3"
+									value="#{msg['crud.new']}" />
+		                		
 									<h:dataTable value="#{ldWorkflowExecutionBean.listWorkflowExecutions}" var="workflowexec"
 										styleClass="table table-striped table-bordered table-hover"
 										id="workflowexec_table">
 										<h:column>
 											<f:facet name="header">#{msg['crud.ldwproject.name']}</f:facet>
-								      #{workflowexec.name}
+											#{workflowexec.name}
 								  	 </h:column>
 								  	 	 <h:column headerClass="headeracoes">
 											<f:facet name="header">Relatório</f:facet>
 											<center>
-											<h:form id="form-download-report">
-												<h:commandLink id="downloadReport" action="#" styleClass="btn btn-success btn-xs"
-												value="#{msg['crud.file.download']}">
-													<i class="fa fa-download"></i>
-												</h:commandLink>
-											</h:form>
+												<h:form id="form-download-report">
+													<h:commandLink id="downloadReport" action="#" styleClass="btn btn-success btn-xs"
+													value="#{msg['crud.file.download']}">
+														<i class="fa fa-download"></i>
+													</h:commandLink>
+												</h:form>
 											</center>
 										</h:column>
 										<h:column headerClass="headeracoes">
