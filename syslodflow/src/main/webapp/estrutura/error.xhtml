@@ -6,11 +6,16 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="conteudo">
-	
-		<h1><small>#{msg['app.errorPage']}</small></h1>		
+		
 		<ol class="breadcrumb">
-			<li><i class="fa fa-home"></i><a href="#{request.contextPath}/index.xhtml">#{msg['menu.start']}</a></li>
-			<li class="active"><i class="fa fa-edit"></i>#{msg['app.errorPage']}</li>
+			<li class="breadcrumb-item">
+				<i class="fa fa-home"></i>
+				<a href="#{request.contextPath}/index.xhtml">#{msg['menu.start']}</a>
+			</li>
+			<li class="breadcrumb-item active">
+				<i class="fa fa-edit"></i>
+				#{msg['app.errorPage']}
+			</li>
 		</ol>
 		
 		<div class="row">

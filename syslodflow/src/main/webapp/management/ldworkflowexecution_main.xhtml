@@ -6,134 +6,172 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="conteudo">
-	<h:form role="form" id="form_workflowexecution_main" acceptcharset="ISO-8859-1" enctype="multipart/form-data">
 	
-		<h3 class="page-header">#{msg['crud.ldworkflowexecution']}</h3>
-			<div class="col-lg-12">
-				<div class="card card-primary">
-					<div class="card-header">
-						<h3 class="card-title">
-							<i class="fa fa-cogs"></i>#{msg['crud.ldworkflowexecution.title']}
-						</h3>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			<i class="fa fa-home"></i>
+			<a href="#{request.contextPath}/index.xhtml">#{msg['menu.start']}</a>
+		</li>
+		<li class="breadcrumb-item active">
+			<i class="fa fa-edit"></i>
+				#{msg['crud.ldworkflowexecution']}
+		</li>
+	</ol>
+	
+	<h:form role="form" id="form_workflowexecution_main" acceptcharset="ISO-8859-1" enctype="multipart/form-data">
+
+		<div class="card card-primary">
+			<div class="card-header">
+				<h3 class="card-title">
+					<i class="fa fa-cogs"></i>
+					#{msg['crud.ldworkflowexecution.title']}
+				</h3>
+			</div>
+			<div class="card-block">
+				<p:messages id="message" autoUpdate="true" closable="true" />
+				<!-- Inicio Listagem -->
+				<h:panelGroup id="panel_list" rendered="#{ldWorkflowExecutionBean.showView}">
+					
+					<div class="card card-default" >
+						<div class="card-block mx-sm-3">
+							<div class="card-title">
+								<h5>#{msg['crud.ldwproject']}</h5>
+							</div>
+							<p:selectOneMenu id="ldwproject" value="#{ldWorkflowExecutionBean.ldwProjectSelected}">
+								<p:ajax event="change" listener="#{ldWorkflowExecutionBean.doChangeProject}" update="workflowexec_table, workflow_panel" />
+								<f:selectItem itemLabel="Selecione um projeto" itemValue="" noSelectionOption="true" />
+								<f:selectItems value="#{ldWorkflowExecutionBean.listLdwProjects}" var="project" 
+								itemLabel="#{project.name}" itemValue="#{project}" />
+							</p:selectOneMenu>
+						</div>
 					</div>
-					<div class="card-block">
-					<p:messages id="message" autoUpdate="true" closable="true" />
-					<!-- Inicio Listagem -->
-					<h:panelGroup id="panel_list" rendered="#{ldWorkflowExecutionBean.showView}" >
-							<div class="row">
-								<div class="col-lg-6">
-									<label>#{msg['crud.ldwproject']}</label><br />
-									<p:selectOneMenu id="ldwproject" value="#{ldWorkflowExecutionBean.ldwProjectSelected}">
-									<p:ajax event="change" listener="#{ldWorkflowExecutionBean.doChangeProject}" update="workflowexec_table, workflow_panel" />
-										<f:selectItem itemLabel="Selecione um projeto" itemValue="" noSelectionOption="true" />
-										<f:selectItems value="#{ldWorkflowExecutionBean.listLdwProjects}" var="project" 
-											itemLabel="#{project.name}" itemValue="#{project}" />
-									</p:selectOneMenu>
-								</div>
-							</div><br/>
-							
-							<!-- Informações do Workflow -->
-							<h:panelGroup id="workflow_panel">
-							<div class="card card-default" >
-	                            <div class="card-header">
-	                                <h3 class="card-title">#{msg['crud.ldworkflow']}: #{msg['crud.ldworkflow.general']}</h3>
-	                            </div>
-	                            <div class="card-block">
-	                            <div class="col-lg-12">
-	                                <div class="row"><h:outputLabel value="Nome: "/> #{ldWorkflowExecutionBean.workflow.name}</div>
-	                                <div class="row"><h:outputLabel value="URI: "/> #{ldWorkflowExecutionBean.workflow.uri}</div>
-	                                <div class="row"><h:outputLabel value="Descrição: "/> #{ldWorkflowExecutionBean.workflow.description}</div>
-	                             </div>
-	                            </div>
-                        	</div>
-                        	</h:panelGroup><br/>
-							
-							<h3>#{msg['crud.ldworkflowexecution.storedlist']}</h3>
-							<h:commandButton action="#{ldWorkflowExecutionBean.doNew()}"
+						
+					<!-- Informações do Workflow -->
+					<h:panelGroup id="workflow_panel">
+						<div class="card card-default">
+                            <div class="card-header">
+                                <h3 class="card-title">#{msg['crud.ldworkflow']}: #{msg['crud.ldworkflow.general']}</h3>
+                            </div>
+                            <div class="card-block">
+	                            <div class="my-xs-3">
+	                            
+	                            	<div class="row">
+	                            		<div class="col-lg-1">
+		                            		<strong>
+		                            			<h:outputLabel styleClass="pull-right" value="Nome:"/>
+		                            		</strong>
+		                            	</div>
+		                            		#{ldWorkflowExecutionBean.workflow.name}
+	                            	</div>
+	                            	
+	                             	<div class="row">
+		                             	<div class="col-lg-1">
+		                             		<strong>
+		                             			<h:outputLabel styleClass="pull-right" value="URI:"/>
+		                             		</strong>
+		                             	</div>
+	                             		#{ldWorkflowExecutionBean.workflow.uri}
+	                             	</div>
+	                             		
+	                             	<div class="row">
+		                             	<div class="col-lg-1">
+		                             		<strong>
+	                             				<h:outputLabel styleClass="pull-right" value="Descrição:"/>
+	                             			</strong>
+		                             	</div>
+	                             		
+	                             		#{ldWorkflowExecutionBean.workflow.description}
+	                             	</div>
+	                             
+	                        	</div>
+                            </div>
+						</div>
+					</h:panelGroup>
+					
+					<h:panelGroup id="workflow_panel_2">
+					
+						<div class="card card-default">
+		                    <div class="card-header">
+		                        <h3>#{msg['crud.ldworkflowexecution.storedlist']}</h3>
+		                        <h:commandButton action="#{ldWorkflowExecutionBean.doNew()}"
 								id="btNeworkflowExec" styleClass="btn btn-success btn-xs"
 								value="#{msg['crud.new']}" />
-							<br />
-							<br />
-						<div class="table-responsive">
-							<h:dataTable value="#{ldWorkflowExecutionBean.listWorkflowExecutions}" var="workflowexec"
-								styleClass="table table-striped table-bordered table-hover"
-								id="workflowexec_table">
-								<h:column>
-									<f:facet name="header">#{msg['crud.ldwproject.name']}</f:facet>
-						      #{workflowexec.name}
-						  	 </h:column>
-						  	 	 <h:column headerClass="headeracoes">
-									<f:facet name="header">Relatório</f:facet>
-									<center>
-									<h:form id="form-download-report">
-										<h:commandLink styleClass="fa fa-file-text-o" ajax="false" style="margin-left: 6px;" id="btDownload" title="Download" >
-											<p:fileDownload value="#" />
-										</h:commandLink>
-									</h:form>
-									</center>
-								</h:column>
-								<h:column headerClass="headeracoes">
-									<f:facet name="header">#{msg['app.actions']}</f:facet>
-									<center>
-											<h:commandButton action="#{ldWorkflowExecutionBean.doEdit}" id="editWorkflowExec"
+		                	</div>
+		                	<div class="card-block">
+		                		<div class="table-responsive">
+									<h:dataTable value="#{ldWorkflowExecutionBean.listWorkflowExecutions}" var="workflowexec"
+										styleClass="table table-striped table-bordered table-hover"
+										id="workflowexec_table">
+										<h:column>
+											<f:facet name="header">#{msg['crud.ldwproject.name']}</f:facet>
+								      #{workflowexec.name}
+								  	 </h:column>
+								  	 	 <h:column headerClass="headeracoes">
+											<f:facet name="header">Relatório</f:facet>
+											<center>
+											<h:form id="form-download-report">
+												<h:commandLink id="downloadReport" action="#" styleClass="btn btn-success btn-xs"
+												value="#{msg['crud.file.download']}">
+													<i class="fa fa-download"></i>
+												</h:commandLink>
+											</h:form>
+											</center>
+										</h:column>
+										<h:column headerClass="headeracoes">
+											<f:facet name="header">#{msg['app.actions']}</f:facet>
+											<center>
+												<h:commandButton action="#{ldWorkflowExecutionBean.doEdit}" id="editWorkflowExec"
 												 styleClass="btn btn-primary btn-xs" value="#{msg['crud.edit']}" />
-											<h:commandButton  action="#" id="deleteWorkflowExec"
+												<h:commandButton  action="#" id="deleteWorkflowExec"
 												styleClass="btn btn-danger btn-xs" style="margin-left: 5px;"
 												value="#{msg['crud.delete']}"
 												onclick="if(!confirm('#{msg['list.confirm.delete']}: #{workflowexec.name} ?'))return false;" />
-									</center>
-								</h:column>
-							</h:dataTable>
-						</div>
-						<!-- Fim Listagem -->
+											</center>
+										</h:column>
+									</h:dataTable>
+								</div>
+		                	</div>
+		                </div>
 					</h:panelGroup>
-					
+				<!-- Fim Listagem -->
+				</h:panelGroup>
+				
 					<h:panelGroup id="panel_reg" rendered="#{!ldWorkflowExecutionBean.showView}">
 						
-						<div class="row col-lg-12">
-							<div class="col-md-3">
-								<h:link action="#{ldWorkflowExecutionBean.doBack()}" id="btBack" styleClass="btn btn-xs btn-warning"
-										value="#{msg['crud.back']}" />
+						<div class="card card-default">
+							<div class="card-block">
+								<p:tabView id="tab" styleClass="col-lg-12">
+									<p:tab title="#{msg['crud.ldworkflowexecution.general']}" id="tab0">
+										<ui:include src="ldworkflowexecution_config.xhtml"/> 
+									</p:tab>
+									<p:tab title="#{msg['crud.ldwstepExecution.01']}" id="tab1">
+										<ui:include src="ldworkflowexecution_step01.xhtml"/> 
+									</p:tab>
+									<p:tab title="#{msg['crud.ldwstepExecution.02']}" id="tab2">
+										<ui:include src="ldworkflowexecution_step02.xhtml"/> 
+									</p:tab>
+									<p:tab title="#{msg['crud.ldwstepExecution.03']}" id="tab3">
+										<ui:include src="ldworkflowexecution_step03.xhtml"/> 
+									</p:tab>
+									<p:tab title="#{msg['crud.ldwstepExecution.04']}" id="tab4">
+										 <ui:include src="ldworkflowexecution_step04.xhtml"/> 
+									</p:tab>
+									<p:tab title="#{msg['crud.ldwstepExecution.05']}" id="tab5">
+									<ui:include src="ldworkflowexecution_step05.xhtml"/> 
+									</p:tab>
+									
+								</p:tabView>
+							</div>
+							<div class="card-block my-sm-3 mx-sm-3">
+								<h:commandButton id="submitWorkflowExecution" styleClass="btn btn-outline btn-success mr-sm-1"
+								value="Salvar" immediate="false" type="submit" action="#{ldWorkflowExecutionBean.doSave()}" ajax="false" />	
+								
+								<h:commandButton styleClass="btn btn-outline btn-primary" type="reset" immediate="false"
+								value="Executar" onclick="#{ldWorkflowExecutionBean.doExecute()}" ajax="false" />
 							</div>
 						</div>
-					
-						<div class="row col-lg-12">
-							<p:tabView id="tab" styleClass="col-lg-12">
-								<p:tab title="#{msg['crud.ldworkflowexecution.general']}" id="tab0">
-									<ui:include src="ldworkflowexecution_config.xhtml"/> 
-								</p:tab>
-								<p:tab title="#{msg['crud.ldwstepExecution.01']}" id="tab1">
-									<ui:include src="ldworkflowexecution_step01.xhtml"/> 
-								</p:tab>
-								<p:tab title="#{msg['crud.ldwstepExecution.02']}" id="tab2">
-									<ui:include src="ldworkflowexecution_step02.xhtml"/> 
-								</p:tab>
-								<p:tab title="#{msg['crud.ldwstepExecution.03']}" id="tab3">
-									<ui:include src="ldworkflowexecution_step03.xhtml"/> 
-								</p:tab>
-								<p:tab title="#{msg['crud.ldwstepExecution.04']}" id="tab4">
-									 <ui:include src="ldworkflowexecution_step04.xhtml"/> 
-								</p:tab>
-								<p:tab title="#{msg['crud.ldwstepExecution.05']}" id="tab5">
-								<ui:include src="ldworkflowexecution_step05.xhtml"/> 
-								</p:tab>
-								
-							</p:tabView>
-						</div>
-						
-						<div class="row col-lg-12" style="margin-top: 10px;">
-							<div class="col-md-4">
-								<h:commandButton id="submitWorkflowExecution" styleClass="btn btn-outline btn-success"
-								style="margin-right: 5px;" value="Salvar" immediate="false"
-								type="submit" action="#{ldWorkflowExecutionBean.doSave()}" ajax="false" />	
-								
-								<h:commandButton styleClass="btn btn-outline btn-primary" type="reset"
-									immediate="false" value="Executar" onclick="#{ldWorkflowExecutionBean.doExecute()}" ajax="false"  />
-							</div>
-						</div>
-						
+										
 					</h:panelGroup>
-					</div>
 				</div>
 			</div>
 		</h:form>

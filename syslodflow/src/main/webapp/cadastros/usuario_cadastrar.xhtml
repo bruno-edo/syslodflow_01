@@ -6,14 +6,21 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:define name="conteudo">
-	<h3 class="page-header">#{msg['crud.user.title']}</h3>
-	<div class="col-lg-12">
-		<ol class="breadcrumb">
-			<li> <i class="fa fa-home"></i><a href="#{request.contextPath}/index.xhtml">#{msg['menu.start']}</a></li>
-			<li> <i class="fa fa-users"></i><a href="#{request.contextPath}/cadastros/usuario_listar.xhtml">#{msg['menu.users']}</a></li>
-			<li class="active"><i class="fa fa-edit"></i>#{msg['menu.crud']}</li>
-		</ol>
-	</div>
+
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			<i class="fa fa-home"></i>
+			<a href="#{request.contextPath}/index.xhtml">#{msg['menu.start']}</a>
+		</li>
+		<li class="breadcrumb-item">
+			<i class="fa fa-users"></i>
+			<a href="#{request.contextPath}/cadastros/usuario_listar.xhtml">#{msg['list.user']}</a>
+		</li>
+		<li class="breadcrumb-item active">
+			<i class="fa fa-edit"></i>
+				#{msg['menu.crud']}
+		</li>
+	</ol>
 
 	<div class="row">
 		<div class="col-lg-12">

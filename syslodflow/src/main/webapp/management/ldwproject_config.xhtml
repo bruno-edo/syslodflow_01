@@ -11,78 +11,67 @@
 	<h:inputHidden styleClass="form-control"  />
 
 	<div class="form-group">
-		<div class="row">
-			<div class="col-lg-6">
-				<label>#{msg['crud.ldwproject.name']}</label>
-				<p:inputText styleClass="form-control" required="true" value="#{ldwProjectBean.ldwProject.name}"
-					requiredMessage="#{msg['crud.ldwproject.name']} : #{msg['error.required']}"
-					maxlength="62" />
-			</div>
+		<div class="col-lg-6">
+			<label>#{msg['crud.ldwproject.name']}</label>
+			<p:inputText styleClass="form-control" required="true" value="#{ldwProjectBean.ldwProject.name}"
+			requiredMessage="#{msg['crud.ldwproject.name']} : #{msg['error.required']}"
+			maxlength="62" />
 		</div>
 	</div>
 
 
 	<div class="form-group">
-		<div class="row">
-			<div class="col-lg-6">
-				<label>#{msg['crud.ldwproject.description']}</label>
-				<p:inputTextarea styleClass="form-control" required="true"
-					requiredMessage="#{msg['crud.ldwproject.description']} : #{msg['error.required']}"
-					 rows="10" value="#{ldwProjectBean.ldwProject.description}" autoResize="true"/>
-			</div>
+		<div class="col-lg-6">
+			<label>#{msg['crud.ldwproject.description']}</label>
+			<p:inputTextarea styleClass="form-control" required="true"
+			requiredMessage="#{msg['crud.ldwproject.description']} : #{msg['error.required']}"
+			 rows="10" value="#{ldwProjectBean.ldwProject.description}" autoResize="true"/>
 		</div>
 	</div>
 
 
 	<div class="form-group">
-		<div class="row">
-			<div class="col-lg-6">
-				<label>#{msg['crud.ldwproject.goal']}</label>
-				<p:inputTextarea styleClass="form-control" required="true"
-					requiredMessage="#{msg['crud.ldwproject.description']} : #{msg['error.required']}"
-					 rows="7" value="#{ldwProjectBean.ldwProject.goal}" autoResize="true" />
-			</div>
+		<div class="col-lg-6">
+			<label>#{msg['crud.ldwproject.goal']}</label>
+			<p:inputTextarea styleClass="form-control" required="true"
+			requiredMessage="#{msg['crud.ldwproject.description']} : #{msg['error.required']}"
+			 rows="7" value="#{ldwProjectBean.ldwProject.goal}" autoResize="true" />
 		</div>
 	</div>
 
 	<div class="form-group">
-		<div class="row col-lg-12">
+		<div class="row col-lg-12 ml-sm-1">
 			<label>#{msg['crud.ldwproject.creator']}</label>
 		</div>
-		<div class="row">
+		<div class="row ml-sm-1">
 			<div class="col-lg-5">
-			<p:selectOneMenu id="creator"  style="width: 100%" value="#{ldwProjectBean.ldwProject.creator}">
-				<f:selectItems value="#{ldwProjectBean.personsList}" var="person" 
-					itemLabel="#{person.name}" itemValue="#{person}" />
-			</p:selectOneMenu>
+				<p:selectOneMenu id="creator" style="width: 100%;" value="#{ldwProjectBean.ldwProject.creator}">
+					<f:selectItems value="#{ldwProjectBean.personsList}" var="person" itemLabel="#{person.name}" itemValue="#{person}" />
+				</p:selectOneMenu>
 			</div>
 			<div class="col-lg-2">	
-				<h:commandButton styleClass="btn btn-outline btn-primary align-bottom"
-					 value="Adicionar" immediate="true"
-					actionListener="#{ldwProjectBean.doNewPerson()}" >
+				<h:commandButton styleClass="btn btn-outline btn-primary"
+				 value="Adicionar" immediate="true"
+				actionListener="#{ldwProjectBean.doNewPerson()}" >
 					<f:ajax execute="@form" render="@form"/>
 				</h:commandButton>
 			</div>
 		</div>
 		
-
-
-		<div class="row">
+		<div class="form-group">
 			<div class="col-lg-6">
 				<label>#{msg['crud.ldwproject.homepage']}</label>
-				<p:inputText styleClass="form-control"
-					value="#{ldwProjectBean.ldwProject.homePage.location.value}" />
+				<p:inputText styleClass="form-control" value="#{ldwProjectBean.ldwProject.homePage.location.value}" />
 			</div>
-
 		</div>
+		
 	</div>
 	
-	<div class="row col-lg-12">
+	<div class="row col-lg-12 ml-sm-1">
 		<h:commandButton styleClass="btn btn-outline btn-success"
 		style="margin-right: 5px;" value="Salvar" immediate="false" type="submit"
 		action="#{ldwProjectBean.doSave}" />
-		<h:commandButton styleClass="btn btn-outline btn-info" type="reset"
-			style="margin-right: 5px;" value="Limpar" />
+		<h:commandButton styleClass="btn btn-outline btn-info" type="reset" value="Limpar" />
 	</div>
 
 </h:form>
@@ -91,7 +80,7 @@
 		<h:form>
 			<div class="row col-lg-12">
 				<h5>
-					<span class="label label-warning">Atenção</span> O Nome deve conter apenas letras.
+					<span class="badge badge-warning">Atenção</span> O Nome deve conter apenas letras.
 				</h5>
 			</div>
 			<div class="row col-lg-12">

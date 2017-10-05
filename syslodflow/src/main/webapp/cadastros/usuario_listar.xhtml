@@ -6,7 +6,18 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="conteudo">
-	
+		
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<i class="fa fa-home"></i>
+				<a href="#{request.contextPath}/index.xhtml">#{msg['menu.start']}</a>
+			</li>
+			<li class="breadcrumb-item active">
+				<i class="fa fa-users"></i>
+				#{msg['list.user']}
+			</li>
+		</ol>
+		
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="card card-primary">
@@ -37,19 +48,20 @@
 									<center>
 										<h:form id="form-acoes">
 											<h:commandButton rendered="#{user.id != 0 }"
-												action="#{usuarioBean.editar}" id="botaoEditar"
-												styleClass="btn btn-primary btn-xs" value="#{msg['crud.edit']}" />
-											<h:commandButton
-												rendered="#{user.ativo==0 and user.id != 0 }"
-												action="#{usuarioBean.excluir}" id="botaoInativo"
-												styleClass="btn btn-danger btn-xs" style="margin-left: 5px;"
-												value="#{msg['crud.inactive']}"
-												onclick="if(!confirm('#{msg['list.confirm.activate']}: #{user.login} ?'))return false;" />
+											action="#{usuarioBean.editar}" id="botaoEditar"
+											styleClass="btn btn-primary btn-xs" value="#{msg['crud.edit']}" />
+												
+											<h:commandButton rendered="#{user.ativo==0 and user.id != 0 }"
+											action="#{usuarioBean.excluir}" id="botaoInativo"
+											styleClass="btn btn-danger btn-xs" style="margin-left: 5px;"
+											value="#{msg['crud.inactive']}"
+											onclick="if(!confirm('#{msg['list.confirm.activate']}: #{user.login} ?'))return false;" />
+											
 											<h:commandButton rendered="#{user.ativo==1 and user.id != 0}"
-												action="#{usuarioBean.excluir}" id="botaoAtivo"
-												styleClass="btn btn-success btn-xs"
-												style="margin-left: 5px;" value="#{msg['crud.active']}"
-												onclick="if(!confirm('#{msg['list.confirm.deactivate']}: #{user.login} ?'))return false;" />
+											action="#{usuarioBean.excluir}" id="botaoAtivo"
+											styleClass="btn btn-success btn-xs"
+											style="margin-left: 5px;" value="#{msg['crud.active']}"
+											onclick="if(!confirm('#{msg['list.confirm.deactivate']}: #{user.login} ?'))return false;" />
 										</h:form>
 									</center>
 								</h:column>

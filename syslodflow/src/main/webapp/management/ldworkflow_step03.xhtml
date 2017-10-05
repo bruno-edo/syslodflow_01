@@ -6,64 +6,30 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-
-<!-- <h:form role="form" id="form_workflow_step03" acceptcharset="ISO-8859-1"> -->
 	<h:inputHidden styleClass="form-control" />
+	
 	<div class="form-group">
-		<div class="row">
-			<div class="col-lg-8">
-				<label>#{msg['crud.ldworkflow.ldwstep.name']}</label>
-				<p:inputText styleClass="form-control" required="true" value="#{ldWorkflowBean.step03.name}"
-					requiredMessage="#{msg['crud.ldworkflow.ldwstep.name']} : #{msg['error.required']}"
-					maxlength="100" />
-			</div>
-			
-			
-<!-- 			<div class="col-lg-3">
-				<label>Ordem de Execução</label><br />
-				<p:selectOneMenu id="exec_order" value="#" style="width:100%">
-					<f:selectItem itemLabel="Selecione" itemValue="" />
-					<f:selectItem itemLabel="1" itemValue="1" />
-					<f:selectItem itemLabel="2" itemValue="2" />
-					<f:selectItem itemLabel="3" itemValue="3" />
-					<f:selectItem itemLabel="4" itemValue="4" />
-					<f:selectItem itemLabel="5" itemValue="5" />
-				</p:selectOneMenu>
-			</div> -->
-		</div>
-	</div>
-		<div class="form-group">
-		<div class="row">	
-			<div class="col-lg-8">
-				<label>#{msg['crud.ldworkflow.ldwstep.description']}</label>
-				<p:inputTextarea styleClass="form-control" required="true" value="#{ldWorkflowBean.step03.description}" 
-					requiredMessage="#{msg['crud.ldworkflow.ldwstep.description']} : #{msg['error.required']}"
-					maxlength="240" />
-			</div>
-		</div>
+		<label for="ld-wf-step-13">#{msg['crud.ldworkflow.ldwstep.name']}</label>
+		<p:inputText styleClass="form-control" required="true" value="#{ldWorkflowBean.step03.name}"
+		requiredMessage="#{msg['crud.ldworkflow.ldwstep.name']} : #{msg['error.required']}"
+		maxlength="100" id="ld-wf-step-13" />
 	</div>
 	
-
-<!-- 	<div class="form-group">
-		<div class="row">
-			<div class="col-lg-8">
-				<label>#{msg['crud.ldworkflow.ldwstep.command']}</label>
-				<p:inputText styleClass="form-control" required="true" value="#{ldWorkflowBean.step03.command}"
-					requiredMessage="#{msg['crud.ldworkflow.ldwstep.command']} : #{msg['error.required']}"
-					maxlength="240" />
-			</div>
-		</div>
-	</div> -->
 	
-	<div class="row">
-		<div class="col-lg-6">
-			<label>#{msg['crud.ldworkflow.ldwstep.tool']}</label><br />
-			<p:selectOneMenu id="step03_tool" value="#{ldWorkflowBean.step03.tool}">
-				<f:selectItems value="#{ldWorkflowBean.listToolsStep03}" var="tool" 
-					itemLabel="#{tool.name}" itemValue="#{tool}" />
-			</p:selectOneMenu>
-		</div>
-	</div><br/>
+	<div class="form-group">	
+		<label for="ld-wf-step-23">#{msg['crud.ldworkflow.ldwstep.description']}</label>
+		<p:inputTextarea styleClass="form-control" required="true" value="#{ldWorkflowBean.step03.description}" 
+		requiredMessage="#{msg['crud.ldworkflow.ldwstep.description']} : #{msg['error.required']}"
+		maxlength="240" id="ld-wf-step-23" />
+	</div>
 
-<!-- </h:form> -->
+
+	<div class="form-group">
+		<label for="ld-wf-step-33">#{msg['crud.ldworkflow.ldwstep.tool']}</label><br />
+		<p:selectOneMenu id="step03_tool" value="#{ldWorkflowBean.step03.tool}" style="width: 25%">
+			<f:selectItems value="#{ldWorkflowBean.listToolsStep03}" var="tool" 
+			itemLabel="#{tool.name}" itemValue="#{tool}" id="ld-wf-step-33" />
+		</p:selectOneMenu>
+	</div>
+
 </html>
