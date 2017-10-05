@@ -30,12 +30,12 @@
 							<h:form role="form" id="form" acceptcharset="ISO-8859-1">
 								<h:inputHidden value="#{usuarioBean.usuario.id}" />
 								<h:inputHidden  value="#{usuarioBean.usuario.ativo}" />
-									<div class="form-group col-lg-12">
-										<label>#{msg['crud.user.login']}</label>
-										<p:inputText styleClass="form-control" value="#{controleAcessoBean.usuario.login}" required="true" readonly="true" />
-									</div>
-	
-									<h:panelGroup>
+								<div class="form-group col-lg-12">
+									<label>#{msg['crud.user.login']}</label>
+									<p:inputText styleClass="form-control" value="#{controleAcessoBean.usuario.login}" required="true" readonly="true" />
+								</div>
+
+								<h:panelGroup>
 									<div class="form-group col-lg-12">
 										<label>#{msg['crud.user.pswd.new']}</label>
 										<p:password styleClass="form-control" value="#{controleAcessoBean.novaSenha}" required="#{empty controleAcessoBean.usuario.senha or !empty controleAcessoBean.confirmarSenha}" requiredMessage="#{msg['crud.user.pswd.new']} : #{msg['error.required']}" />
@@ -44,11 +44,11 @@
 										<label>#{msg['crud.user.pswd.confirm']}</label>
 										<p:password styleClass="form-control" value="#{controleAcessoBean.confirmarSenha}" required="#{empty controleAcessoBean.usuario.senha or !empty controleAcessoBean.novaSenha}" requiredMessage="#{msg['crud.user.pswd.confirm']} : #{msg['error.required']}" />
 									</div>
-									</h:panelGroup>
-									<div class="row col-lg-12 my-sm-3 mx-sm-1">
-										<h:commandButton styleClass="btn btn-outline btn-success" style="margin-right: 5px;" value="#{msg['crud.submit']}" action="#{controleAcessoBean.salvarPerfil()}" />	
-										<h:commandButton styleClass="btn btn-outline btn-info" type="reset" value="#{msg['crud.clear']}" />			
-									</div>
+								</h:panelGroup>
+								<div class="row col-lg-12 my-sm-3 mx-sm-1">
+									<h:commandButton styleClass="btn btn-outline btn-success" style="margin-right: 5px;" value="#{msg['crud.submit']}" action="#{controleAcessoBean.salvarPerfil()}" />	
+									<h:commandButton styleClass="btn btn-outline btn-info" type="reset" value="#{msg['crud.clear']}" />			
+								</div>
 							</h:form>
 						</div>
 					</div>
