@@ -274,10 +274,11 @@ public class LdwStepService extends BaseService {
 		
 		Individual ldwstep = model.getOntClass(ClassURIEnum.LDWSTEP.getUri()).createIndividual(step.getUri());
 		ldwstep.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), step.getName());
-		ldwstep.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), step.getName());
+		ldwstep.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), step.getDescription());
 		ldwstep.addLiteral(model.getProperty(PropertyURIEnum.COMMAND.getUri()), step.getCommand());
 		ldwstep.addProperty(model.getProperty(PropertyURIEnum.TOOL.getUri()), model.getIndividual(step.getTool().getUri()));
 		ldwstep.addProperty(model.getProperty(PropertyURIEnum.TASK.getUri()), model.getIndividual(step.getTask().getUri()));
+		
 		if(step.getInputDatasets() != null) {
 			for(Dataset ds : step.getInputDatasets()) {
 				if(URIalreadyExists(model, ds.getUri())) {
@@ -309,11 +310,12 @@ public class LdwStepService extends BaseService {
 		ldwstep.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
 		ldwstep.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), step.getName());
 		ldwstep.removeAll(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()));
-		ldwstep.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), step.getName());
+		ldwstep.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), step.getDescription());
 		ldwstep.removeAll(model.getProperty(PropertyURIEnum.COMMAND.getUri()));
 		ldwstep.addLiteral(model.getProperty(PropertyURIEnum.COMMAND.getUri()), step.getCommand());
 		ldwstep.removeAll(model.getProperty(PropertyURIEnum.TOOL.getUri()));
 		ldwstep.addProperty(model.getProperty(PropertyURIEnum.TOOL.getUri()), model.getIndividual(step.getTool().getUri()));
+		
 		for(Dataset ds : step.getInputDatasets()){
 			model = this.editDataset(model, ds);
 		}
@@ -352,7 +354,8 @@ public class LdwStepService extends BaseService {
 		
 		Individual location = model.getIndividual(d.getLocation().getUri());
 		location.removeAll(model.getProperty(PropertyURIEnum.VALUE.getUri()));
-		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), d.getLocation().getValue());	
+		location.addLiteral(model.getProperty(PropertyURIEnum.VALUE.getUri()), d.getLocation().getValue());
+		
 		return model;
 	}
 	

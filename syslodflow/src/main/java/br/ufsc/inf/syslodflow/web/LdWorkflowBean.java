@@ -59,8 +59,12 @@ public class LdWorkflowBean {
 	private LDWStep step05;
 	private StreamedContent smlDownload;
 	private UploadedFile smlUploaded;
+	private UploadedFile smlScriptUploaded;
+	//private StreamedContent smlScriptDownload;
 	private StreamedContent xmlDownload;
 	private UploadedFile xmlUploaded;
+	private UploadedFile xmlScriptUploaded;
+	//private StreamedContent xmlScriptDownload;
 	
 	
 	/**
@@ -79,13 +83,23 @@ public class LdWorkflowBean {
 	}
 	
 	public void xmlUpload(FileUploadEvent event) {
-	    xmlUploaded = event.getFile();
+		this.xmlUploaded = event.getFile();
 	    this.sendFileUploadSuccessMessage(xmlUploaded.getFileName());
 	}
 	
 	public void smlUpload(FileUploadEvent event) {
-	    smlUploaded = event.getFile();
+		this.smlUploaded = event.getFile();
 	    this.sendFileUploadSuccessMessage(smlUploaded.getFileName());
+	}
+	
+	public void xmlScriptUpload(FileUploadEvent event) {
+		this.xmlScriptUploaded = event.getFile();
+	    this.sendFileUploadSuccessMessage(xmlScriptUploaded.getFileName());
+	}
+	
+	public void smlScriptUpload(FileUploadEvent event) {
+		this.smlScriptUploaded = event.getFile();
+	    this.sendFileUploadSuccessMessage(smlScriptUploaded.getFileName());
 	}
 	
 	public void sendFileUploadSuccessMessage(String fileName) {
@@ -93,7 +107,7 @@ public class LdWorkflowBean {
         FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 	
-	public String doEdit(LDWProjectDTO projectSelected){
+	public String doEdit(LDWProjectDTO projectSelected){ //Alterar isso para carregar os arquivos de conf uploadeados e mostrar os botões de download : Bruno
 		this.ldwProjectSelected = projectSelected;
 		this.model = ldwpoService.doLoadModel(projectSelected.getPath());
 		LDWProject ldwProject = ldwProjectService.getLDWProject(model);
@@ -101,15 +115,20 @@ public class LdWorkflowBean {
 		if(ldWorkflow == null) {
 			doNew();
 		}
-		this.doLoadTools();	
+		this.doLoadTools();
+		
+		this.xmlUploaded = null;
+		this.smlUploaded = null;
+		
 		return Navegacao.LDWORKFLOW_MAIN;
 	}
 	
 	public void doNew() {
 		ldWorkflow = ldWorkflowService.doNewWorkflow(model);
 	}
-	public void doSave() {
+	public void doSave() { //Alterar isto para exibir uma msg de sucesso ao final : Bruno
 		model = ldWorkflowService.writeLdwWorkflow(model, ldWorkflow, ldwProjectSelected);
+		
 		if(smlUploaded != null) {
 			ldwpoService.saveFile(smlUploaded, ldwProjectSelected.getName(), "mapping");
 		}
@@ -286,17 +305,36 @@ public class LdWorkflowBean {
 	public void setListToolsStep05(List<Tool> listToolsStep05) {
 		this.listToolsStep05 = listToolsStep05;
 	}
-	
-	
-	
-	
-	
-	
 
-	
-	
-	
-	
-	
-	
+	public UploadedFile getXmlScriptUploaded() {
+		return xmlScriptUploaded;
+	}
+
+	public void setXmlScriptUploaded(UploadedFile xmlScriptUploaded) {
+		this.xmlScriptUploaded = xmlScriptUploaded;
+	}
+
+	public UploadedFile getSmlScriptUploaded() {
+		return smlScriptUploaded;
+	}
+
+	public void setSmlScriptUploaded(UploadedFile smlScriptUploaded) {
+		this.smlScriptUploaded = smlScriptUploaded;
+	}
+
+	/*public StreamedContent getSmlScriptDownload() {
+		return smlScriptDownload;
+	}
+
+	public void setSmlScriptDownload(StreamedContent smlScriptDownload) {
+		this.smlScriptDownload = smlScriptDownload;
+	}
+
+	public StreamedContent getXmlScriptDownload() {
+		return xmlScriptDownload;
+	}
+
+	public void setXmlScriptDownload(StreamedContent xmlScriptDownload) {
+		this.xmlScriptDownload = xmlScriptDownload;
+	}*/
 }
