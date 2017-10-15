@@ -8,7 +8,7 @@ Uma ferramenta para automação da publicação de dados conectados utilizando o
   - [Trabalhos referência](#trabalhos-referência)
 - [Dependências](#dependências)
 - [Árvore de diretórios](#arvore-de-diretorios)
-- [Rodando o Projeto no Eclipse JEE IDE](#rodando-o-projeto-no-eclipse-jee-ide)
+- [Rodando o projeto no Eclipse JEE IDE](#rodando-o-projeto-no-eclipse-jee-ide)
   - [Setup banco de dados relacional](#setup-banco-de-dados-relacional)
   - [Comunicação do JBOSS com o BD](#comunicação-do-jboss-com-o-bd)
 - [Funcionalidades](#utilizacao)
@@ -50,7 +50,14 @@ Para rodar o SysLODFlow são necessárias algumas ferramentas de apoio, bem como
 3. [LIMES](http://aksw.org/Projects/LIMES.html)
 4. [Sparqlify](http://aksw.org/Projects/Sparqlify.html)
 5. [Virtuoso](https://virtuoso.openlinksw.com/)
-6. [MySQL](https://www.mysql.com/) (ou outro banco de dados SQL)
+6. [MySQL](https://www.mysql.com/)
+
+**Bibliotecas e Frameworks:**
+
+1. [Primefaces 6.1](https://www.primefaces.org/)
+2. [Bootstrap 4](https://getbootstrap.com/)
+3. [SB Admin](https://startbootstrap.com/template-overviews/sb-admin/)
+4. [DataTables](https://datatables.net/)
 
 ---
 
@@ -88,7 +95,7 @@ syslodflow
             └── WEB-INF
 ```
 
-## Rodando o Projeto no Eclipse JEE IDE
+## Rodando o projeto no Eclipse JEE IDE
 
 Após clonar o repositório do projeto, importe-o como um projeto [Maven](https://maven.apache.org/). Dessa maneira o Eclipse se encarregará de criar o arquivo **.war** automáticamente. Este arquivo será deployado para o JBOSS, para que a aplicação seja rodada por ele.
 
