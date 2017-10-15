@@ -125,8 +125,7 @@ public class LdWorkflowService extends BaseService {
 	
 	public OntModel writeLdwWorkflow(OntModel model, LDWorkflow workflow, LDWProjectDTO ldwProjectDTO) {
 		
-		Individual ldwprojectIndividual = model.getIndividual(ldwProjectDTO.getUri());
-		
+		Individual ldwprojectIndividual = model.getIndividual(ldwProjectDTO.getUri());		
 				
 		if(workflow.getUri() == null) {
 			// Create Uris
@@ -244,7 +243,7 @@ public class LdWorkflowService extends BaseService {
 		Individual ldworkflow = model.getIndividual(workflow.getUri());
 		
 		ldworkflow.removeAll(model.getProperty(PropertyURIEnum.NAME.getUri()));
-		ldworkflow.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), workflow.getName());
+		ldworkflow.addLiteral(model.getProperty(PropertyURIEnum.NAME.getUri()), workflow.getDescription());
 		
 		ldworkflow.removeAll(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()));
 		ldworkflow.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), workflow.getName());
@@ -255,7 +254,7 @@ public class LdWorkflowService extends BaseService {
 		
 		Individual postCondition = model.getIndividual(ldworkflow.getPropertyResourceValue(model.getProperty(PropertyURIEnum.POSTCONDITION.getUri())).getURI());
 		postCondition.removeAll(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()));
-		postCondition.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), workflow.getPreCondition().getDescription());
+		postCondition.addLiteral(model.getProperty(PropertyURIEnum.DESCRIPTION.getUri()), workflow.getPostCondition().getDescription());
 		
 		List<LDWStep> sortedLDWSteps = sortLDWSteps(workflow.getLdwSteps());
 		for(int i=0; i<sortedLDWSteps.size(); i++) {
