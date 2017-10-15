@@ -4,11 +4,14 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import org.apache.commons.io.FilenameUtils;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.TabChangeEvent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
@@ -73,6 +76,21 @@ public class LdWorkflowBean {
 	public void init() {
 		this.tab = 0;
 
+	}
+	
+	public void xmlUpload(FileUploadEvent event) {
+	    xmlUploaded = event.getFile();
+	    this.sendFileUploadSuccessMessage(xmlUploaded.getFileName());
+	}
+	
+	public void smlUpload(FileUploadEvent event) {
+	    smlUploaded = event.getFile();
+	    this.sendFileUploadSuccessMessage(smlUploaded.getFileName());
+	}
+	
+	public void sendFileUploadSuccessMessage(String fileName) {
+		FacesMessage message = new FacesMessage("Sucesso. " + fileName + " foi carregado.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 	
 	public String doEdit(LDWProjectDTO projectSelected){

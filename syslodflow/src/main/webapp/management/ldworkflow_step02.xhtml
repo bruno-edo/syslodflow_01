@@ -34,14 +34,22 @@
 		</div>
 
 	<div class="form-group">
-		<label for="downloadSml">#{msg['crud.ldworkflow.ldwstep02.sml']}</label>
+		<label for="downloadSml">
+			#{msg['crud.ldworkflow.ldwstep02.sml']}
+			<i class="fa fa-upload" aria-hidden="true"></i>
+		</label>
 		<br />
-		<h:commandLink id="downloadSml" rendered="#{ldWorkflowBean.smlDownload != null}" styleClass="btn btn-default btn-xs" value="#{msg['crud.file.download']}">	
-		<i class="fa fa-download" aria-hidden="true" />
+			
+		<p:fileUpload uploadLabel="#{msg['crud.search']}" mode="advanced" fileUploadListener="#{ldWorkflowBean.smlUpload}"
+		update="@form" auto="true" sizeLimit="1048576" invalidFileMessage="Only SML files are supported." allowTypes="/(\.|\/)(sml)$/">
+		</p:fileUpload>
+		<h:outputText value="Arquivo carregado: #{ldWorkflowBean.smlUploaded.getFileName()}" rendered="#{ldWorkflowBean.smlUploaded != null}"/>
+		<small class="form-text text-muted">#{msg['crud.ldworkflow.ldwstep02.sml.warning']}</small>
+		
+		<h:commandLink id="downloadSml" rendered="#{ldWorkflowBean.smlDownload != null}" styleClass="btn btn-secondary btn-sm"
+		value="#{msg['crud.file.downloadSml']}">
 			<p:fileDownload value="#{ldWorkflowBean.smlDownload}"  />
 		</h:commandLink>
-		<p:fileUpload value="#{ldWorkflowBean.smlUploaded}" label="#{msg['crud.search']}" mode="simple" />
-		<p class="help-block">#{msg['crud.ldworkflow.ldwstep02.sml.warning']}</p>
 	</div>
 	
 </html>

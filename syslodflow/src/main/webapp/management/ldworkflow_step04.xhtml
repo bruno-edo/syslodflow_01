@@ -32,14 +32,21 @@
 	</div>
 	
 	<div class="form-group">
-		<label for="downloadXml">#{msg['crud.ldworkflow.ldwstep04.linkingMapping']}</label>
+		<label for="uploadXml">
+			#{msg['crud.ldworkflow.ldwstep04.linkingMapping']}
+			<i class="fa fa-upload" aria-hidden="true"></i>
+		</label>
 		<br />
-		<h:commandLink id="downloadXml" rendered="#{ldWorkflowBean.xmlDownload != null}" styleClass="btn btn-default btn-xs" value="#{msg['crud.file.download']}">	
-		<i class="fa fa-download" />
+		<p:fileUpload id ="uploadXml" uploadLabel="#{msg['crud.search']}" fileUploadListener="#{ldWorkflowBean.xmlUpload}" mode="advanced"
+			update="@form" auto="true" sizeLimit="1048576" invalidFileMessage="Only XML files are supported." allowTypes="/(\.|\/)(xml)$/">
+		</p:fileUpload>
+		<h:outputText value="Arquivo carregado: #{ldWorkflowBean.xmlUploaded.getFileName()}" rendered="#{ldWorkflowBean.xmlUploaded != null}"/>
+		<small class="form-text text-muted">#{msg['crud.ldworkflow.ldwstep04.xml']}</small>	
+		
+		<h:commandLink id="downloadXml" rendered="#{ldWorkflowBean.xmlDownload != null}" styleClass="btn btn-secondary btn-sm"
+		value="#{msg['crud.file.downloadXml']}">	
 			<p:fileDownload value="#{ldWorkflowBean.xmlDownload}"  />
 		</h:commandLink>
-		<p:fileUpload value="#{ldWorkflowBean.xmlUploaded}" label="#{msg['crud.search']}" mode="simple" />
-		<p class="help-block">#{msg['crud.ldworkflow.ldwstep04.xml']}</p>
 	</div>
 
 </html>
