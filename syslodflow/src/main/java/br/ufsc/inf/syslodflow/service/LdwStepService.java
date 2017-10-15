@@ -238,37 +238,6 @@ public class LdwStepService extends BaseService {
 		}
 		return supportedTools;
 	}
-	
-	
-	
-	public String saveFile(UploadedFile file, String projectName) {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		String filePath = fc.getExternalContext().getInitParameter("filePath").toString();
-		filePath = filePath + "\\" + projectName;
-		String fileName = file.getFileName();
-		String extensao = "";
-		
-		try {
-			File targetFolder = new File(filePath);
-			if (!targetFolder.exists()) {
-				targetFolder.mkdirs();
-			} 
-			InputStream inputStream = file.getInputstream();
-			OutputStream out = new FileOutputStream(new File(targetFolder, fileName));
-			int read = 0;
-			byte[] bytes = new byte[1024];
-			while ((read = inputStream.read(bytes)) != -1) {
-				out.write(bytes, 0, read);
-			}
-			inputStream.close();
-			out.flush();
-			out.close();
-			return fileName + "." + extensao;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return "Erro ao salvar";
-		}
-	}
 
 	public OntModel insertLdwStep(OntModel model, LDWStep step) {
 		
@@ -326,8 +295,6 @@ public class LdwStepService extends BaseService {
 		}
 
 	}
-	
-
 	
 	private OntModel insertDataset(OntModel model, Dataset d) {
 		Individual dataset = model.getOntClass(ClassURIEnum.DATASET.getUri()).createIndividual(d.getUri());

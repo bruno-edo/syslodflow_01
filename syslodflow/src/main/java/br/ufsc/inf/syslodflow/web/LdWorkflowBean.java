@@ -130,10 +130,10 @@ public class LdWorkflowBean {
 		model = ldWorkflowService.writeLdwWorkflow(model, ldWorkflow, ldwProjectSelected);
 		
 		if(smlUploaded != null) {
-			ldwpoService.saveFile(smlUploaded, ldwProjectSelected.getName(), "mapping");
+			ldwpoService.saveFile(smlUploaded, ldwProjectSelected.getName(), "mapping", "tool_configs");
 		}
 		if(xmlUploaded != null) {
-			ldwpoService.saveFile(xmlUploaded, ldwProjectSelected.getName(), "linkingMapping");
+			ldwpoService.saveFile(xmlUploaded, ldwProjectSelected.getName(), "linkingMapping", "tool_configs");
 		}
 		this.ldwpoService.doSaveModel(model, ldwProjectSelected.getFileName());
 

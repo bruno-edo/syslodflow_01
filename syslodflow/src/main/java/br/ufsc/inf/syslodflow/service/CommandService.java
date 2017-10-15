@@ -24,20 +24,20 @@ public class CommandService {
 		String filePath = fc.getExternalContext().getInitParameter("projectsPath").toString();
 		filePath = filePath + ldwProjectName;
 		
-		String ntPath = filePath + "/nt/";
-		String ntDataset = filePath + "/nt/dataset.nt";
-		String ntProject = filePath + ldwProjectName + ".nt";
+		String ntPath = filePath + "/nt";
+		String ntDataset = ntPath + "/dataset.nt";
+		String ntProject = ntPath + "/" + ldwProjectName + ".nt";
 		String csvDataset = filePath + "/csv/dataset.csv";
-		String mappingSml = filePath + "/scripts/mapping.sml";
-		String binPath = filePath + "/bin/";
-		String applyingSparqlify = "applyingSparqlify.sh";
+		String mappingSml = filePath + "/tool_configs/mapping.sml";
+		String binPath = filePath + "/bin";
+		String applyingSparqlify = "/applyingSparqlify.sh";
 		
 		/**
 		 * Comando que será escrito no disco
 		 */
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("mkdir -p " + ntPath + "\n");
+		sb.append("mkdir -p " + ntPath + "/\n");
 		
 		sb.append("if [ -f " + ntDataset + " ]; then rm " + ntDataset + "; fi \n");
 		sb.append("if [ -f " + ntProject + " ]; then rm " + ntProject + "; fi \n");
@@ -70,19 +70,19 @@ public class CommandService {
 		String filePath = fc.getExternalContext().getInitParameter("projectsPath").toString();
 		filePath = filePath + ldwProjectName;
 		
-		String ntPath = filePath + "/nt/";
-		String ntDataset = filePath + "/nt/dataset.nt";
-		String ntProjectLinks = filePath + ldwProjectName + "_links.nt";
-		String binPath = filePath + "/bin/";
-		String interlinkingDbPedia = "interLinkingToDbPedia.sh";
-		String linkingMapping = filePath + "linkingMapping.xml";
+		String ntPath = filePath + "/nt";
+		String ntDataset = ntPath + "/dataset.nt";
+		String ntProjectLinks = ntPath + "/" + ldwProjectName + "_links.nt";
+		String binPath = filePath + "/bin";
+		String interlinkingDbPedia = "/interLinkingToDbPedia.sh";
+		String linkingMapping = filePath + "/tool_configs/linkingMapping.xml";
 		
 		/**
 		 * Comando que será escrito no disco
 		 */
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("mkdir -p " + ntPath + "\n");
+		sb.append("mkdir -p " + ntPath + "/\n");
 		
 		sb.append("if [ -f " + ntDataset + " ]; then rm " + ntDataset + "; fi \n");
 		sb.append("if [ -f " + ntProjectLinks + " ]; then rm " + ntProjectLinks + "; fi \n");

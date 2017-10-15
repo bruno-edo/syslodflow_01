@@ -102,11 +102,16 @@ public class LdwpoService {
 		}
 	}
 	
-	public String saveFile(UploadedFile file, String ldwProjectName, String fileName) {
+	public String saveFile(UploadedFile file, String ldwProjectName, String fileName, String folderPath) {
 		ldwProjectName = StringUtils.formatName(ldwProjectName);
 		FacesContext fc = FacesContext.getCurrentInstance();
 		String filePath = fc.getExternalContext().getInitParameter("projectsPath").toString();
-		filePath = filePath + "\\" + ldwProjectName;
+		filePath += "\\" + ldwProjectName;
+		
+		if (folderPath != null && !folderPath.equals("")) {
+			filePath += "\\" + folderPath;
+		}
+		
 		String extension = FilenameUtils.getExtension(file.getFileName());
 		
 		try {
