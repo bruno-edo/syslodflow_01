@@ -59,12 +59,14 @@ public class LdWorkflowBean {
 	private LDWStep step05;
 	private StreamedContent smlDownload;
 	private UploadedFile smlUploaded;
-	private UploadedFile smlScriptUploaded;
+	//private UploadedFile smlScriptUploaded;
 	//private StreamedContent smlScriptDownload;
 	private StreamedContent xmlDownload;
 	private UploadedFile xmlUploaded;
-	private UploadedFile xmlScriptUploaded;
+	//private UploadedFile xmlScriptUploaded;
 	//private StreamedContent xmlScriptDownload;
+	private StreamedContent csvDownload;
+	private UploadedFile csvUploaded;
 	
 	
 	/**
@@ -92,7 +94,12 @@ public class LdWorkflowBean {
 	    this.sendFileUploadSuccessMessage(smlUploaded.getFileName());
 	}
 	
-	public void xmlScriptUpload(FileUploadEvent event) {
+	public void csvUpload(FileUploadEvent event) {
+		this.csvUploaded = event.getFile();
+	    this.sendFileUploadSuccessMessage(csvUploaded.getFileName());
+	}
+	
+	/*public void xmlScriptUpload(FileUploadEvent event) {
 		this.xmlScriptUploaded = event.getFile();
 	    this.sendFileUploadSuccessMessage(xmlScriptUploaded.getFileName());
 	}
@@ -100,7 +107,7 @@ public class LdWorkflowBean {
 	public void smlScriptUpload(FileUploadEvent event) {
 		this.smlScriptUploaded = event.getFile();
 	    this.sendFileUploadSuccessMessage(smlScriptUploaded.getFileName());
-	}
+	}*/
 	
 	public void sendFileUploadSuccessMessage(String fileName) {
 		FacesMessage message = new FacesMessage("Sucesso. " + fileName + " foi carregado.");
@@ -119,6 +126,7 @@ public class LdWorkflowBean {
 		
 		this.xmlUploaded = null;
 		this.smlUploaded = null;
+		this.csvUploaded = null;
 		
 		return Navegacao.LDWORKFLOW_MAIN;
 	}
@@ -134,6 +142,9 @@ public class LdWorkflowBean {
 		}
 		if(xmlUploaded != null) {
 			ldwpoService.saveFile(xmlUploaded, ldwProjectSelected.getName(), "linkingMapping", "tool_configs");
+		}
+		if(csvUploaded != null) {
+			ldwpoService.saveFile(csvUploaded, ldwProjectSelected.getName(), "dataset", "csv");
 		}
 		this.ldwpoService.doSaveModel(model, ldwProjectSelected.getFileName());
 
@@ -306,7 +317,23 @@ public class LdWorkflowBean {
 		this.listToolsStep05 = listToolsStep05;
 	}
 
-	public UploadedFile getXmlScriptUploaded() {
+	public StreamedContent getCsvDownload() {
+		return csvDownload;
+	}
+
+	public void setCsvDownload(StreamedContent csvDownload) {
+		this.csvDownload = csvDownload;
+	}
+
+	public UploadedFile getCsvUploaded() {
+		return csvUploaded;
+	}
+
+	public void setCsvUploaded(UploadedFile csvUploaded) {
+		this.csvUploaded = csvUploaded;
+	}
+
+	/*public UploadedFile getXmlScriptUploaded() {
 		return xmlScriptUploaded;
 	}
 
@@ -320,7 +347,7 @@ public class LdWorkflowBean {
 
 	public void setSmlScriptUploaded(UploadedFile smlScriptUploaded) {
 		this.smlScriptUploaded = smlScriptUploaded;
-	}
+	}*/
 
 	/*public StreamedContent getSmlScriptDownload() {
 		return smlScriptDownload;

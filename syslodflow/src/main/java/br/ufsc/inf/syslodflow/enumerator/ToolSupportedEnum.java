@@ -4,6 +4,7 @@ public enum ToolSupportedEnum {
 	SPARQLIFY("Sparqlify"),
 	VIRTUOSO("Virtuoso RDF Store"),
 	MYSQL("MySQL"),
+	CSV("CSV Import"),
 	LIMES("LIMES");
 	
 	private String name;

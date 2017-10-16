@@ -1,17 +1,9 @@
 package br.ufsc.inf.syslodflow.service;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-
-import org.primefaces.model.UploadedFile;
 
 import br.ufsc.inf.syslodflow.entity.Dataset;
 import br.ufsc.inf.syslodflow.entity.Format;
@@ -188,7 +180,9 @@ public class LdwStepService extends BaseService {
 		List<Tool> generalTools = getListTools(model);
 		List<Tool> supportedTools = new ArrayList<Tool>();
 		for(Tool t: generalTools) {
-			if(t.getName().equalsIgnoreCase(ToolSupportedEnum.MYSQL.getName())){
+			
+			if(t.getName().equalsIgnoreCase(ToolSupportedEnum.MYSQL.getName()) ||
+					t.getName().equalsIgnoreCase(ToolSupportedEnum.CSV.getName())){
 				supportedTools.add(t);
 			}
 		}

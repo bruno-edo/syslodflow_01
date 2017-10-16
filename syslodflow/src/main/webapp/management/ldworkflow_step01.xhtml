@@ -29,17 +29,42 @@
 		<p:selectOneMenu id="step01_tool" value="#{ldWorkflowBean.step01.tool}" style="width: 25%">
 			<f:selectItems value="#{ldWorkflowBean.listToolsStep01}" var="tool" 
 			itemLabel="#{tool.name}" itemValue="#{tool}" />
+			<p:ajax update="@form" />
 		</p:selectOneMenu>
 	</div>
 	
+	<ui:fragment rendered="#{ldWorkflowBean.step01.tool.getName() == 'MySQL'}">
+		<div class="form-group">
+			<label for="ld-wf-step-31">#{msg['crud.ldworkflow.ldwstep.dbname']}</label>
+			<p:inputText styleClass="form-control" maxlength="60" id="ld-wf-step-31" 
+			required="#{ldWorkflowBean.step01.tool.getName() == 'MySQL'}" />
+		</div>
+	
+		<div class="form-group">
+			<label for="ld-wf-step-41">#{msg['crud.ldworkflow.ldwstep.sql']}</label>
+			<p:inputTextarea styleClass="form-control" maxlength="240" id="ld-wf-step-41"
+			required="#{ldWorkflowBean.step01.tool.getName() == 'MySQL'}" />
+		</div>
+	</ui:fragment>
+	
+	<ui:fragment rendered="#{ldWorkflowBean.step01.tool.getName() == 'CSV Import'}">
+		<div class="form-group">
+			<label for="uploadCsv">
+				#{msg['crud.ldworkflow.ldwstep01.csv']}
+				<i class="fa fa-upload" aria-hidden="true"></i>
+			</label>
+			<br />
+			
+			<p:fileUpload id ="uploadCsv" uploadLabel="#{msg['crud.search']}" mode="advanced" fileUploadListener="#{ldWorkflowBean.csvUpload}"
+			update="@form" auto="true" sizeLimit="209715200" invalidFileMessage="Only CSV files are supported." allowTypes="/(\.|\/)(csv)$/"
+			required="#{ldWorkflowBean.step01.tool.getName() == 'CSV Import'}">
+			</p:fileUpload>
+			<h:outputText value="Arquivo carregado: #{ldWorkflowBean.csvUploaded.getFileName()}" rendered="#{ldWorkflowBean.csvUploaded != null}"/>
+			<small class="form-text text-muted">#{msg['crud.ldworkflow.ldwstep01.csv.warning']}</small>
+		</div>
+	</ui:fragment>
+	
 	<div class="form-group">
-		<label for="ld-wf-step-31">#{msg['crud.ldworkflow.ldwstep.dbname']}</label>
-		<p:inputText styleClass="form-control" maxlength="60" id="ld-wf-step-31" />
-	</div>
-
-	<div class="form-group">
-		<label for="ld-wf-step-41">#{msg['crud.ldworkflow.ldwstep.sql']}</label>
-		<p:inputTextarea styleClass="form-control" maxlength="240" id="ld-wf-step-41" />
 	</div>
 	
 </html>

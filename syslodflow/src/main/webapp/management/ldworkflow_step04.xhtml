@@ -37,11 +37,12 @@
 			<i class="fa fa-upload" aria-hidden="true"></i>
 		</label>
 		<br />
+		
 		<p:fileUpload id ="uploadXml" uploadLabel="#{msg['crud.search']}" fileUploadListener="#{ldWorkflowBean.xmlUpload}" mode="advanced"
 			update="@form" auto="true" sizeLimit="1048576" invalidFileMessage="Only XML files are supported." allowTypes="/(\.|\/)(xml)$/">
 		</p:fileUpload>
 		<h:outputText value="Arquivo carregado: #{ldWorkflowBean.xmlUploaded.getFileName()}" rendered="#{ldWorkflowBean.xmlUploaded != null}"/>
-		<small class="form-text text-muted">#{msg['crud.ldworkflow.ldwstep04.xml']}</small>	
+		<small class="form-text text-muted">#{msg['crud.ldworkflow.ldwstep04.xml']}</small>
 		
 		<h:commandLink id="downloadXml" rendered="#{ldWorkflowBean.xmlDownload != null}" styleClass="btn btn-secondary btn-sm"
 		value="#{msg['crud.file.downloadXml']}">	

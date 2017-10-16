@@ -34,13 +34,13 @@
 		</div>
 
 	<div class="form-group">
-		<label for="downloadSml">
+		<label for="uploadSml">
 			#{msg['crud.ldworkflow.ldwstep02.sml']}
 			<i class="fa fa-upload" aria-hidden="true"></i>
 		</label>
 		<br />
 			
-		<p:fileUpload uploadLabel="#{msg['crud.search']}" mode="advanced" fileUploadListener="#{ldWorkflowBean.smlUpload}"
+		<p:fileUpload id ="uploadSml" uploadLabel="#{msg['crud.search']}" mode="advanced" fileUploadListener="#{ldWorkflowBean.smlUpload}"
 		update="@form" auto="true" sizeLimit="1048576" invalidFileMessage="Only SML files are supported." allowTypes="/(\.|\/)(sml)$/">
 		</p:fileUpload>
 		<h:outputText value="Arquivo carregado: #{ldWorkflowBean.smlUploaded.getFileName()}" rendered="#{ldWorkflowBean.smlUploaded != null}"/>
