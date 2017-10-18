@@ -118,7 +118,7 @@ public class CommandService {
 		filePath = filePath + ldwProjectName;
 		
 		String ntPath = filePath + "/nt/";
-		String ntProject = filePath + ldwProjectName + ".nt";
+		String ntProject = filePath + "/" + ldwProjectName + ".nt";
 		String binPath = filePath + "/bin/";
 		String savingVirtuoso = "savingIntoVirtuoso.sh";
 		
