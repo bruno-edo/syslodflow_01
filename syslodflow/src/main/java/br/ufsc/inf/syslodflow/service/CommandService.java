@@ -37,8 +37,8 @@ public class CommandService {
 		 */
 		StringBuilder sb = new StringBuilder();
 		
+		sb.append("#!/bin/bash\n");
 		sb.append("mkdir -p " + ntPath + "/\n");
-		
 		sb.append("if [ -f " + ntDataset + " ]; then rm " + ntDataset + "; fi \n");
 		sb.append("if [ -f " + ntProject + " ]; then rm " + ntProject + "; fi \n");
 		sb.append("echo generating dataset.nt file by sparqlify \n");
@@ -82,8 +82,8 @@ public class CommandService {
 		 */
 		StringBuilder sb = new StringBuilder();
 		
+		sb.append("#!/bin/bash\n");
 		sb.append("mkdir -p " + ntPath + "/\n");
-		
 		sb.append("if [ -f " + ntDataset + " ]; then rm " + ntDataset + "; fi \n");
 		sb.append("if [ -f " + ntProjectLinks + " ]; then rm " + ntProjectLinks + "; fi \n");
 		sb.append("echo calling LIMES \n");
