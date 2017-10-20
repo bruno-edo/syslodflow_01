@@ -1,5 +1,6 @@
 	package br.ufsc.inf.syslodflow.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -243,13 +244,8 @@ public class LdWorkflowService extends BaseService {
 	}
 	
 	private void makeShellExecutable(String filepath) {
-		String command = "chmod u+x " + filepath;
-		try {
-			Runtime.getRuntime().exec(command);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		File file = new File(filepath);
+		file.setExecutable(true);
 	}
 	
 	private OntModel editLdWorkflow(OntModel model, LDWorkflow workflow) {

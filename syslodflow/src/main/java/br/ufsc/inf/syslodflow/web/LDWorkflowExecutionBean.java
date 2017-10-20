@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
@@ -99,7 +100,16 @@ public class LDWorkflowExecutionBean {
 		RequestContext.getCurrentInstance().update("panel_list, panel_reg");
 	}
 	
-	public void doExecute() {
+	public void doExecute() { //TODO: ver o pq este método está sendo chamado antes do botão ser pressionado
+		FacesContext fc = FacesContext.getCurrentInstance();
+		String absoluteWebPath = fc.getExternalContext().getRealPath("/");
+		absoluteWebPath += "WEB-INF/lib/lodflowEngine.jar";
+		
+		String ontologypath = fc.getExternalContext().getInitParameter("filePath").toString() + "testedois.owl";
+		
+		//String lodflowExecutionCommand = "java -jar " + absoluteWebPath + "";
+		System.out.println("absoluteWebPath: " + absoluteWebPath);
+		System.out.println("ontologypath: " + ontologypath);
 		try {
 			Runtime.getRuntime().exec("java -jar C:\\Users\\Jhonatan\\Downloads\\BancoDeClubes\\BancoDeClubes\\BancoDeClubes\\dist\\BancoDeClubes.jar"); //Verificar isso Bruno
 		} catch (IOException e) {
