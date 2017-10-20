@@ -60,7 +60,7 @@ public class CommandService {
 			return MessageUtil.getMessageBundle("crud.file.saveerror");
 		}
 		
-		return binPath+applyingSparqlify ;
+		return binPath + applyingSparqlify;
 	}
 	
 	public String createScriptStep04(String ldwProjectName) {
@@ -105,7 +105,7 @@ public class CommandService {
 			return MessageUtil.getMessageBundle("crud.file.saveerror");
 		}
 		
-		return binPath+interlinkingDbPedia;
+		return binPath + interlinkingDbPedia;
 	}
 		
 	public String createScriptSavingIntoVirtuoso(String ldwProjectName, String graphName) throws IOException {

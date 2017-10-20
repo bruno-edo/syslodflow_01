@@ -213,15 +213,18 @@ public class LdWorkflowService extends BaseService {
 		 * Commands
 		 */
 		
-		String commandStep01 = this.commandService.createScriptStep02(ldwProjectDTO.getName());
-		workflow.getLdwSteps().get(0).setCommand(commandStep01);
+		String commandStep01Path = this.commandService.createScriptStep02(ldwProjectDTO.getName());
+		this.makeShellExecutable(commandStep01Path);
+		workflow.getLdwSteps().get(0).setCommand(commandStep01Path);
 		
-		String commandStep04 = this.commandService.createScriptStep04(ldwProjectDTO.getName());
-		workflow.getLdwSteps().get(3).setCommand(commandStep04);
+		String commandStep04Path = this.commandService.createScriptStep04(ldwProjectDTO.getName());
+		this.makeShellExecutable(commandStep04Path);
+		workflow.getLdwSteps().get(3).setCommand(commandStep04Path);
 		
 		try {
-			String commandStep03 = this.commandService.createScriptSavingIntoVirtuoso(ldwProjectDTO.getName(), "http://lod.ufsc.br/teste");
-			workflow.getLdwSteps().get(2).setCommand(commandStep03);
+			String commandStep03Path = this.commandService.createScriptSavingIntoVirtuoso(ldwProjectDTO.getName(), "http://lod.ufsc.br/teste");
+			this.makeShellExecutable(commandStep03Path.split(" ")[0]);
+			workflow.getLdwSteps().get(2).setCommand(commandStep03Path);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -239,7 +242,15 @@ public class LdWorkflowService extends BaseService {
 		
 	}
 	
-	
+	private void makeShellExecutable(String filepath) {
+		String command = "chmod u+x " + filepath;
+		try {
+			Runtime.getRuntime().exec(command);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	private OntModel editLdWorkflow(OntModel model, LDWorkflow workflow) {
 		
