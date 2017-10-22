@@ -5,7 +5,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
@@ -30,7 +31,7 @@ import br.ufsc.inf.syslodflow.util.MessageUtil;
  * @author jeanmorais
  */
 @ManagedBean(name="ldWorkflowExecutionBean")
-@ViewScoped
+@SessionScoped
 public class LDWorkflowExecutionBean {
 	
 	
@@ -142,8 +143,13 @@ public class LDWorkflowExecutionBean {
 	public void doEdit() {
 		this.ldWorkflowExecution = listWorkflowExecutions.getRowData();
 		this.doLoadStepsExecution();
-		RequestContext.getCurrentInstance().update("panel_list");
-		setShowView(false);
+		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+		try {
+			context.redirect(context.getRequestContextPath() + "/management/ldworkflowexecution_view.xhtml");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public LDWProjectDTO getLdwProjectSelected() {
