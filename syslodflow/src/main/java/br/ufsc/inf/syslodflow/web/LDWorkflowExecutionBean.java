@@ -12,8 +12,6 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 
-import org.primefaces.context.RequestContext;
-
 import com.hp.hpl.jena.ontology.OntModel;
 
 import br.ufsc.inf.syslodflow.dto.LDWProjectDTO;
@@ -44,13 +42,14 @@ public class LDWorkflowExecutionBean {
 	@Inject
 	private LdWorkflowExecutionService ldwWorkflowExecutionService;
 	
-	private boolean showView = true;
 	private OntModel model;
 	private DataModel<LDWorkflowExecution> listWorkflowExecutions;
 	private LDWorkflowExecution ldWorkflowExecution;
 	private LDWorkflow workflow;
 	private LDWProjectDTO ldwProjectSelected;
 	private List<LDWProjectDTO> listLdwProjects;
+	
+	private String ldWorkflowExecutionName;
 	
 	/**
 	 * Steps
@@ -67,56 +66,40 @@ public class LDWorkflowExecutionBean {
 		listLdwProjects = ldwProjectService.getListLdwProjectDTO();
 	}
 	
-	
-	public void doNew() {
-		ldWorkflowExecution = ldwWorkflowExecutionService.doNewWorkflowExecution();
-		stepExecution01 = ldWorkflowExecution.getLdwStepExecutions().get(0);
-		stepExecution02 = ldWorkflowExecution.getLdwStepExecutions().get(1);
-		stepExecution03 = ldWorkflowExecution.getLdwStepExecutions().get(2);
-		stepExecution04 = ldWorkflowExecution.getLdwStepExecutions().get(3);
-		stepExecution05 = ldWorkflowExecution.getLdwStepExecutions().get(4);
-		insereTeste();
-		setShowView(false);
-		
-	}
-	
-	private void insereTeste() {
-		for(int i = 0; i < ldWorkflowExecution.getLdwStepExecutions().size(); i++) {
-			ldWorkflowExecution.getLdwStepExecutions().get(i).setOrder(i+1);
-			ldWorkflowExecution.getLdwStepExecutions().get(i).setName("Step Execution " + i+1);
-			ldWorkflowExecution.getLdwStepExecutions().get(i).setDescription("Description " + i+1);
-		}
-		
-	}
-
-
 	public void doSave() {
 		model = ldwWorkflowExecutionService.writeLDWorkflowExecution(model, ldWorkflowExecution, workflow);
 		this.ldwpoService.doSaveModel(model, ldwProjectSelected.getFileName());
 	}
 	
-	
-	public void doBack() {
-		setShowView(true);
-		RequestContext.getCurrentInstance().update("panel_list, panel_reg");
-	}
-	
-	public void doExecute() { //TODO: ver o pq este método está sendo chamado antes do botão ser pressionado
-		FacesContext fc = FacesContext.getCurrentInstance();
-		String absoluteWebPath = fc.getExternalContext().getRealPath("/");
-		absoluteWebPath += "WEB-INF/lib/lodflowEngine.jar";
-		
-		String ontologypath = fc.getExternalContext().getInitParameter("filePath").toString() + "testedois.owl";
-		
-		//String lodflowExecutionCommand = "java -jar " + absoluteWebPath + "";
-		System.out.println("absoluteWebPath: " + absoluteWebPath);
-		System.out.println("ontologypath: " + ontologypath);
-		try {
-			Runtime.getRuntime().exec("java -jar C:\\Users\\Jhonatan\\Downloads\\BancoDeClubes\\BancoDeClubes\\BancoDeClubes\\dist\\BancoDeClubes.jar"); //Verificar isso Bruno
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void doExecute() { //TODO: Finish implementing this method in a way that the LODFlowEngine can read and interpret the .owl document		
+		if(ldWorkflowExecutionName != null && !ldWorkflowExecutionName.equals("")) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			
+			String lodflowEnginePath = fc.getExternalContext().getRealPath("/");
+			lodflowEnginePath += "WEB-INF/lib/lodflowEngine.jar";
+			
+			String[] projectUriIdentifierArr = ldwProjectSelected.getUri().split("/");
+			String projectUriIdentifier = projectUriIdentifierArr[projectUriIdentifierArr.length - 1];
+			
+			String projectParam = "ldwpo:" + projectUriIdentifier;
+			String ldworkflowexecutionParam = "ldwpo:" + ldWorkflowExecutionName;
+			
+			String ontologypath = fc.getExternalContext().getInitParameter("filePath").toString() + ldwProjectSelected.getFileName();
+			
+			String lodflowExecutionCommand = "java -jar " + lodflowEnginePath;
+			lodflowExecutionCommand += " \"" + ontologypath + "\"";
+			lodflowExecutionCommand += " \"" + projectParam + "\"";
+			lodflowExecutionCommand += " \"" + ldworkflowexecutionParam + "\"";
+			
+			System.out.println("lodflowExecutionCommand: " + lodflowExecutionCommand);
+			
+			try {
+				Runtime.getRuntime().exec(lodflowExecutionCommand);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}		
 	}
 	public void doChangeProject() {
 		try {
@@ -234,14 +217,12 @@ public class LDWorkflowExecutionBean {
 		this.stepExecution05 = stepExecution05;
 	}
 
-	public boolean isShowView() {
-		return showView;
+	public String getLdWorkflowExecutionName() {
+		return ldWorkflowExecutionName;
 	}
 
-	public void setShowView(boolean showView) {
-		this.showView = showView;
+
+	public void setLdWorkflowExecutionName(String ldWorkflowExecutionName) {
+		this.ldWorkflowExecutionName = ldWorkflowExecutionName;
 	}
-	
-	
-	
 }
