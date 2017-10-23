@@ -19,7 +19,6 @@
 	</ol>
 	
 	<h:form role="form" id="form_workflowexecution_main" acceptcharset="ISO-8859-1" enctype="multipart/form-data">
-
 		<div class="card card-primary">
 			<div class="card-header">
 				<h3 class="card-title">
@@ -49,44 +48,67 @@
 					<!-- Informações do Workflow -->
 					<h:panelGroup id="workflow_panel">
 						<div class="card card-default">
-                            <div class="card-header">
-                                <h3 class="card-title">#{msg['crud.ldworkflow']}: #{msg['crud.ldworkflow.general']}</h3>
-                            </div>
-                            <div class="card-block my-sm-3">
+	                           <div class="card-header">
+	                               <h3 class="card-title">#{msg['crud.ldworkflow']}: #{msg['crud.ldworkflow.general']}</h3>
+	                           </div>
+	                           <div class="card-block my-sm-3">
 	                            
-                            	<div class="row">
-                            		<div class="col-lg-1">
+	                           	<div class="row">
+	                           		<div class="col-lg-1">
 	                            		<strong>
 	                            			<h:outputLabel styleClass="pull-right" value="Nome:"/>
 	                            		</strong>
 	                            	</div>
 	                            		#{ldWorkflowExecutionBean.workflow.name}
-                            	</div>
-                            	
-                             	<div class="row">
+	                           	</div>
+	                           	
+	                            	<div class="row">
 	                             	<div class="col-lg-1">
 	                             		<strong>
 	                             			<h:outputLabel styleClass="pull-right" value="URI:"/>
 	                             		</strong>
 	                             	</div>
-                             		#{ldWorkflowExecutionBean.workflow.uri}
-                             	</div>
-                             		
-                             	<div class="row">
+	                            		#{ldWorkflowExecutionBean.workflow.uri}
+	                            	</div>
+	                            		
+	                            	<div class="row">
 	                             	<div class="col-lg-1">
 	                             		<strong>
-                             				<h:outputLabel styleClass="pull-right" value="Descrição:"/>
-                             			</strong>
+	                            				<h:outputLabel styleClass="pull-right" value="Descrição:"/>
+	                            			</strong>
 	                             	</div>
-                             		
-                             		#{ldWorkflowExecutionBean.workflow.description}
-                             	</div>
+	                            		
+	                            		#{ldWorkflowExecutionBean.workflow.description}
+	                            	</div>
 	                             
-                            </div>
+	                           </div>
 						</div>
 					</h:panelGroup>
 					
+					<!-- Execução do Workflow -->
 					<h:panelGroup id="workflow_panel_2">
+						<div class="card card-default">
+							<div class="card-header">
+	                        	<h3 class="card-title">#{msg['crud.ldworkflow']}: #{msg['crud.ldworkflow.execution']}</h3>
+	                        </div>
+							<div class="card-block mx-sm-3 my-sm-3">
+								<div class="form-group">
+									<label class="" for="executionName">#{msg['crud.ldworkflowexecution.name.output']}</label>
+									
+									<p:inputText id="executionOutputName" styleClass="form-control" placeholder="LDWorkflowExecution output name"
+									style="width: 25%;" value="#{ldWorkflowExecutionBean.ldWorkflowExecutionName}">
+									</p:inputText>
+								</div>
+								<div class="form-group">
+									<h:commandButton action="#{ldWorkflowExecutionBean.doExecute}" id="executeWorkflowExecution"
+									styleClass="btn btn-primary btn-xs" value="#{msg['crud.execute']}">
+									</h:commandButton>
+								</div>
+	                       	</div>
+						</div>
+					</h:panelGroup>
+					
+					<h:panelGroup id="workflow_panel_3">
 					
 						<div class="card card-default">
 		                    <div class="card-header">
