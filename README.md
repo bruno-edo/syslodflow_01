@@ -36,7 +36,7 @@ O aplicativo web utiliza o Java EE 7 como principal linguagem de desenvolvimento
 O SysLODFlow começou a ser desenvolvido através de Trabalhos de Conclusão de Curso (TCCs) da Universidade Federal de Santa Catarina. Abaixo estão listados os trabalhos relacionados a este projeto:
 
 - [LDWPO - Linked Data Workflow Project Ontology - Sandro Rautenberg](https://github.com/AKSW/ldwpo/blob/master/misc/technicalReport/LDWPO_technicalReport.pdf)
-- [SysLODFlow – Uma ferramenta de apoio a automação da publicação e manutenção de Linked Data utilizando o LODFlow - Jean Carlos De Morais e Jhonatan Carlos De Morais - UFSC](https://github.com/bruno-edo/syslodflow_01/blob/master/pdfs/RELAT RIO - SYSLODFLOW - Jean e Jhonatan Carlos de Morais.pdf)
+- [SysLODFlow – Uma ferramenta de apoio a automação da publicação e manutenção de Linked Data utilizando o LODFlow - Jean Carlos De Morais e Jhonatan Carlos De Morais - UFSC](https://github.com/bruno-edo/syslodflow_01/blob/master/pdfs/RELAT%20RIO%20-%20SYSLODFLOW%20%20-%20Jean%20e%20Jhonatan%20Carlos%20de%20Morais.pdf)
 - [SysLODFlow: Ampliando as funcionalidades na automação da publicação e manutenção de dados abertos conectados usando o LodFlow - Bruno Eduardo D'Angelo de Oliveira - UFSC]()
 
 ---
