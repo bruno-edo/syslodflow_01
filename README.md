@@ -60,7 +60,7 @@ Para rodar o SysLODFlow são necessárias algumas ferramentas de apoio, bem como
 3. [SB Admin](https://startbootstrap.com/template-overviews/sb-admin/)*
 4. [DataTables](https://datatables.net/)*
 
- > * Arquivos já inclusos neste projeto.
+ > \* Arquivos já inclusos neste projeto.
 ---
 
 ## Árvore de diretórios
