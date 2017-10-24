@@ -47,18 +47,20 @@ Para rodar o SysLODFlow são necessárias algumas ferramentas de apoio, bem como
 
 1. [Java EE 7](https://www.java.com/en/)
 2. [JBOSS 7.1.0 (Thunder)](http://www.jboss.org/)
-3. [LIMES](http://aksw.org/Projects/LIMES.html)
+3. [LIMES](http://aksw.org/Projects/LIMES.html)*
 4. [Sparqlify](http://aksw.org/Projects/Sparqlify.html)
 5. [Virtuoso](https://virtuoso.openlinksw.com/)
 6. [MySQL](https://www.mysql.com/)
+7. [LODFlow](https://github.com/AKSW/LODFlow)*
 
 **Bibliotecas e Frameworks:**
 
-1. [Primefaces 6.1](https://www.primefaces.org/)
-2. [Bootstrap 4](https://getbootstrap.com/)
-3. [SB Admin](https://startbootstrap.com/template-overviews/sb-admin/)
-4. [DataTables](https://datatables.net/)
+1. [Primefaces 6.1](https://www.primefaces.org/)*
+2. [Bootstrap 4](https://getbootstrap.com/)*
+3. [SB Admin](https://startbootstrap.com/template-overviews/sb-admin/)*
+4. [DataTables](https://datatables.net/)*
 
+ > ***** Arquivos já inclusos neste projeto.
 ---
 
 ## Árvore de diretórios
