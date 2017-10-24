@@ -9,9 +9,10 @@ Uma ferramenta para automação da publicação de dados conectados utilizando o
 - [Dependências](#dependências)
 - [Árvore de diretórios](#arvore-de-diretorios)
 - [Rodando o projeto no Eclipse JEE IDE](#rodando-o-projeto-no-eclipse-jee-ide)
+  - [Instalando dependências](#instalando-dependencias)
   - [Setup banco de dados relacional](#setup-banco-de-dados-relacional)
   - [Comunicação do JBOSS com o BD](#comunicação-do-jboss-com-o-bd)
-- [Funcionalidades](#utilizacao)
+- [Utilização](#utilizacao)
   - [Criando e executando um projeto](#criando-e-executando-um-projeto)
   - [Criando execuções de fluxos e visualizando arquivos gerados](#criando-execucoes-de-fluxos-e-visualizando-arquivos-gerados)
 - [Créditos](#creditos)
@@ -106,6 +107,14 @@ Para criar uma instância do JBOSS pelo Eclipse é necessário baixar o plugin J
 Após a instalação do plugin, acesse **New -> Other -> Server** e selecione o **JBOSS AS 7.1.0**. Depois deste passo, uma aba de servidores poderá ser observada na barra inferior da IDE, selecione-a e clique com o botão direito do mouse na instância do JBOSS e selecione a opção **Add and Remove...**, em seguida adicione o arquivo **.war**, do SysLODFlow, aos projetos que devem ser publicados pelo servidor e clique em Finish.
 
 Após os outros passos do setup serem completos, basta rodar o servidor e o SysLODFlow deve ser publicado automáticamente por ele.
+
+#### Instalando dependências
+
+Para rodar o SysLODFlow é necessário instalar o Sparqlify e o Virtuoso.
+
+Uma imagem do Sparqlify pode ser baixada instalada deste [link](https://github.com/AKSW/Sparqlify/downloads).
+
+Para instalar o Virtuoso basta seguir os passos deste [link](http://vos.openlinksw.com/owiki/wiki/VOS/VOSUbuntuNotes).
 
 #### Setup banco de dados relacional
 
