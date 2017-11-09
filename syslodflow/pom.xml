@@ -97,7 +97,11 @@
 			<scope>compile</scope>
 		</dependency>
 
-
+		<dependency>
+			<groupId>net.sourceforge.owlapi</groupId>
+			<artifactId>owlapi-gwt</artifactId>
+			<version>4.3.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
